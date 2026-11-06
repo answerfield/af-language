@@ -1,0 +1,49 @@
+// Aufgabe 1: Kürzen und Vergleichen
+//
+// Zeigt: Aufbau einer Aufgabe, Antworten über Standardkomponenten (Gap, Choice, FreeText),
+// einen bedingten Abschnitt und eine Kodierung mit diagnostischen Codes und Missing-Codes.
+
+// `item name "Titel"` ist eine Aufgabe. Der Name verbindet sie mit ihrer Kodierung (unten).
+item fraction1 "Brüche kürzen" {
+  page {
+    section {
+      // Eine Lücke im Fließtext: `reduce = …` bindet die Antwort unter dem Namen `reduce`.
+      // `label` ist der zugängliche Name für Screenreader; die Breite kommt als Größe (4em).
+      p { "Kürze den Bruch 6/8: " reduce = Gap(label: "gekürzter Bruch", width: 4em) }
+
+      // Einfachauswahl (max = 1 ist Standard). Die Antwort ist die Menge der gewählten
+      // Optionen, gezählt ab 1, hier also {2}, wenn „3/5“ gewählt wird.
+      greater = Choice(label: "Welcher Bruch ist größer als 1/2?",
+                       options: ["2/5", "3/5", "1/4"])
+    }
+
+    // Erscheint nur, wenn die richtige Option gewählt ist. Antworten bleiben erhalten,
+    // auch wenn der Abschnitt wieder verschwindet.
+    show(when: greater == {"3/5"}) {
+      section { reasoning = FreeText(label: "Woher weißt du das?", max: 500) }
+    }
+  }
+}
+
+// Kodierung: Codes gelten nur für bearbeitete Antworten. Was nicht bearbeitet wurde, erhält automatisch
+// einen Missing-Code: `omitted` (gesehen) bzw. `not_reached` (nie angezeigt).
+// `reasoning` hat keine automatische Kodierung (Freitext, manuell kodiert).
+coding fraction1 {
+  // Eigene Codes: der erste zutreffende gilt; trifft keiner zu, gilt Code 0 „falsch“.
+  reduce: codes(
+    // number(…) liest „3/4“, „6/8“ oder „0,75“ als exakten Bruch; is_reduced prüft die Schreibweise.
+    code(1, "richtig", score: 1, when: number(reduce) == 3/4 and is_reduced(reduce),
+         feedback: "Genau: 6/8 = 3/4."),
+    // Diagnostischer Code: Wert stimmt, aber nicht gekürzt (z. B. „6/8“).
+    code(2, "richtig, nicht gekürzt", when: number(reduce) == 3/4,
+         feedback: "Der Wert stimmt, aber der Bruch lässt sich noch weiter kürzen."),
+    // Rückmeldung beim Üben (nicht Teil der Kodierung): sonst, Tipps je Versuch, danach die Lösung
+    otherwise: "Teile Zähler und Nenner durch dieselbe Zahl.",
+    hints: ["Durch welche Zahl lassen sich 6 und 8 beide teilen?"],
+    solution: "3/4"
+  )
+  // Richtig/falsch: Code 1 „richtig“ (Score 1), sonst Code 0 „falsch“.
+  greater: correct(greater == {"3/5"}, wrong: "Vergleiche mit 1/2: Ist der Zähler mehr als die Hälfte des Nenners?")
+  // Abgeleiteter Score: Summe der Scores (Missing-Codes zählen 0).
+  total: sum_score(reduce, greater)
+}

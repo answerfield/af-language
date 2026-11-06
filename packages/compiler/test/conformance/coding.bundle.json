@@ -1,0 +1,816 @@
+{
+  "codings": [
+    {
+      "item": "kodierung",
+      "rules": [
+        {
+          "answers": [
+            "a"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "args": [
+                    {
+                      "name": "a",
+                      "op": "ref"
+                    }
+                  ],
+                  "fn": "number",
+                  "op": "call"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "7"
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "a"
+        },
+        {
+          "answers": [
+            "b"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 2,
+              "when": {
+                "left": {
+                  "left": {
+                    "args": [
+                      {
+                        "name": "b",
+                        "op": "ref"
+                      }
+                    ],
+                    "fn": "number",
+                    "op": "call"
+                  },
+                  "op": "bin",
+                  "operator": "==",
+                  "right": {
+                    "left": {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    },
+                    "op": "bin",
+                    "operator": "/",
+                    "right": {
+                      "op": "lit",
+                      "value": {
+                        "num": "4"
+                      }
+                    }
+                  }
+                },
+                "op": "bin",
+                "operator": "and",
+                "right": {
+                  "args": [
+                    {
+                      "name": "b",
+                      "op": "ref"
+                    }
+                  ],
+                  "fn": "is_reduced",
+                  "op": "call"
+                }
+              }
+            },
+            {
+              "code": 2,
+              "label": "nicht gekürzt",
+              "score": 1,
+              "when": {
+                "left": {
+                  "args": [
+                    {
+                      "name": "b",
+                      "op": "ref"
+                    }
+                  ],
+                  "fn": "number",
+                  "op": "call"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "4"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "b"
+        },
+        {
+          "answers": [
+            "a",
+            "b"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "args": [
+                    {
+                      "items": [
+                        {
+                          "name": "a",
+                          "op": "ref"
+                        },
+                        {
+                          "name": "b",
+                          "op": "ref"
+                        }
+                      ],
+                      "op": "list"
+                    },
+                    {
+                      "items": [
+                        {
+                          "op": "lit",
+                          "value": "7"
+                        },
+                        {
+                          "op": "lit",
+                          "value": "8"
+                        }
+                      ],
+                      "op": "list"
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": false
+                    }
+                  ],
+                  "fn": "accepted",
+                  "op": "call"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "both"
+        },
+        {
+          "answers": [
+            "c"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "left": {
+                    "name": "c",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "==",
+                  "right": {
+                    "items": [
+                      {
+                        "op": "lit",
+                        "value": {
+                          "num": "2"
+                        }
+                      }
+                    ],
+                    "op": "set"
+                  }
+                },
+                "op": "bin",
+                "operator": "and",
+                "right": {
+                  "op": "manual",
+                  "question": {
+                    "answers": [
+                      "d"
+                    ],
+                    "criterion": "Begründung trifft zu",
+                    "id": "c: Begründung trifft zu",
+                    "no": [],
+                    "yes": [
+                      "weil"
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "c"
+        },
+        {
+          "answers": [
+            "b",
+            "a"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "left": {
+                    "left": {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    "op": "bin",
+                    "operator": "/",
+                    "right": {
+                      "args": [
+                        {
+                          "name": "b",
+                          "op": "ref"
+                        }
+                      ],
+                      "fn": "number",
+                      "op": "call"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": ">",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "0"
+                    }
+                  }
+                },
+                "op": "bin",
+                "operator": "or",
+                "right": {
+                  "left": {
+                    "name": "a",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "==",
+                  "right": {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "inverse"
+        },
+        {
+          "answers": [
+            "d"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "args": [
+                  {
+                    "name": "d",
+                    "op": "ref"
+                  },
+                  {
+                    "op": "lit",
+                    "value": "weil"
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "0"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": false
+                  }
+                ],
+                "fn": "accept",
+                "op": "call"
+              }
+            }
+          ],
+          "variable": "d"
+        }
+      ],
+      "scores": [
+        {
+          "name": "total",
+          "value": {
+            "fn": "sum_score",
+            "op": "meta",
+            "vars": [
+              "a",
+              "b",
+              "c"
+            ]
+          }
+        },
+        {
+          "name": "third",
+          "value": {
+            "left": {
+              "fn": "sum_score",
+              "op": "meta",
+              "vars": [
+                "a"
+              ]
+            },
+            "op": "bin",
+            "operator": "/",
+            "right": {
+              "op": "lit",
+              "value": {
+                "num": "3"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "components": {
+    "Choice": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "cond": {
+                "left": {
+                  "name": "max",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              },
+              "else": {
+                "op": "enum",
+                "value": "group"
+              },
+              "op": "if",
+              "then": {
+                "op": "enum",
+                "value": "radiogroup"
+              }
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "i",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "in",
+                      "right": {
+                        "name": "selected",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "cond": {
+                        "left": {
+                          "name": "max",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "==",
+                        "right": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "op": "enum",
+                        "value": "checkbox"
+                      },
+                      "op": "if",
+                      "then": {
+                        "op": "enum",
+                        "value": "radio"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "cond": {
+                            "left": {
+                              "name": "max",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "==",
+                            "right": {
+                              "op": "lit",
+                              "value": {
+                                "num": "1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "left": {
+                              "name": "selected",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "items": [
+                                {
+                                  "name": "i",
+                                  "op": "ref"
+                                }
+                              ],
+                              "op": "set"
+                            }
+                          },
+                          "op": "if",
+                          "then": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "left": {
+                            "name": "selected",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "-",
+                          "right": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "i"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "selected",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Choice",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "max",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "selected",
+          "state": true,
+          "type": "Set<Int>"
+        }
+      ],
+      "response": "Set<Int>"
+    },
+    "Gap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Gap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "6em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "a"
+                }
+              },
+              "binding": "a",
+              "component": "Gap",
+              "kind": "component"
+            },
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "b"
+                }
+              },
+              "binding": "b",
+              "component": "Gap",
+              "kind": "component"
+            },
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "c"
+                },
+                "options": {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "x"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "y"
+                    }
+                  ],
+                  "op": "list"
+                }
+              },
+              "binding": "c",
+              "component": "Choice",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        },
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "d"
+                }
+              },
+              "binding": "d",
+              "component": "Gap",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        }
+      ],
+      "name": "kodierung",
+      "title": "Kodierung",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "a",
+          "type": "Text"
+        },
+        {
+          "component": "Gap",
+          "id": "b",
+          "type": "Text"
+        },
+        {
+          "component": "Choice",
+          "id": "c",
+          "type": "Set<Int>"
+        },
+        {
+          "component": "Gap",
+          "id": "d",
+          "type": "Text"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

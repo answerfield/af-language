@@ -1,0 +1,74 @@
+// Bausteine für Satzzeichen und Klammern
+//
+// Zeigt: Aufgabentypen, die nicht in std stehen, sondern als eigene Komponenten neben den Aufgaben. Sie erscheinen
+// in der Palette unter „Eigene Bausteine“ für diesen Ordner. Beide sind aus toggle(look: slot) gebaut: ein Platz
+// zwischen den Wörtern bzw. vor und hinter jeder Zahl, gesetzt erscheint das Zeichen.
+
+/**
+ * Satzzeichen setzen: zwischen je zwei Wörtern ein Platz, gesetzt erscheint ein Komma.
+ * Antwort: Nummern der Wörter, nach denen ein Komma steht (ab 1), z. B. {3}.
+ */
+component Commas(text: Text, label: Content, state after: Set<Int> = {}): response Set<Int> {
+  group(label: label) {
+    p {
+      for word, i in words(text) {
+        // Platz direkt hinter dem vorigen Wort, dann Leerraum: „Nachdem⎵ es⎵ regnete“
+        show(when: i > 1) {
+          toggle(look: slot, label: "Komma vor „{word}“", checked: i - 1 in after,
+                 on check:   after := after + {i - 1},
+                 on uncheck: after := after - {i - 1}) { "," }
+          " "
+        }
+        word
+      }
+    }
+  }
+  response after
+}
+
+/**
+ * Klammern in einen Term setzen: vor jeder Zahl ein Platz für „(“, hinter jeder ein Platz für „)“.
+ * `numbers` und `operators` im Wechsel, z. B. numbers: ["9", "3", "2", "1"], operators: ["−", "·", "+"];
+ * `rest` steht dahinter, z. B. "= 13". Antwort: gesetzte Plätze; 2k − 1 ist „(“ vor der k-ten Zahl, 2k ist „)“ dahinter,
+ * z. B. {1, 4} für (9 − 3) · 2 + 1.
+ */
+component Brackets(numbers: List<Text>, operators: List<Text>, label: Content, rest: Content = "",
+                   state placed: Set<Int> = {}): response Set<Int>
+{
+  group(label: label) {
+    p {
+      for number, k in numbers {
+        for operator, o in operators {
+          show(when: o == k - 1) { " " operator " " }
+        }
+        toggle(look: slot, label: "Klammer auf vor {number}", checked: 2 * k - 1 in placed,
+               on check:   placed := placed + {2 * k - 1},
+               on uncheck: placed := placed - {2 * k - 1}) { "(" }
+        number
+        toggle(look: slot, label: "Klammer zu nach {number}", checked: 2 * k in placed,
+               on check:   placed := placed + {2 * k},
+               on uncheck: placed := placed - {2 * k}) { ")" }
+      }
+      " " rest
+    }
+  }
+  response placed
+}
+
+item kommas "Kommas setzen" {
+  commas = Commas("Nachdem es geregnet hatte glänzte die Straße", label: "Setze das fehlende Komma")
+}
+
+item klammern "Rechnen mit Klammern" {
+  p "Setze Klammern so, dass das Ergebnis stimmt."
+  term = Brackets(numbers: ["9", "3", "2", "1"], operators: ["−", "·", "+"], label: "Term", rest: "= 13")
+}
+
+coding kommas {
+  commas: correct(commas == {4})
+}
+
+coding klammern {
+  // (9 − 3) · 2 + 1: „(“ vor der 1. Zahl (Platz 1), „)“ hinter der 2. (Platz 4)
+  term: correct(term == {1, 4})
+}

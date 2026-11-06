@@ -1,0 +1,588 @@
+// std: Standardkomponenten, vollständig in der Sprache definiert.
+//
+// Jede Komponente mit Antwort führt ihren Antwortzustand als Zustandsparameter (`state …`). Ungebunden hat sie einen
+// eigenen Zustand (name = Gap(…)); gebunden schreibt sie in einen Zustand des Aufrufers, z. B. je Zeile in ein
+// Listenelement: Select(label: text, options: options, chosen: chosen[r]).
+
+/**
+ * Lücke für eine kurze Texteingabe im Fließtext; `initial`: vorgegebener Text, z. B. zum Verbessern; `keys`: Zeichenleiste
+ * (siehe input).
+ *
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param width Breite der Lücke, z. B. 3em
+ * @param initial vorgegebener Text, z. B. zum Verbessern
+ * @param keys Zeichenleiste unter dem Feld, z. B. ["²", "√", "π"]
+ * @param text eingegebener Text (Antwort)
+ */
+component Gap(label: Content, width: Size = 6em, initial: Text = "", keys: List<Text> = [],
+              state text: Text = initial): response Text
+{
+  input(bind: text, label: label, width: width, keys: keys)
+  response text
+}
+
+/**
+ * Lücke für eine Zahl. Antwort: die Zahl, gelesen wie number(…) (Komma oder Punkt, Tausendertrennung, Einheit wird
+ * ignoriert), sonst none. Die Kodierung rechnet direkt: correct(summe == 12), correct(hoehe in 4.4 .. 4.6). Der eingetippte
+ * Text steht im Protokoll; Eingetipptes ohne Zahl gilt als bearbeitet (falsch), nicht als ausgelassen.
+ *
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param width Breite der Lücke
+ * @param keys Zeichenleiste unter dem Feld, z. B. ["²", "√", "π"]
+ * @param text eingetippter Text; die Antwort ist die Zahl darin
+ */
+component NumberGap(label: Content, width: Size = 4em, keys: List<Text> = [], state text: Text = ""): response Rational? {
+  input(bind: text, label: label, width: width, kind: number, keys: keys)
+  response number(text)
+}
+
+/**
+ * Einzelnes Kontrollkästchen, z. B. „trifft zu“ in einer Liste von Aussagen. Antwort: angekreuzt oder nicht.
+ *
+ * @param label Text neben dem Kästchen
+ * @param checked angekreuzt (Antwort)
+ */
+component Check(label: Content, state checked: Bool = false): response Bool {
+  toggle(label: label, checked: checked, on check: checked := true, on uncheck: checked := false) { label }
+  response checked
+}
+
+/**
+ * Freitext mit begrenzter Länge; `initial`: vorgegebener Text, z. B. ein Satz, in dem Kommas zu setzen sind; `keys`:
+ * Zeichenleiste für Rechnungen und Begründungen, z. B. keys: ["·", ":", "²", "√", "π", "≈"].
+ *
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param max höchstens so viele Zeichen
+ * @param initial vorgegebener Text, z. B. ein Satz zum Verbessern
+ * @param keys Zeichenleiste unter dem Feld, z. B. ["²", "√", "π"]
+ * @param text eingegebener Text (Antwort)
+ */
+component FreeText(label: Content, max: Int = 1000, initial: Text = "", keys: List<Text> = [],
+                   state text: Text = initial): response Text
+{
+  input(bind: text, label: label, max: max, multiline: true, keys: keys)
+  response text
+}
+
+/**
+ * Einfach- oder Mehrfachauswahl. Antwort: Menge der gewählten Optionen (ab 1).
+ *
+ * @param label Frage über den Optionen; none, wenn sie schon im Text steht
+ * @param options Optionen in angezeigter Reihenfolge; in der Kodierung per Text ({"3/5"}) oder Nummer ({2})
+ * @param max höchstens so viele Optionen wählbar (1 = Einfachauswahl)
+ * @param selected gewählte Optionen (Antwort)
+ */
+component Choice(label: Content?, options: List<Content>, max: Int = 1, state selected: Set<Int> = {}): response Set<Int> {
+  group(role: if max == 1 then radiogroup else group, label: label) {
+    for option, i in options {
+      toggle(role: if max == 1 then radio else checkbox,
+             checked: i in selected,
+             on check:   selected := if max == 1 then {i} else selected + {i},
+             on uncheck: selected := selected - {i}) { option }
+    }
+  }
+  response selected
+}
+
+/**
+ * Auswahlliste, z. B. mitten im Satz (Lücke mit vorgegebenen Wörtern).
+ * `taken`: anderswo schon gewählte Optionen; sie sind hier nicht wählbar (für „jede Option nur einmal“).
+ * Antwort: Nummer der gewählten Option (ab 1), none = nichts gewählt.
+ *
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param options Optionen der Liste
+ * @param taken anderswo gewählte Optionen, hier nicht wählbar
+ * @param chosen gewählte Option (Antwort)
+ */
+component Select(label: Content, options: List<Content>, taken: List<Int?> = [], state chosen: Int? = none): response Int? {
+  group(role: radiogroup, label: label, dropdown: true) {
+    for option, o in options {
+      toggle(role: radio, checked: chosen == o,
+             disabled: o in taken and chosen != o,
+             on check:   chosen := o,
+             on uncheck: chosen := none) { option }
+    }
+  }
+  response chosen
+}
+
+/**
+ * Umschaltknopf, z. B. „Start“ (`once`: bleibt gedrückt) oder „Quelle anzeigen“.
+ * Antwort: gedrückt oder nicht; steuert meist, was zu sehen ist: show(when: go) { … }.
+ *
+ * @param label Aufschrift
+ * @param once bleibt gedrückt, lässt sich nicht zurücknehmen
+ * @param pressed gedrückt (Antwort)
+ */
+component Button(label: Content, once: Bool = false, state pressed: Bool = false): response Bool {
+  toggle(role: button, checked: pressed, disabled: once and pressed,
+         on check:   pressed := true,
+         on uncheck: pressed := false) { label }
+  response pressed
+}
+
+/**
+ * Umschalten zwischen Ansichten, z. B. zwei Texten im Material: show(when: view == 2) { … }.
+ * Antwort: Nummer der gewählten Ansicht (ab 1).
+ *
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param options Namen der Ansichten
+ * @param chosen gewählte Ansicht (Antwort)
+ */
+component Tabs(label: Content, options: List<Content>, state chosen: Int = 1): response Int {
+  group(role: radiogroup, label: label) {
+    row {
+      for option, o in options {
+        toggle(role: radio, checked: chosen == o, on check: chosen := o) { option }
+      }
+    }
+  }
+  response chosen
+}
+
+/**
+ * Wörter eines Textes markieren: einkreisen (Standard), unterstreichen, durchstreichen oder hinterlegen.
+ * Antwort: Nummern der markierten Wörter (ab 1), z. B. {2, 5}.
+ *
+ * @param text Text, dessen Wörter markiert werden
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param look Art der Markierung
+ * @param marked markierte Wörter (Antwort)
+ */
+component MarkWords(text: Text, label: Content, look: Look = encircle, state marked: Set<Int> = {}): response Set<Int> {
+  group(label: label) {
+    p {
+      for word, i in words(text) {
+        toggle(look: look, checked: i in marked,
+               on check:   marked := marked + {i},
+               on uncheck: marked := marked - {i}) { word }
+        " "
+      }
+    }
+  }
+  response marked
+}
+
+/**
+ * Zuordnen: zu jeder Zeile eine Option aus einer Auswahlliste wählen; Optionen dürfen übrig bleiben (Distraktoren).
+ * `once`: jede Option höchstens einmal. Antwort: gewählte Option je Zeile (ab 1), none = nichts gewählt,
+ * z. B. [3, 1, none, 2]; kodiert wird je Zeile über den Index: geraete[1] == 3.
+ *
+ * @param rows Zeilen, denen etwas zugeordnet wird
+ * @param options Optionen jeder Auswahlliste
+ * @param label Überschrift; none, wenn sie schon im Text steht
+ * @param once jede Option höchstens einmal
+ * @param chosen gewählte Option je Zeile (Antwort)
+ */
+component Match(rows: List<Content>, options: List<Content>, label: Content? = none, once: Bool = false,
+                state chosen: List<Int?> = repeat(none, size(rows))): response List<Int?>
+{
+  table(caption: label) {
+    for text, r in rows {
+      row {
+        cell { text }
+        cell { Select(label: text, options: options, taken: if once then chosen else [], chosen: chosen[r]) }
+      }
+    }
+  }
+  response chosen
+}
+
+/**
+ * Matrix: je Zeile genau eine Spalte wählen, z. B. ja/nein, richtig/falsch oder Kategorien.
+ * Antwort: gewählte Spalte je Zeile (ab 1), none = nichts gewählt, z. B. [1, 2, 2]; kodiert wird über den Index: yn[1] == 1.
+ *
+ * @param rows Aussagen oder Dinge, je eine Zeile
+ * @param columns Spaltenköpfe, z. B. ["ja", "nein"]
+ * @param label Überschrift; none, wenn sie schon im Text steht
+ * @param chosen gewählte Spalte je Zeile (Antwort)
+ */
+component Matrix(rows: List<Content>, columns: List<Content>, label: Content? = none,
+                 state chosen: List<Int?> = repeat(none, size(rows))): response List<Int?>
+{
+  table(caption: label) {
+    row(head: true) {
+      cell ""
+      for column in columns {
+        cell { column }
+      }
+    }
+    for text, r in rows {
+      row {
+        group(role: radiogroup, label: text) {
+          cell { text }
+          for column, c in columns {
+            cell {
+              toggle(role: radio, label: column, checked: chosen[r] == c,
+                     on check: chosen := replace(chosen, r, c))
+            }
+          }
+        }
+      }
+    }
+  }
+  response chosen
+}
+
+/**
+ * Nachricht in einem Chatverlauf: Absender (und Zeit) über dem Inhalt; eigene Nachrichten (`own`) stehen rechts und
+ * sind hervorgehoben. Ein Verlauf ist eine Liste von Nachrichten:
+ * list { Message(from: "Jonas", at: "16:40") "Leiter mitbringen?"  Message(from: "Henrike", own: true) "Bin unterwegs 🚲" }
+ *
+ * @param from Absender
+ * @param at Uhrzeit, z. B. "16:40"
+ * @param own eigene Nachricht: rechts, hervorgehoben
+ */
+component Message(from: Text, at: Text? = none, own: Bool = false) children {
+  box(tone: if own then accent else neutral, side: if own then end else start) {
+    p(tone: hint) { if at == none then from else "{from}, {at}" }
+    children
+  }
+}
+
+// --- Zeichnen auf dem Raster --------------------------------------------------------------------------------
+
+/** Strecke von a nach b mit fester Richtung (kleinerer Punkt zuerst), so wie Geoboard sie speichert. */
+fn stroke(a: Point?, b: Point?): List<Point?> = if a.x < b.x or (a.x == b.x and a.y < b.y) then [a, b] else [b, a]
+
+/**
+ * Zeichnen auf einem Punkt- oder Kästchenraster in einer Ebene (plane): einen Gitterpunkt antippen, dann einen
+ * zweiten, dazwischen entsteht eine Strecke; dieselbe Strecke noch einmal nimmt sie weg. Raster mit `cols` × `rows`
+ * Schritten ab `at`. Vorgegebenes (Figur, Spiegelachse, Kästchen über `grid`) zeichnet die Ebene selbst.
+ * Antwort: die gezeichneten Strecken als [Anfang, Ende]; kodiert wird mit shape(…), z. B.
+ * shape(drawn) == shape({[(0 | 0), (4 | 0)], …}) für „gleiche Figur, Lage egal“.
+ *
+ * @param cols Schritte in x-Richtung
+ * @param rows Schritte in y-Richtung
+ * @param label Beschriftung für Screenreader und Protokoll; im Fließtext meist unsichtbar
+ * @param at linke untere Ecke des Rasters
+ * @param lines gezeichnete Strecken (Antwort)
+ * @param start angetippter Anfangspunkt der nächsten Strecke
+ */
+component Geoboard(cols: Int, rows: Int, label: Content, at: Point? = (0 | 0),
+                   state lines: Set<List<Point?>> = {}, state start: Point? = none): response Set<List<Point?>>
+{
+  for line in lines {
+    polygon(points: line, closed: false)
+  }
+  group(label: label) {
+    for j in 0 .. rows {
+      for i in 0 .. cols {
+        toggle(at: (at.x + i | at.y + j), checked: start == (at.x + i | at.y + j), label: "Punkt {i} | {j}",
+               on check:   lines := if start == none then lines
+                                    else if stroke(start, (at.x + i | at.y + j)) in lines then lines - {stroke(start, (at.x + i | at.y + j))}
+                                    else lines + {stroke(start, (at.x + i | at.y + j))},
+               on check:   start := if start == none then (at.x + i | at.y + j) else none,
+               on uncheck: start := none)
+      }
+    }
+  }
+  response lines
+}
+
+// --- Hören und Sehen ---------------------------------------------------------------------
+// Aus den Atomen media (Abspielen), timer (Uhr) und flow (Ablauf der Aufgabe).
+
+/** Phase eines Hörtexts mit festem Ablauf (Zustand von Listen). */
+enum ListenPhase {
+  /** Datei wird geladen */
+  loading,
+  /** Lesezeit vor der ersten Wiedergabe */
+  reading,
+  /** Wiedergabe läuft */
+  playing,
+  /** Pause zwischen zwei Wiedergaben */
+  pausing,
+  /** Zeit zum Nachbearbeiten */
+  finishing,
+  /** abgeschlossen, Antworten gesperrt */
+  done
+}
+
+/**
+ * Hörtext (oder Video) mit festem Ablauf: Lesezeit (`prepare`) → `plays` Wiedergaben mit `pause` dazwischen →
+ * Nachbearbeitung (`finish`); danach sind die Antworten gesperrt, im Testheft geht es von selbst weiter. Solange er
+ * läuft, keine Navigation. `from`/`to`: Ausschnitt. Verlängerte Zeit wirkt auf Lesezeit, Pausen und Nachbearbeitung,
+ * nicht auf die Wiedergabe. Eine Aufgabe hat höchstens einen festen Ablauf.
+ *
+ * @param src Audio- oder Videodatei
+ * @param plays Anzahl der Wiedergaben
+ * @param prepare Lesezeit vor der ersten Wiedergabe
+ * @param pause Pause zwischen den Wiedergaben
+ * @param finish Zeit zum Nachbearbeiten nach der letzten Wiedergabe
+ * @param from Beginn des Ausschnitts
+ * @param to Ende des Ausschnitts
+ * @param label Beschriftung des Players
+ * @param captions Untertitel (WebVTT)
+ * @param phase aktuelle Phase des Ablaufs
+ * @param play laufende Wiedergabe (ab 1)
+ */
+component Listen(src: Text, plays: Int = 1, prepare: Duration = 0s, pause: Duration = 5s, finish: Duration = 0s,
+                 from: Duration? = none, to: Duration? = none, label: Content? = none, captions: Text? = none,
+                 state phase: ListenPhase = loading, state play: Int = 1)
+{
+  media(src: src, from: from, to: to, label: label, captions: captions, playing: phase == playing,
+        on ready: phase := if phase == loading then reading else phase,
+        on ended: phase := if play < plays then pausing else finishing)
+  show(when: phase == playing) {
+    p { if plays > 1 then "{play}. von {plays} Wiedergaben" else "Wiedergabe (nur einmal)" }
+  }
+  timer(duration: prepare, running: phase == reading, label: "Lesezeit", on elapsed: phase := playing)
+  timer(duration: pause, running: phase == pausing, label: "Pause",
+        on elapsed: phase := playing, on elapsed: play := play + 1)
+  timer(duration: finish, running: phase == finishing, label: "Zeit zum Vervollständigen", on elapsed: phase := done)
+  show(when: phase == done) { p "Der Hörtext ist beendet." }
+  flow(navigation: phase == done, locked: phase == done, advance: phase == done)
+}
+
+/**
+ * Audio oder Video zum Selbststarten (wie im IQB-Player): die Person startet jede Wiedergabe, höchstens `plays`-mal
+ * (0 = beliebig oft). Kein fester Ablauf, keine Sperre, Navigation frei.
+ *
+ * @param src Audio- oder Videodatei
+ * @param plays höchstens so viele Wiedergaben (0 = beliebig oft)
+ * @param from Beginn des Ausschnitts
+ * @param to Ende des Ausschnitts
+ * @param label Beschriftung des Players
+ * @param captions Untertitel (WebVTT)
+ * @param described Fassung mit Audiodeskription, wenn extended_descriptions wirkt
+ * @param playing läuft gerade
+ * @param count bisherige Wiedergaben
+ */
+component Play(src: Text, plays: Int = 0, from: Duration? = none, to: Duration? = none, label: Content? = none,
+               captions: Text? = none, described: Text? = none, state playing: Bool = false, state count: Int = 0)
+{
+  media(src: src, from: from, to: to, label: label, captions: captions, described: described, playing: playing,
+        on ended: playing := false, on ended: count := count + 1)
+  toggle(role: button, checked: playing, disabled: playing or plays > 0 and count >= plays,
+         on check: playing := true) {
+    if count == 0 then "Abspielen" else "Noch einmal abspielen"
+  }
+  show(when: plays > 0 and count > 0) {
+    p { "{count} von {plays} Wiedergaben" }
+  }
+}
+
+/**
+ * Eingesprochene Fassung zum Vorlesen, nur wenn `read_aloud` wirkt, statt oder neben der Sprachausgabe des Geräts,
+ * z. B. ein Text in natürlicher Sprache: ReadAloud(src: "aufgabe.mp3").
+ *
+ * @param src Audiodatei mit der eingesprochenen Fassung
+ * @param label Aufschrift des Knopfs
+ */
+component ReadAloud(src: Text, label: Content = "Vorlesen") {
+  show(when: read_aloud in accommodations()) {
+    Play(src: src, label: label)
+  }
+}
+
+// --- Auszeichnung im Fließtext -------------------------------------------------------
+// Kurzformen für markup(…); nach Bedeutung, nicht nach Aussehen.
+
+/** Bezugsstelle, auf die sich eine Frage bezieht („das hervorgehobene Wort“). */
+fn mark(text: Content): Content = markup(reference, text)
+/** Betonung im Text. */
+fn emph(text: Content): Content = markup(emphasis, text)
+/** Wichtiges, z. B. die Aufgabenstellung oder ein Stichwort am Anfang eines Eintrags: p { strong("Lies den Text genau.") }. */
+fn strong(text: Content): Content = markup(important, text)
+/** Titel eines Werks, Name oder Fremdwort. */
+fn title(text: Content): Content = markup(work_title, text)
+/** Gestrichener Text als Inhalt, z. B. eine Korrektur im Stimulus. */
+fn del(text: Content): Content = markup(deleted, text)
+/** Hochgestellt (Schreibweise), z. B. m² als "m" sup("2"), Fußnote¹. */
+fn sup(text: Content): Content = markup(superscript, text)
+/** Tiefgestellt (Schreibweise), z. B. H₂O, Lückennummer₁. */
+fn sub(text: Content): Content = markup(subscript, text)
+
+// --- Formen in der Ebene: aus polygon (auch offen), dot und caption --------------------------------------------
+
+/**
+ * Strecke zwischen zwei Punkten.
+ *
+ * @param from Anfangspunkt
+ * @param to Endpunkt
+ */
+component segment(from: Point?, to: Point?) {
+  polygon(closed: false, points: [from, to])
+}
+
+/**
+ * Gerade durch zwei Punkte, weit über beide hinaus verlängert (die Ebene schneidet ab).
+ *
+ * @param a erster Punkt
+ * @param b zweiter Punkt
+ */
+component line(a: Point?, b: Point?) {
+  polygon(closed: false, points: [beyond(b, a, 1000), beyond(a, b, 1000)])
+}
+
+/**
+ * Markierung eines rechten Winkels bei `vertex` zwischen den Schenkeln zu `a` und `b`; `size` in Koordinaten.
+ *
+ * @param vertex Scheitel
+ * @param a Punkt auf dem ersten Schenkel
+ * @param b Punkt auf dem zweiten Schenkel
+ * @param size Seitenlänge der Markierung in Koordinaten
+ */
+component right_angle(vertex: Point?, a: Point?, b: Point?, size: Rational = 0.4) {
+  let p = toward(vertex, a, size)
+  let q = toward(vertex, b, size)
+  polygon(closed: false, points: [p, beyond(vertex, midpoint(p, q), 2), q])
+  caption(at: midpoint(p, q), text: "·")
+}
+
+/**
+ * Markierung mit Beschriftung auf der x-Achse, z. B. auf einem Zahlenstrahl: for m in marks { tick(at: m, label: m) }.
+ *
+ * @param at Stelle auf der x-Achse
+ * @param label Beschriftung darunter
+ */
+component tick(at: Rational, label: Content? = none) {
+  dot(at: (at | 0), label: label, shape: notch)
+}
+
+/**
+ * Kreissektor `index` von `of` gleich großen Teilen, im Uhrzeigersinn ab oben; mit `tone` gefärbt. Zum Färben als Form
+ * eines Schalters: toggle(checked: i in shaded, label: "Teil " + i, …) { sector(i, of: 8) }.
+ *
+ * @param index Nummer des Teils (ab 1, im Uhrzeigersinn ab oben)
+ * @param of Anzahl gleich großer Teile
+ * @param center Mittelpunkt
+ * @param radius Radius in Koordinaten
+ * @param tone Füllung; none = ungefüllt
+ */
+component sector(index: Int, of: Int, center: Point? = (0 | 0), radius: Rational = 1, tone: Tone? = neutral) {
+  polygon(points: [center, arc(center, radius, from: slice_angle(index, of, 0), to: slice_angle(index, of, 12))], tone: tone)
+}
+
+/**
+ * Kreis um `center`, z. B. ein Ei im Karton: circle(center: (1 | 1), radius: 2/5).
+ *
+ * @param center Mittelpunkt
+ * @param radius Radius in Koordinaten
+ * @param tone Füllung; none = ungefüllt
+ */
+component circle(center: Point?, radius: Rational = 1, tone: Tone? = neutral) {
+  polygon(points: [arc(center, radius)], tone: tone)
+}
+
+/** Punkt auf der Geraden durch `a` und `b`: k = 0 ist a, k = 1 ist b. */
+fn beyond(a: Point?, b: Point?, k: Rational?): Point? = (a.x + (b.x - a.x) * k | a.y + (b.y - a.y) * k)
+
+/** Mitte zwischen zwei Punkten. */
+fn midpoint(a: Point?, b: Point?): Point? = beyond(a, b, 1/2)
+
+/** Punkt im Abstand `length` von `from` in Richtung `to`. */
+fn toward(from: Point?, to: Point?, length: Rational): Point? =
+  if from == to then none else beyond(from, to, length / distance(from, to))
+
+/** Richtung (Grad) der Stelle k von 12 im Sektor `index` von `of` (im Uhrzeigersinn ab oben). */
+fn slice_angle(index: Int, of: Int, k: Int): Rational = 90 - 360 * (index - 1 + k / 12) / of
+
+// --- Messwerkzeuge in der Ebene: 1 Koordinate = 1 cm der Zeichnung ------------------------------------------
+// Gemessen wird in Koordinaten, nicht in Bildschirmpixeln; das Ergebnis hängt nicht von der Bildschirmgröße ab.
+// Keine Antwort: das Messergebnis trägt man in eine Lücke ein. Bedienung über zwei Griffe (value mit Punkt):
+// ziehen oder Pfeiltasten in Schritten von `step`.
+
+/**
+ * Lineal mit cm- und mm-Skala. Der Griff am Nullpunkt verschiebt das Lineal, der Griff am Ende dreht es.
+ * `min`/`max`: Bereich der Ebene, in dem die Griffe stehen dürfen.
+ *
+ * @param at Nullpunkt (Griff zum Verschieben)
+ * @param min linke untere Ecke des erlaubten Bereichs
+ * @param max rechte obere Ecke des erlaubten Bereichs
+ * @param length Länge in cm
+ * @param direction Richtung in Grad (0 = nach rechts, gegen den Uhrzeigersinn)
+ * @param step Schrittweite der Griffe mit Pfeiltasten
+ */
+component Ruler(at: Point?, min: Point?, max: Point?, length: Int = 10, direction: Rational = 0, step: Rational = 1/10) {
+  state start: Point? = at
+  state dir: Rational? = direction
+  state end: Point? = polar(at, length, direction)
+  polygon(points: [start, toward(start, end, length), aside(toward(start, end, length), start, end, -1),
+                   aside(start, start, end, -1)])
+  for k in 0 .. length {
+    polygon(closed: false, points: [toward(start, end, k), aside(toward(start, end, k), start, end, -0.4)])
+    caption(at: aside(toward(start, end, k), start, end, -0.65), text: k)
+  }
+  for k in 1 .. length {
+    polygon(closed: false, points: [toward(start, end, k - 1/2), aside(toward(start, end, k - 1/2), start, end, -0.28)])
+    for j in [1, 2, 3, 4, 6, 7, 8, 9] {
+      polygon(closed: false, points: [toward(start, end, k - 1 + j / 10), aside(toward(start, end, k - 1 + j / 10), start, end, -0.15)])
+    }
+  }
+  value(bind: start, min: min, max: max, step: step, label: "Lineal, Nullpunkt", display: "0",
+        on change: end := polar(start, length, dir))
+  value(bind: end, min: min, max: max, step: step, label: "Lineal, Drehgriff", display: "↻",
+        on change: dir := heading(start, end), on change: end := polar(start, length, heading(start, end)))
+}
+
+/**
+ * Geodreieck mit Gradskala (0° bis 180° gegen den Uhrzeigersinn, ab der Kante zum Drehgriff) und cm-Skala auf der
+ * langen Kante. Der Griff in der Mitte der langen Kante verschiebt es, der Griff an der Ecke dreht es.
+ * `size`: halbe Länge der langen Kante in cm.
+ *
+ * @param at Mitte der langen Kante (Griff zum Verschieben)
+ * @param min linke untere Ecke des erlaubten Bereichs
+ * @param max rechte obere Ecke des erlaubten Bereichs
+ * @param size halbe Länge der langen Kante in cm
+ * @param direction Richtung der langen Kante in Grad
+ * @param step Schrittweite der Griffe mit Pfeiltasten
+ */
+component SetSquare(at: Point?, min: Point?, max: Point?, size: Int = 8, direction: Rational = 0, step: Rational = 1/10) {
+  state center: Point? = at
+  state dir: Rational? = direction
+  state handle: Point? = polar(at, size, direction)
+  let r = size * 13 / 20
+  polygon(points: [polar(center, size, dir), polar(center, size, dir + 90), polar(center, size, dir + 180)])
+  for t in 0 .. 18 {
+    polygon(closed: false, points: [polar(center, r, dir + 10 * t), polar(center, r - 0.5, dir + 10 * t)])
+    caption(at: polar(center, r - 0.9, dir + 10 * t), text: 10 * t)
+  }
+  for t in 1 .. 18 {
+    polygon(closed: false, points: [polar(center, r, dir + 10 * t - 5), polar(center, r - 0.35, dir + 10 * t - 5)])
+    for j in [1, 2, 3, 4, 6, 7, 8, 9] {
+      polygon(closed: false, points: [polar(center, r, dir + 10 * t - 10 + j), polar(center, r - 0.2, dir + 10 * t - 10 + j)])
+    }
+  }
+  for k in 1 .. size - 1 {
+    polygon(closed: false, points: [polar(center, k, dir), aside(polar(center, k, dir), center, handle, 0.3)])
+    polygon(closed: false, points: [polar(center, k, dir + 180), aside(polar(center, k, dir + 180), center, handle, 0.3)])
+  }
+  polygon(closed: false, points: [center, polar(center, 0.6, dir + 90)])
+  value(bind: center, min: min, max: max, step: step, label: "Geodreieck, Mittelpunkt", display: "",
+        on change: handle := polar(center, size, dir))
+  value(bind: handle, min: min, max: max, step: step, label: "Geodreieck, Drehgriff", display: "↻",
+        on change: dir := heading(center, handle), on change: handle := polar(center, size, heading(center, handle)))
+}
+
+/** Punkt `p`, um `d` quer zur Richtung von `a` nach `b` verschoben (positiv: links davon). */
+fn aside(p: Point?, a: Point?, b: Point?, d: Rational): Point? =
+  (p.x - (toward(a, b, 1).y - a.y) * d | p.y + (toward(a, b, 1).x - a.x) * d)
+
+/** Richtung von `from` nach `to` in Grad (0 = nach rechts, gegen den Uhrzeigersinn, 0 bis 360). */
+fn heading(from: Point?, to: Point?): Rational? =
+  if to.y < from.y then 360 - angle((from.x + 1 | from.y), from, to) else angle((from.x + 1 | from.y), from, to)
+
+// --- Geometrie: in der Sprache geschrieben, aus distance/angle und Grundrechnung -------------------------------
+// Fehlende Punkte (none) ergeben none bzw. falsch, weil Rechnen mit none none ergibt und Vergleiche dann falsch sind.
+
+/** Rechter Winkel bei `vertex` (Abweichung höchstens `tolerance` Grad)? */
+fn is_right_angle(a: Point?, vertex: Point?, b: Point?, tolerance: Rational = 1): Bool =
+  angle(a, vertex, b) - 90 <= tolerance and 90 - angle(a, vertex, b) <= tolerance
+
+/** Steigung der Geraden durch a und b; none bei einer senkrechten Geraden. */
+fn slope(a: Point?, b: Point?): Rational? = if a == none or b == none or a.x == b.x then none else (b.y - a.y) / (b.x - a.x)
+
+/** Liegt `p` auf der Geraden durch `a` und `b` (Abstand höchstens `tolerance`)? Exakt über quadrierte Größen. */
+fn on_line(p: Point?, a: Point?, b: Point?, tolerance: Rational = 0.1): Bool =
+  a != b and squared(cross(p, a, b)) <= tolerance * tolerance * squared_distance(a, b)
+
+/** Kreuzprodukt von b − a und p − a: null, wenn p auf der Geraden durch a und b liegt. */
+fn cross(p: Point?, a: Point?, b: Point?): Rational? = (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x)
+
+/** Quadrat einer Zahl. */
+fn squared(x: Rational?): Rational? = x * x
+
+/** Quadrierter Abstand zweier Punkte (exakt, ohne Wurzel). */
+fn squared_distance(a: Point?, b: Point?): Rational? = squared(b.x - a.x) + squared(b.y - a.y)

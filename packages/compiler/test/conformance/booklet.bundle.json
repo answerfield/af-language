@@ -1,0 +1,334 @@
+{
+  "booklets": [
+    {
+      "accommodations": {
+        "allow": [
+          "magnification",
+          "extended_time"
+        ],
+        "deny": []
+      },
+      "name": "heft",
+      "parts": [
+        {
+          "entries": [
+            "heft.teil1.1"
+          ],
+          "name": "teil1",
+          "navigation": "free",
+          "title": "Einführung"
+        },
+        {
+          "entries": [
+            "heft_a",
+            "heft_b"
+          ],
+          "name": "teil2",
+          "navigation": "free",
+          "time": 600,
+          "title": "Teil A"
+        },
+        {
+          "entries": [
+            "heft_c"
+          ],
+          "name": "teil3",
+          "navigation": "forward",
+          "start": "released",
+          "time": 300,
+          "title": "Teil B"
+        }
+      ],
+      "title": "Heft"
+    }
+  ],
+  "codings": [
+    {
+      "item": "heft_a",
+      "rules": [
+        {
+          "answers": [
+            "a"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "name": "a",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": "x"
+                }
+              }
+            }
+          ],
+          "variable": "a"
+        }
+      ],
+      "scores": []
+    },
+    {
+      "item": "heft_c",
+      "rules": [
+        {
+          "answers": [
+            "d"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "name": "d",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": "x"
+                }
+              }
+            }
+          ],
+          "variable": "d"
+        }
+      ],
+      "scores": []
+    }
+  ],
+  "components": {
+    "Gap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Gap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "6em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "a"
+            }
+          },
+          "binding": "a",
+          "component": "Gap",
+          "kind": "component"
+        }
+      ],
+      "name": "heft_a",
+      "title": "Erste",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "a",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "b"
+                }
+              },
+              "binding": "b",
+              "component": "Gap",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        },
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "c"
+                }
+              },
+              "binding": "c",
+              "component": "Gap",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        }
+      ],
+      "name": "heft_b",
+      "title": "Zweite",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "b",
+          "type": "Text"
+        },
+        {
+          "component": "Gap",
+          "id": "c",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "d"
+            }
+          },
+          "binding": "d",
+          "component": "Gap",
+          "kind": "component"
+        }
+      ],
+      "name": "heft_c",
+      "title": "Dritte",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "d",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "tone": {
+              "op": "enum",
+              "value": "neutral"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": "Hallo"
+              }
+            }
+          ],
+          "element": "p",
+          "kind": "element"
+        }
+      ],
+      "instruction": true,
+      "name": "heft.teil1.1",
+      "title": "Start",
+      "variables": []
+    }
+  ],
+  "version": "0.1"
+}

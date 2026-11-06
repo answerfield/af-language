@@ -1,0 +1,29 @@
+// Testheft „Brüche verstehen“
+//
+// Zeigt: wie Aufgaben zu einem Testheft zusammengestellt werden, mit Teilen, Instruktionsseiten,
+// Zeitlimit, Navigationsregel und Studienregeln für Anpassungen.
+
+booklet brueche "Brüche verstehen" {
+  // Studienregeln: Nur diese Anpassungen sind in der Studie zugelassen. Wirksam ist davon, was das Bedarfsprofil
+  // anfragt und die jeweilige Aufgabe nicht ausschließt (deny). Sprachstufen fehlen hier: Für diese Studie sind
+  // die Fassungen in Einfacher und Leichter Sprache noch nicht geprüft.
+  allow({magnification, contrast, reflow, focus_emphasis, read_aloud, extended_descriptions, large_targets,
+         reduced_motion, switch_access, extended_time})
+
+  // Teil ohne Zeitlimit mit einer Instruktionsseite (sie hat keine Antworten).
+  part("Einführung") {
+    instruction("So funktioniert der Test") {
+      p "Du bearbeitest gleich drei Aufgaben zu Brüchen."
+      p "Mit „Weiter“ und „Zurück“ wechselst du zwischen den Aufgaben. Für alle drei zusammen bleiben dir 20 Minuten."
+    }
+  }
+
+  // Die Aufgaben werden über ihren Namen eingebunden; sie liegen in eigenen Dateien.
+  // time: Zeitlimit des Teils (verlängert sich mit extended_time aus dem Bedarfsprofil).
+  // navigation: free = vor und zurück; forward = nur vorwärts. Zurück in einen früheren Teil geht nie.
+  part("Aufgaben", time: 20min, navigation: free) {
+    fraction1
+    fraction2
+    fraction3
+  }
+}

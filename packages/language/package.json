@@ -1,0 +1,50 @@
+{
+  "name": "@answerfield/language",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "out",
+    "!out/**/*.map",
+    "syntaxes/af.tmLanguage.json",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./out/index.d.ts",
+      "af-source": "./src/index.ts",
+      "default": "./out/index.js"
+    },
+    "./syntaxes/af.tmLanguage.json": "./syntaxes/af.tmLanguage.json",
+    "./prelude": {
+      "types": "./out/builtin/prelude.generated.d.ts",
+      "af-source": "./src/builtin/prelude.generated.ts",
+      "default": "./out/builtin/prelude.generated.js"
+    }
+  },
+  "scripts": {
+    "langium:generate": "langium generate --mode production",
+    "embed-prelude": "node scripts/embed-prelude.mjs",
+    "build": "npm run langium:generate && npm run embed-prelude && tsc -b",
+    "test": "npm run langium:generate && npm run embed-prelude && vitest run"
+  },
+  "dependencies": {
+    "@answerfield/editing": "0.1.0",
+    "@answerfield/stdlib": "0.1.0",
+    "langium": "~4.4.0",
+    "temml": "0.14.0",
+    "vscode-languageserver": "~10.1.0",
+    "vscode-languageserver-types": "~3.18.0"
+  },
+  "devDependencies": {
+    "@answerfield/bundle": "https://github.com/answerfield/af-format/releases/download/v0.1.0/answerfield-bundle-0.1.0.tgz",
+    "langium-cli": "~4.4.0",
+    "vitest": "^5.0.5",
+    "vscode-languageserver-textdocument": "~1.0.13"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/answerfield/af-language",
+    "directory": "packages/language"
+  }
+}

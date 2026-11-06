@@ -1,0 +1,120 @@
+# Builds the release files of this repository when a tag v<version> is pushed and attaches them to
+# the GitHub release v<version>. The repositories above take the packages from there by URL, and
+# their lockfiles carry the checksum of exactly these files. A file already attached is never
+# replaced. The export writes this file; changes belong in the template.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      # Folders in which npm pack runs: every package with a release file.
+      PACKAGES: |
+        packages/language
+        packages/compiler
+        packages/editing
+        packages/stdlib
+      # Release URL of every package a packed package.json names; there the URL stands instead of the version.
+      RELEASE_URLS: |
+        {
+          "@answerfield/bundle": "https://github.com/answerfield/af-format/releases/download/v0.1.0/answerfield-bundle-0.1.0.tgz",
+          "@answerfield/compiler": "https://github.com/answerfield/af-language/releases/download/v0.1.0/answerfield-compiler-0.1.0.tgz",
+          "@answerfield/conformance": "https://github.com/answerfield/af-format/releases/download/v0.1.0/answerfield-conformance-0.1.0.tgz",
+          "@answerfield/editing": "https://github.com/answerfield/af-language/releases/download/v0.1.0/answerfield-editing-0.1.0.tgz",
+          "@answerfield/expr": "https://github.com/answerfield/af-format/releases/download/v0.1.0/answerfield-expr-0.1.0.tgz",
+          "@answerfield/language": "https://github.com/answerfield/af-language/releases/download/v0.1.0/answerfield-language-0.1.0.tgz",
+          "@answerfield/stdlib": "https://github.com/answerfield/af-language/releases/download/v0.1.0/answerfield-stdlib-0.1.0.tgz"
+        }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - name: Versionen gegen Tag prüfen
+        run: |
+          node <<'SCRIPT'
+          const fs = require('node:fs');
+          const tag = process.env.GITHUB_REF_NAME;
+          const version = tag.replace(/^v/, '');
+          const wrong = [];
+          for (const dir of process.env.PACKAGES.split('\n').filter(Boolean)) {
+            const json = JSON.parse(fs.readFileSync(`${dir}/package.json`, 'utf8'));
+            if (json.version !== version) wrong.push(`${json.name} (${dir}) hat Version ${json.version}`);
+          }
+          if (wrong.length) {
+            console.log(`::error::Der Tag ${tag} verlangt Version ${version} für jedes Paket: ${wrong.join('; ')}`);
+            process.exit(1);
+          }
+          SCRIPT
+      # As the export does before packing: remove the condition af-source from exports, replace every
+      # dependency on a package with a release URL (all four kinds) by the URL, write JSON with two
+      # spaces and a final newline.
+      - name: package.json in Release-Form
+        run: |
+          node <<'SCRIPT'
+          const fs = require('node:fs');
+          const urls = JSON.parse(process.env.RELEASE_URLS);
+          const fields = ['dependencies', 'optionalDependencies', 'devDependencies', 'peerDependencies'];
+          const withoutSource = (node) => {
+            if (!node || typeof node !== 'object') return;
+            if (!Array.isArray(node)) delete node['af-source'];
+            for (const value of Object.values(node)) withoutSource(value);
+          };
+          for (const dir of process.env.PACKAGES.split('\n').filter(Boolean)) {
+            const file = `${dir}/package.json`;
+            const json = JSON.parse(fs.readFileSync(file, 'utf8'));
+            withoutSource(json.exports);
+            for (const field of fields) {
+              for (const name of Object.keys(json[field] ?? {})) {
+                if (Object.hasOwn(urls, name)) json[field][name] = urls[name];
+                else if (name.startsWith('@answerfield/')) {
+                  console.log(`::error::${file}: ${name} (${field}) hat keine Release-URL`);
+                  process.exit(1);
+                }
+              }
+            }
+            fs.writeFileSync(file, `${JSON.stringify(json, null, 2)}\n`);
+          }
+          SCRIPT
+      - name: Packen
+        run: |
+          mkdir -p "$RUNNER_TEMP/release"
+          for dir in $PACKAGES; do
+            (cd "$dir" && npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/release")
+          done
+          ls -l "$RUNNER_TEMP/release"
+          sha512sum "$RUNNER_TEMP"/release/*.tgz
+      # A release created in the GitHub interface without these files gets them attached; if it
+      # already has a file of the same name, the run fails instead of replacing it.
+      - name: Release anlegen oder Dateien anhängen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          files=("$RUNNER_TEMP"/release/*.tgz)
+          if gh release view "$tag" > /dev/null 2>&1; then
+            existing=$(gh release view "$tag" --json assets --jq '.assets[].name')
+            duplicate=0
+            for file in "${files[@]}"; do
+              name=$(basename "$file")
+              if grep -qxF "$name" <<< "$existing"; then
+                echo "::error::Das Release $tag hat schon $name; Release-Dateien werden nie ersetzt, dafür die Version erhöhen."
+                duplicate=1
+              fi
+            done
+            test "$duplicate" = 0
+            gh release upload "$tag" "${files[@]}"
+          else
+            gh release create "$tag" "${files[@]}" --verify-tag --generate-notes
+          fi

@@ -1,0 +1,26 @@
+// Varianten und Konstruktschutz
+//
+// Zeigt: Varianten für Barrierefreiheit und wie eine Aufgabe ausschließt, was sie verfälschen würde.
+// Wirksam ist, was das Bedarfsprofil anfragt, das Testheft zulässt (allow) und die Aufgabe nicht ausschließt (deny).
+
+item reading3 "Der Leuchtturm" {
+  // Die Aufgabe misst Lesekompetenz: Vorlesen und Sprachstufen würden sie verfälschen. Vergrößerung, Kontrast,
+  // Bildbeschreibungen oder Taster bleiben möglich.
+  deny({read_aloud, simple_language, easy_language}, reason: "misst Leseverstehen")
+  page {
+    section {
+      p "Lies den Text und beantworte die Frage."
+      // `alt` ist Pflicht. Der Pfad ist relativ zur Aufgabe; fehlt die Datei, warnt der Editor.
+      p {
+        image(src: "triangle.svg", alt: "Rechtwinkliges Dreieck mit a = 3 cm und b = 4 cm")
+        // Längere Beschreibung für Personen, die sie im Bedarfsprofil anfordern.
+        variant(extended_descriptions) "Das Dreieck steht auf der Seite a."
+      }
+      // Dieselbe Beschreibung zum Anhören (im Beispiel eine Platzhalter-Datei): ein Baustein wie jeder andere.
+      show(when: extended_descriptions in accommodations()) {
+        Play(src: "triangle-description.wav", label: "Bildbeschreibung zum Anhören")
+      }
+      answer = FreeText(label: "Warum steht der Leuchtturm auf dem Felsen?", max: 300)
+    }
+  }
+}

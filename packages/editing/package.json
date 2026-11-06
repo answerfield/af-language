@@ -1,0 +1,30 @@
+{
+  "name": "@answerfield/editing",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "out",
+    "!out/**/*.map",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./out/index.d.ts",
+      "af-source": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/answerfield/af-language",
+    "directory": "packages/editing"
+  }
+}

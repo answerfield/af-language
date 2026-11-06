@@ -1,0 +1,61 @@
+{
+  "name": "af",
+  "scopeName": "source.af",
+  "fileTypes": [
+    ".af"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.af",
+      "match": "\\b(component|children|response|booklet|builtin|element|coding|events|false|state|else|enum|item|none|then|true|and|for|let|not|fn|if|in|on|or)\\b"
+    },
+    {
+      "name": "string.quoted.double.af",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.af",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.af"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.af"
+            }
+          }
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.af"
+            }
+          },
+          "end": "(?=$)",
+          "name": "comment.line.af"
+        }
+      ]
+    },
+    "string-character-escape": {
+      "name": "constant.character.escape.af",
+      "match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+    }
+  }
+}

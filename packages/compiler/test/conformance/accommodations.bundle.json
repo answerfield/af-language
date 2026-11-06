@@ -1,0 +1,892 @@
+{
+  "codings": [
+    {
+      "item": "eier",
+      "rules": [
+        {
+          "answers": [
+            "total"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "name": "total",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "left": {
+                    "name": "per_box",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "*",
+                  "right": {
+                    "name": "boxes",
+                    "op": "ref"
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "total"
+        }
+      ],
+      "scores": []
+    }
+  ],
+  "components": {
+    "Choice": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "cond": {
+                "left": {
+                  "name": "max",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              },
+              "else": {
+                "op": "enum",
+                "value": "group"
+              },
+              "op": "if",
+              "then": {
+                "op": "enum",
+                "value": "radiogroup"
+              }
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "i",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "in",
+                      "right": {
+                        "name": "selected",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "cond": {
+                        "left": {
+                          "name": "max",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "==",
+                        "right": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "op": "enum",
+                        "value": "checkbox"
+                      },
+                      "op": "if",
+                      "then": {
+                        "op": "enum",
+                        "value": "radio"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "cond": {
+                            "left": {
+                              "name": "max",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "==",
+                            "right": {
+                              "op": "lit",
+                              "value": {
+                                "num": "1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "left": {
+                              "name": "selected",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "items": [
+                                {
+                                  "name": "i",
+                                  "op": "ref"
+                                }
+                              ],
+                              "op": "set"
+                            }
+                          },
+                          "op": "if",
+                          "then": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "left": {
+                            "name": "selected",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "-",
+                          "right": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "i"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "selected",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Choice",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "max",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "selected",
+          "state": true,
+          "type": "Set<Int>"
+        }
+      ],
+      "response": "Set<Int>"
+    },
+    "Num": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Num",
+      "params": [
+        {
+          "name": "of",
+          "type": "Rational?"
+        }
+      ],
+      "response": "Rational?"
+    },
+    "NumberGap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "number"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "args": [
+              {
+                "name": "text",
+                "op": "ref"
+              }
+            ],
+            "fn": "number",
+            "op": "call"
+          }
+        }
+      ],
+      "name": "NumberGap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "4em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Rational?"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "accommodations": {
+        "allow": [],
+        "deny": [
+          "simple_language"
+        ],
+        "reason": "Beispiel: Einfache Sprache verfälscht die Aufgabe"
+      },
+      "body": [
+        {
+          "args": {
+            "tone": {
+              "op": "enum",
+              "value": "neutral"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": "Lies den Text."
+              }
+            }
+          ],
+          "element": "p",
+          "kind": "element",
+          "variants": {
+            "simple_language": {
+              "op": "lit",
+              "value": "Lies."
+            }
+          }
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [],
+                  "fn": "accommodations",
+                  "op": "call"
+                }
+              ],
+              "fn": "size",
+              "op": "call"
+            }
+          },
+          "binding": "n",
+          "component": "Num",
+          "kind": "component"
+        }
+      ],
+      "name": "ohne_einfach",
+      "title": "Ausschluss: ohne Einfache Sprache",
+      "variables": [
+        {
+          "component": "Num",
+          "id": "n",
+          "type": "Rational?"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "kind": "content",
+                  "value": {
+                    "op": "lit",
+                    "value": "Auf der Wiese lässt ein Mädchen einen Drachen steigen und hält die Schnur mit beiden Händen fest."
+                  }
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "element": "stimulus",
+          "kind": "element",
+          "replacements": {
+            "easy_language": [
+              {
+                "args": {
+                  "tone": {
+                    "op": "enum",
+                    "value": "neutral"
+                  }
+                },
+                "children": [
+                  {
+                    "kind": "content",
+                    "value": {
+                      "op": "lit",
+                      "value": "Ein Mädchen ist auf der Wiese."
+                    }
+                  }
+                ],
+                "element": "p",
+                "kind": "element"
+              },
+              {
+                "args": {
+                  "tone": {
+                    "op": "enum",
+                    "value": "neutral"
+                  }
+                },
+                "children": [
+                  {
+                    "kind": "content",
+                    "value": {
+                      "op": "lit",
+                      "value": "Sie lässt einen Drachen steigen."
+                    }
+                  }
+                ],
+                "element": "p",
+                "kind": "element"
+              }
+            ],
+            "simple_language": [
+              {
+                "args": {
+                  "tone": {
+                    "op": "enum",
+                    "value": "neutral"
+                  }
+                },
+                "children": [
+                  {
+                    "kind": "content",
+                    "value": {
+                      "op": "lit",
+                      "value": "Auf der Wiese lässt ein Mädchen einen Drachen steigen."
+                    }
+                  }
+                ],
+                "element": "p",
+                "kind": "element"
+              }
+            ]
+          }
+        },
+        {
+          "args": {
+            "tone": {
+              "op": "enum",
+              "value": "neutral"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": "Wähle eine Antwort."
+              }
+            }
+          ],
+          "element": "p",
+          "kind": "element",
+          "variants": {
+            "simple_language": {
+              "op": "lit",
+              "value": "Wähle."
+            }
+          }
+        },
+        {
+          "args": {
+            "tone": {
+              "op": "enum",
+              "value": "neutral"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": "Schau auf das Bild."
+              }
+            }
+          ],
+          "element": "p",
+          "kind": "element",
+          "variants": {
+            "extended_descriptions": {
+              "op": "lit",
+              "value": "Ein Mädchen hält einen roten Drachen an einer langen Schnur."
+            }
+          }
+        },
+        {
+          "args": {
+            "label": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Wo lässt das Mädchen den Drachen steigen?"
+                },
+                {
+                  "op": "lit",
+                  "value": null
+                },
+                {
+                  "op": "lit",
+                  "value": "Wo ist das Mädchen?"
+                }
+              ],
+              "fn": "wording",
+              "op": "call"
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "auf der Wiese"
+                },
+                {
+                  "op": "lit",
+                  "value": "am Strand"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "a01",
+          "component": "Choice",
+          "kind": "component"
+        }
+      ],
+      "name": "stufen",
+      "title": "Sprachstufen",
+      "variables": [
+        {
+          "component": "Choice",
+          "id": "a01",
+          "type": "Set<Int>"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "tone": {
+              "op": "enum",
+              "value": "neutral"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": "In einen Karton passen "
+              }
+            },
+            {
+              "kind": "content",
+              "value": {
+                "name": "per_box",
+                "op": "ref"
+              }
+            },
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": " Eier. Es sind "
+              }
+            },
+            {
+              "kind": "content",
+              "value": {
+                "name": "boxes",
+                "op": "ref"
+              }
+            },
+            {
+              "kind": "content",
+              "value": {
+                "op": "lit",
+                "value": " Kartons."
+              }
+            }
+          ],
+          "element": "p",
+          "kind": "element"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Wie viele Eier sind es?"
+            }
+          },
+          "binding": "total",
+          "component": "NumberGap",
+          "kind": "component"
+        }
+      ],
+      "name": "eier",
+      "params": [
+        {
+          "default": 6,
+          "name": "per_box",
+          "type": "Int",
+          "values": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "default": 4,
+          "name": "boxes",
+          "type": "Int",
+          "values": [
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "title": "Eierkarton",
+      "variables": [
+        {
+          "component": "NumberGap",
+          "id": "total",
+          "type": "Rational?"
+        }
+      ],
+      "versions": {
+        "left": {
+          "left": {
+            "left": {
+              "left": {
+                "left": {
+                  "name": "per_box",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "in",
+                "right": {
+                  "from": {
+                    "op": "lit",
+                    "value": {
+                      "num": "4"
+                    }
+                  },
+                  "op": "range",
+                  "to": {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "and",
+              "right": {
+                "left": {
+                  "name": "boxes",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "in",
+                "right": {
+                  "from": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  "op": "range",
+                  "to": {
+                    "op": "lit",
+                    "value": {
+                      "num": "6"
+                    }
+                  }
+                }
+              }
+            },
+            "op": "bin",
+            "operator": "and",
+            "right": {
+              "left": {
+                "left": {
+                  "name": "per_box",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "*",
+                "right": {
+                  "name": "boxes",
+                  "op": "ref"
+                }
+              },
+              "op": "bin",
+              "operator": "<=",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "50"
+                }
+              }
+            }
+          },
+          "op": "bin",
+          "operator": "and",
+          "right": {
+            "left": {
+              "name": "per_box",
+              "op": "ref"
+            },
+            "op": "bin",
+            "operator": "!=",
+            "right": {
+              "name": "boxes",
+              "op": "ref"
+            }
+          }
+        },
+        "op": "bin",
+        "operator": "and",
+        "right": {
+          "left": {
+            "op": "un",
+            "operand": {
+              "left": {
+                "op": "enum",
+                "value": "easy_language"
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "args": [],
+                "fn": "accommodations",
+                "op": "call"
+              }
+            },
+            "operator": "not"
+          },
+          "op": "bin",
+          "operator": "or",
+          "right": {
+            "left": {
+              "left": {
+                "name": "per_box",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "*",
+              "right": {
+                "name": "boxes",
+                "op": "ref"
+              }
+            },
+            "op": "bin",
+            "operator": "<=",
+            "right": {
+              "op": "lit",
+              "value": {
+                "num": "20"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "version": "0.1"
+}

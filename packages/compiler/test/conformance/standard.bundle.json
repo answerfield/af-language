@@ -1,0 +1,3680 @@
+{
+  "codings": [
+    {
+      "item": "text_eingabe",
+      "rules": [
+        {
+          "answers": [
+            "fix"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "name": "fix",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": "Liebe"
+                }
+              }
+            }
+          ],
+          "variable": "fix"
+        },
+        {
+          "answers": [
+            "long"
+          ],
+          "cases": [
+            {
+              "code": 1,
+              "label": "richtig",
+              "score": 1,
+              "when": {
+                "left": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "name": "long",
+                          "op": "ref"
+                        }
+                      ],
+                      "fn": "words",
+                      "op": "call"
+                    }
+                  ],
+                  "fn": "size",
+                  "op": "call"
+                },
+                "op": "bin",
+                "operator": ">=",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              }
+            }
+          ],
+          "variable": "long"
+        }
+      ],
+      "scores": []
+    }
+  ],
+  "components": {
+    "Button": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "name": "pressed",
+              "op": "ref"
+            },
+            "disabled": {
+              "left": {
+                "name": "once",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "and",
+              "right": {
+                "name": "pressed",
+                "op": "ref"
+              }
+            },
+            "label": {
+              "op": "lit",
+              "value": null
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "button"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "name": "label",
+                "op": "ref"
+              }
+            }
+          ],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "pressed",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ],
+            "uncheck": [
+              {
+                "state": "pressed",
+                "value": {
+                  "op": "lit",
+                  "value": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "pressed",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Button",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "once",
+          "type": "Bool"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "pressed",
+          "state": true,
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "Check": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "name": "checked",
+              "op": "ref"
+            },
+            "disabled": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "checkbox"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "name": "label",
+                "op": "ref"
+              }
+            }
+          ],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "checked",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ],
+            "uncheck": [
+              {
+                "state": "checked",
+                "value": {
+                  "op": "lit",
+                  "value": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "checked",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Check",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "checked",
+          "state": true,
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "Choice": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "cond": {
+                "left": {
+                  "name": "max",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              },
+              "else": {
+                "op": "enum",
+                "value": "group"
+              },
+              "op": "if",
+              "then": {
+                "op": "enum",
+                "value": "radiogroup"
+              }
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "i",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "in",
+                      "right": {
+                        "name": "selected",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "cond": {
+                        "left": {
+                          "name": "max",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "==",
+                        "right": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "op": "enum",
+                        "value": "checkbox"
+                      },
+                      "op": "if",
+                      "then": {
+                        "op": "enum",
+                        "value": "radio"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "cond": {
+                            "left": {
+                              "name": "max",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "==",
+                            "right": {
+                              "op": "lit",
+                              "value": {
+                                "num": "1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "left": {
+                              "name": "selected",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "items": [
+                                {
+                                  "name": "i",
+                                  "op": "ref"
+                                }
+                              ],
+                              "op": "set"
+                            }
+                          },
+                          "op": "if",
+                          "then": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "left": {
+                            "name": "selected",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "-",
+                          "right": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "i"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "selected",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Choice",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "max",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "selected",
+          "state": true,
+          "type": "Set<Int>"
+        }
+      ],
+      "response": "Set<Int>"
+    },
+    "Fields": {
+      "body": [
+        {
+          "body": [
+            {
+              "args": {
+                "at": {
+                  "op": "lit",
+                  "value": null
+                },
+                "keys": {
+                  "items": [],
+                  "op": "list"
+                },
+                "kind": {
+                  "op": "enum",
+                  "value": "text"
+                },
+                "label": {
+                  "left": {
+                    "left": {
+                      "op": "lit",
+                      "value": ""
+                    },
+                    "op": "bin",
+                    "operator": "+",
+                    "right": {
+                      "op": "lit",
+                      "value": "Feld "
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "name": "i",
+                    "op": "ref"
+                  }
+                },
+                "max": {
+                  "op": "lit",
+                  "value": null
+                },
+                "multiline": {
+                  "op": "lit",
+                  "value": false
+                },
+                "width": {
+                  "op": "lit",
+                  "value": null
+                }
+              },
+              "bind": "xs",
+              "bindIndex": {
+                "name": "i",
+                "op": "ref"
+              },
+              "children": [],
+              "element": "input",
+              "kind": "element"
+            }
+          ],
+          "iterable": {
+            "name": "xs",
+            "op": "ref"
+          },
+          "kind": "for",
+          "vars": [
+            "x",
+            "i"
+          ]
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "xs",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Fields",
+      "params": [
+        {
+          "name": "n",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": ""
+              },
+              {
+                "name": "n",
+                "op": "ref"
+              }
+            ],
+            "fn": "repeat",
+            "op": "call"
+          },
+          "name": "xs",
+          "state": true,
+          "type": "List<Text>"
+        }
+      ],
+      "response": "List<Text>"
+    },
+    "FreeText": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "name": "max",
+              "op": "ref"
+            },
+            "multiline": {
+              "op": "lit",
+              "value": true
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "FreeText",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1000"
+            }
+          },
+          "name": "max",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    },
+    "Gap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Gap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "6em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    },
+    "Geoboard": {
+      "body": [
+        {
+          "body": [
+            {
+              "args": {
+                "closed": {
+                  "op": "lit",
+                  "value": false
+                },
+                "points": {
+                  "name": "line",
+                  "op": "ref"
+                },
+                "tone": {
+                  "op": "lit",
+                  "value": null
+                }
+              },
+              "children": [],
+              "element": "polygon",
+              "kind": "element"
+            }
+          ],
+          "iterable": {
+            "name": "lines",
+            "op": "ref"
+          },
+          "kind": "for",
+          "vars": [
+            "line"
+          ]
+        },
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "op": "enum",
+              "value": "group"
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "body": [
+                    {
+                      "args": {
+                        "at": {
+                          "args": [
+                            {
+                              "left": {
+                                "name": "x",
+                                "op": "member",
+                                "target": {
+                                  "name": "at",
+                                  "op": "ref"
+                                }
+                              },
+                              "op": "bin",
+                              "operator": "+",
+                              "right": {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            },
+                            {
+                              "left": {
+                                "name": "y",
+                                "op": "member",
+                                "target": {
+                                  "name": "at",
+                                  "op": "ref"
+                                }
+                              },
+                              "op": "bin",
+                              "operator": "+",
+                              "right": {
+                                "name": "j",
+                                "op": "ref"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        },
+                        "checked": {
+                          "left": {
+                            "name": "start",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "==",
+                          "right": {
+                            "args": [
+                              {
+                                "left": {
+                                  "name": "x",
+                                  "op": "member",
+                                  "target": {
+                                    "name": "at",
+                                    "op": "ref"
+                                  }
+                                },
+                                "op": "bin",
+                                "operator": "+",
+                                "right": {
+                                  "name": "i",
+                                  "op": "ref"
+                                }
+                              },
+                              {
+                                "left": {
+                                  "name": "y",
+                                  "op": "member",
+                                  "target": {
+                                    "name": "at",
+                                    "op": "ref"
+                                  }
+                                },
+                                "op": "bin",
+                                "operator": "+",
+                                "right": {
+                                  "name": "j",
+                                  "op": "ref"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        },
+                        "disabled": {
+                          "op": "lit",
+                          "value": false
+                        },
+                        "label": {
+                          "left": {
+                            "left": {
+                              "left": {
+                                "left": {
+                                  "op": "lit",
+                                  "value": ""
+                                },
+                                "op": "bin",
+                                "operator": "+",
+                                "right": {
+                                  "op": "lit",
+                                  "value": "Punkt "
+                                }
+                              },
+                              "op": "bin",
+                              "operator": "+",
+                              "right": {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "op": "lit",
+                              "value": " | "
+                            }
+                          },
+                          "op": "bin",
+                          "operator": "+",
+                          "right": {
+                            "name": "j",
+                            "op": "ref"
+                          }
+                        },
+                        "look": {
+                          "op": "enum",
+                          "value": "box"
+                        },
+                        "role": {
+                          "op": "enum",
+                          "value": "checkbox"
+                        }
+                      },
+                      "children": [],
+                      "element": "toggle",
+                      "kind": "element",
+                      "on": {
+                        "check": [
+                          {
+                            "state": "lines",
+                            "value": {
+                              "cond": {
+                                "left": {
+                                  "name": "start",
+                                  "op": "ref"
+                                },
+                                "op": "bin",
+                                "operator": "==",
+                                "right": {
+                                  "op": "lit",
+                                  "value": null
+                                }
+                              },
+                              "else": {
+                                "cond": {
+                                  "left": {
+                                    "cond": {
+                                      "left": {
+                                        "left": {
+                                          "name": "x",
+                                          "op": "member",
+                                          "target": {
+                                            "name": "start",
+                                            "op": "ref"
+                                          }
+                                        },
+                                        "op": "bin",
+                                        "operator": "<",
+                                        "right": {
+                                          "name": "x",
+                                          "op": "member",
+                                          "target": {
+                                            "args": [
+                                              {
+                                                "left": {
+                                                  "name": "x",
+                                                  "op": "member",
+                                                  "target": {
+                                                    "name": "at",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                "op": "bin",
+                                                "operator": "+",
+                                                "right": {
+                                                  "name": "i",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              {
+                                                "left": {
+                                                  "name": "y",
+                                                  "op": "member",
+                                                  "target": {
+                                                    "name": "at",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                "op": "bin",
+                                                "operator": "+",
+                                                "right": {
+                                                  "name": "j",
+                                                  "op": "ref"
+                                                }
+                                              }
+                                            ],
+                                            "fn": "point",
+                                            "op": "call"
+                                          }
+                                        }
+                                      },
+                                      "op": "bin",
+                                      "operator": "or",
+                                      "right": {
+                                        "left": {
+                                          "left": {
+                                            "name": "x",
+                                            "op": "member",
+                                            "target": {
+                                              "name": "start",
+                                              "op": "ref"
+                                            }
+                                          },
+                                          "op": "bin",
+                                          "operator": "==",
+                                          "right": {
+                                            "name": "x",
+                                            "op": "member",
+                                            "target": {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            }
+                                          }
+                                        },
+                                        "op": "bin",
+                                        "operator": "and",
+                                        "right": {
+                                          "left": {
+                                            "name": "y",
+                                            "op": "member",
+                                            "target": {
+                                              "name": "start",
+                                              "op": "ref"
+                                            }
+                                          },
+                                          "op": "bin",
+                                          "operator": "<",
+                                          "right": {
+                                            "name": "y",
+                                            "op": "member",
+                                            "target": {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "else": {
+                                      "items": [
+                                        {
+                                          "args": [
+                                            {
+                                              "left": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "at",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "+",
+                                              "right": {
+                                                "name": "i",
+                                                "op": "ref"
+                                              }
+                                            },
+                                            {
+                                              "left": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "at",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "+",
+                                              "right": {
+                                                "name": "j",
+                                                "op": "ref"
+                                              }
+                                            }
+                                          ],
+                                          "fn": "point",
+                                          "op": "call"
+                                        },
+                                        {
+                                          "name": "start",
+                                          "op": "ref"
+                                        }
+                                      ],
+                                      "op": "list"
+                                    },
+                                    "op": "if",
+                                    "then": {
+                                      "items": [
+                                        {
+                                          "name": "start",
+                                          "op": "ref"
+                                        },
+                                        {
+                                          "args": [
+                                            {
+                                              "left": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "at",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "+",
+                                              "right": {
+                                                "name": "i",
+                                                "op": "ref"
+                                              }
+                                            },
+                                            {
+                                              "left": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "at",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "+",
+                                              "right": {
+                                                "name": "j",
+                                                "op": "ref"
+                                              }
+                                            }
+                                          ],
+                                          "fn": "point",
+                                          "op": "call"
+                                        }
+                                      ],
+                                      "op": "list"
+                                    }
+                                  },
+                                  "op": "bin",
+                                  "operator": "in",
+                                  "right": {
+                                    "name": "lines",
+                                    "op": "ref"
+                                  }
+                                },
+                                "else": {
+                                  "left": {
+                                    "name": "lines",
+                                    "op": "ref"
+                                  },
+                                  "op": "bin",
+                                  "operator": "+",
+                                  "right": {
+                                    "items": [
+                                      {
+                                        "cond": {
+                                          "left": {
+                                            "left": {
+                                              "name": "x",
+                                              "op": "member",
+                                              "target": {
+                                                "name": "start",
+                                                "op": "ref"
+                                              }
+                                            },
+                                            "op": "bin",
+                                            "operator": "<",
+                                            "right": {
+                                              "name": "x",
+                                              "op": "member",
+                                              "target": {
+                                                "args": [
+                                                  {
+                                                    "left": {
+                                                      "name": "x",
+                                                      "op": "member",
+                                                      "target": {
+                                                        "name": "at",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    "op": "bin",
+                                                    "operator": "+",
+                                                    "right": {
+                                                      "name": "i",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  {
+                                                    "left": {
+                                                      "name": "y",
+                                                      "op": "member",
+                                                      "target": {
+                                                        "name": "at",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    "op": "bin",
+                                                    "operator": "+",
+                                                    "right": {
+                                                      "name": "j",
+                                                      "op": "ref"
+                                                    }
+                                                  }
+                                                ],
+                                                "fn": "point",
+                                                "op": "call"
+                                              }
+                                            }
+                                          },
+                                          "op": "bin",
+                                          "operator": "or",
+                                          "right": {
+                                            "left": {
+                                              "left": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "start",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "==",
+                                              "right": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "args": [
+                                                    {
+                                                      "left": {
+                                                        "name": "x",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "i",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    {
+                                                      "left": {
+                                                        "name": "y",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "j",
+                                                        "op": "ref"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "fn": "point",
+                                                  "op": "call"
+                                                }
+                                              }
+                                            },
+                                            "op": "bin",
+                                            "operator": "and",
+                                            "right": {
+                                              "left": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "start",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "<",
+                                              "right": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "args": [
+                                                    {
+                                                      "left": {
+                                                        "name": "x",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "i",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    {
+                                                      "left": {
+                                                        "name": "y",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "j",
+                                                        "op": "ref"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "fn": "point",
+                                                  "op": "call"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "else": {
+                                          "items": [
+                                            {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            },
+                                            {
+                                              "name": "start",
+                                              "op": "ref"
+                                            }
+                                          ],
+                                          "op": "list"
+                                        },
+                                        "op": "if",
+                                        "then": {
+                                          "items": [
+                                            {
+                                              "name": "start",
+                                              "op": "ref"
+                                            },
+                                            {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            }
+                                          ],
+                                          "op": "list"
+                                        }
+                                      }
+                                    ],
+                                    "op": "set"
+                                  }
+                                },
+                                "op": "if",
+                                "then": {
+                                  "left": {
+                                    "name": "lines",
+                                    "op": "ref"
+                                  },
+                                  "op": "bin",
+                                  "operator": "-",
+                                  "right": {
+                                    "items": [
+                                      {
+                                        "cond": {
+                                          "left": {
+                                            "left": {
+                                              "name": "x",
+                                              "op": "member",
+                                              "target": {
+                                                "name": "start",
+                                                "op": "ref"
+                                              }
+                                            },
+                                            "op": "bin",
+                                            "operator": "<",
+                                            "right": {
+                                              "name": "x",
+                                              "op": "member",
+                                              "target": {
+                                                "args": [
+                                                  {
+                                                    "left": {
+                                                      "name": "x",
+                                                      "op": "member",
+                                                      "target": {
+                                                        "name": "at",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    "op": "bin",
+                                                    "operator": "+",
+                                                    "right": {
+                                                      "name": "i",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  {
+                                                    "left": {
+                                                      "name": "y",
+                                                      "op": "member",
+                                                      "target": {
+                                                        "name": "at",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    "op": "bin",
+                                                    "operator": "+",
+                                                    "right": {
+                                                      "name": "j",
+                                                      "op": "ref"
+                                                    }
+                                                  }
+                                                ],
+                                                "fn": "point",
+                                                "op": "call"
+                                              }
+                                            }
+                                          },
+                                          "op": "bin",
+                                          "operator": "or",
+                                          "right": {
+                                            "left": {
+                                              "left": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "start",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "==",
+                                              "right": {
+                                                "name": "x",
+                                                "op": "member",
+                                                "target": {
+                                                  "args": [
+                                                    {
+                                                      "left": {
+                                                        "name": "x",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "i",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    {
+                                                      "left": {
+                                                        "name": "y",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "j",
+                                                        "op": "ref"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "fn": "point",
+                                                  "op": "call"
+                                                }
+                                              }
+                                            },
+                                            "op": "bin",
+                                            "operator": "and",
+                                            "right": {
+                                              "left": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "name": "start",
+                                                  "op": "ref"
+                                                }
+                                              },
+                                              "op": "bin",
+                                              "operator": "<",
+                                              "right": {
+                                                "name": "y",
+                                                "op": "member",
+                                                "target": {
+                                                  "args": [
+                                                    {
+                                                      "left": {
+                                                        "name": "x",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "i",
+                                                        "op": "ref"
+                                                      }
+                                                    },
+                                                    {
+                                                      "left": {
+                                                        "name": "y",
+                                                        "op": "member",
+                                                        "target": {
+                                                          "name": "at",
+                                                          "op": "ref"
+                                                        }
+                                                      },
+                                                      "op": "bin",
+                                                      "operator": "+",
+                                                      "right": {
+                                                        "name": "j",
+                                                        "op": "ref"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "fn": "point",
+                                                  "op": "call"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "else": {
+                                          "items": [
+                                            {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            },
+                                            {
+                                              "name": "start",
+                                              "op": "ref"
+                                            }
+                                          ],
+                                          "op": "list"
+                                        },
+                                        "op": "if",
+                                        "then": {
+                                          "items": [
+                                            {
+                                              "name": "start",
+                                              "op": "ref"
+                                            },
+                                            {
+                                              "args": [
+                                                {
+                                                  "left": {
+                                                    "name": "x",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "i",
+                                                    "op": "ref"
+                                                  }
+                                                },
+                                                {
+                                                  "left": {
+                                                    "name": "y",
+                                                    "op": "member",
+                                                    "target": {
+                                                      "name": "at",
+                                                      "op": "ref"
+                                                    }
+                                                  },
+                                                  "op": "bin",
+                                                  "operator": "+",
+                                                  "right": {
+                                                    "name": "j",
+                                                    "op": "ref"
+                                                  }
+                                                }
+                                              ],
+                                              "fn": "point",
+                                              "op": "call"
+                                            }
+                                          ],
+                                          "op": "list"
+                                        }
+                                      }
+                                    ],
+                                    "op": "set"
+                                  }
+                                }
+                              },
+                              "op": "if",
+                              "then": {
+                                "name": "lines",
+                                "op": "ref"
+                              }
+                            }
+                          },
+                          {
+                            "state": "start",
+                            "value": {
+                              "cond": {
+                                "left": {
+                                  "name": "start",
+                                  "op": "ref"
+                                },
+                                "op": "bin",
+                                "operator": "==",
+                                "right": {
+                                  "op": "lit",
+                                  "value": null
+                                }
+                              },
+                              "else": {
+                                "op": "lit",
+                                "value": null
+                              },
+                              "op": "if",
+                              "then": {
+                                "args": [
+                                  {
+                                    "left": {
+                                      "name": "x",
+                                      "op": "member",
+                                      "target": {
+                                        "name": "at",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    "op": "bin",
+                                    "operator": "+",
+                                    "right": {
+                                      "name": "i",
+                                      "op": "ref"
+                                    }
+                                  },
+                                  {
+                                    "left": {
+                                      "name": "y",
+                                      "op": "member",
+                                      "target": {
+                                        "name": "at",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    "op": "bin",
+                                    "operator": "+",
+                                    "right": {
+                                      "name": "j",
+                                      "op": "ref"
+                                    }
+                                  }
+                                ],
+                                "fn": "point",
+                                "op": "call"
+                              }
+                            }
+                          }
+                        ],
+                        "uncheck": [
+                          {
+                            "state": "start",
+                            "value": {
+                              "op": "lit",
+                              "value": null
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "iterable": {
+                    "from": {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    "op": "range",
+                    "to": {
+                      "name": "cols",
+                      "op": "ref"
+                    }
+                  },
+                  "kind": "for",
+                  "vars": [
+                    "i"
+                  ]
+                }
+              ],
+              "iterable": {
+                "from": {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                "op": "range",
+                "to": {
+                  "name": "rows",
+                  "op": "ref"
+                }
+              },
+              "kind": "for",
+              "vars": [
+                "j"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "lines",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Geoboard",
+      "params": [
+        {
+          "name": "cols",
+          "type": "Int"
+        },
+        {
+          "name": "rows",
+          "type": "Int"
+        },
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              }
+            ],
+            "fn": "point",
+            "op": "call"
+          },
+          "name": "at",
+          "type": "Point?"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "lines",
+          "state": true,
+          "type": "Set<List<Point?>>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "start",
+          "state": true,
+          "type": "Point?"
+        }
+      ],
+      "response": "Set<List<Point?>>"
+    },
+    "MarkWords": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "op": "enum",
+              "value": "group"
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "body": [
+                    {
+                      "args": {
+                        "at": {
+                          "op": "lit",
+                          "value": null
+                        },
+                        "checked": {
+                          "left": {
+                            "name": "i",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "in",
+                          "right": {
+                            "name": "marked",
+                            "op": "ref"
+                          }
+                        },
+                        "disabled": {
+                          "op": "lit",
+                          "value": false
+                        },
+                        "label": {
+                          "op": "lit",
+                          "value": null
+                        },
+                        "look": {
+                          "name": "look",
+                          "op": "ref"
+                        },
+                        "role": {
+                          "op": "enum",
+                          "value": "checkbox"
+                        }
+                      },
+                      "children": [
+                        {
+                          "kind": "content",
+                          "value": {
+                            "name": "word",
+                            "op": "ref"
+                          }
+                        }
+                      ],
+                      "element": "toggle",
+                      "kind": "element",
+                      "on": {
+                        "check": [
+                          {
+                            "state": "marked",
+                            "value": {
+                              "left": {
+                                "name": "marked",
+                                "op": "ref"
+                              },
+                              "op": "bin",
+                              "operator": "+",
+                              "right": {
+                                "items": [
+                                  {
+                                    "name": "i",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "set"
+                              }
+                            }
+                          }
+                        ],
+                        "uncheck": [
+                          {
+                            "state": "marked",
+                            "value": {
+                              "left": {
+                                "name": "marked",
+                                "op": "ref"
+                              },
+                              "op": "bin",
+                              "operator": "-",
+                              "right": {
+                                "items": [
+                                  {
+                                    "name": "i",
+                                    "op": "ref"
+                                  }
+                                ],
+                                "op": "set"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "kind": "content",
+                      "value": {
+                        "op": "lit",
+                        "value": " "
+                      }
+                    }
+                  ],
+                  "iterable": {
+                    "args": [
+                      {
+                        "name": "text",
+                        "op": "ref"
+                      }
+                    ],
+                    "fn": "words",
+                    "op": "call"
+                  },
+                  "kind": "for",
+                  "vars": [
+                    "word",
+                    "i"
+                  ]
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "marked",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "MarkWords",
+      "params": [
+        {
+          "name": "text",
+          "type": "Text"
+        },
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "enum",
+            "value": "encircle"
+          },
+          "name": "look",
+          "type": "Look"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "marked",
+          "state": true,
+          "type": "Set<Int>"
+        }
+      ],
+      "response": "Set<Int>"
+    },
+    "Match": {
+      "body": [
+        {
+          "args": {
+            "caption": {
+              "name": "label",
+              "op": "ref"
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "gap": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "head": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "keep": {
+                      "op": "lit",
+                      "value": false
+                    }
+                  },
+                  "children": [
+                    {
+                      "args": {
+                        "span": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "children": [
+                        {
+                          "kind": "content",
+                          "value": {
+                            "name": "text",
+                            "op": "ref"
+                          }
+                        }
+                      ],
+                      "element": "cell",
+                      "kind": "element"
+                    },
+                    {
+                      "args": {
+                        "span": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "children": [
+                        {
+                          "args": {
+                            "label": {
+                              "name": "text",
+                              "op": "ref"
+                            },
+                            "options": {
+                              "name": "options",
+                              "op": "ref"
+                            },
+                            "taken": {
+                              "cond": {
+                                "name": "once",
+                                "op": "ref"
+                              },
+                              "else": {
+                                "items": [],
+                                "op": "list"
+                              },
+                              "op": "if",
+                              "then": {
+                                "name": "chosen",
+                                "op": "ref"
+                              }
+                            }
+                          },
+                          "binds": {
+                            "chosen": {
+                              "index": {
+                                "name": "r",
+                                "op": "ref"
+                              },
+                              "state": "chosen"
+                            }
+                          },
+                          "component": "Select",
+                          "kind": "component"
+                        }
+                      ],
+                      "element": "cell",
+                      "kind": "element"
+                    }
+                  ],
+                  "element": "row",
+                  "kind": "element"
+                }
+              ],
+              "iterable": {
+                "name": "rows",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "text",
+                "r"
+              ]
+            }
+          ],
+          "element": "table",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Match",
+      "params": [
+        {
+          "name": "rows",
+          "type": "List<Content>"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "once",
+          "type": "Bool"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": null
+              },
+              {
+                "args": [
+                  {
+                    "name": "rows",
+                    "op": "ref"
+                  }
+                ],
+                "fn": "size",
+                "op": "call"
+              }
+            ],
+            "fn": "repeat",
+            "op": "call"
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "List<Int?>"
+        }
+      ],
+      "response": "List<Int?>"
+    },
+    "Matrix": {
+      "body": [
+        {
+          "args": {
+            "caption": {
+              "name": "label",
+              "op": "ref"
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "gap": {
+                  "op": "lit",
+                  "value": null
+                },
+                "head": {
+                  "op": "lit",
+                  "value": true
+                },
+                "keep": {
+                  "op": "lit",
+                  "value": false
+                }
+              },
+              "children": [
+                {
+                  "args": {
+                    "span": {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "op": "lit",
+                        "value": ""
+                      }
+                    }
+                  ],
+                  "element": "cell",
+                  "kind": "element"
+                },
+                {
+                  "body": [
+                    {
+                      "args": {
+                        "span": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "children": [
+                        {
+                          "kind": "content",
+                          "value": {
+                            "name": "column",
+                            "op": "ref"
+                          }
+                        }
+                      ],
+                      "element": "cell",
+                      "kind": "element"
+                    }
+                  ],
+                  "iterable": {
+                    "name": "columns",
+                    "op": "ref"
+                  },
+                  "kind": "for",
+                  "vars": [
+                    "column"
+                  ]
+                }
+              ],
+              "element": "row",
+              "kind": "element"
+            },
+            {
+              "body": [
+                {
+                  "args": {
+                    "gap": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "head": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "keep": {
+                      "op": "lit",
+                      "value": false
+                    }
+                  },
+                  "children": [
+                    {
+                      "args": {
+                        "cards": {
+                          "op": "lit",
+                          "value": null
+                        },
+                        "dropdown": {
+                          "op": "lit",
+                          "value": false
+                        },
+                        "label": {
+                          "name": "text",
+                          "op": "ref"
+                        },
+                        "role": {
+                          "op": "enum",
+                          "value": "radiogroup"
+                        }
+                      },
+                      "children": [
+                        {
+                          "args": {
+                            "span": {
+                              "op": "lit",
+                              "value": {
+                                "num": "1"
+                              }
+                            }
+                          },
+                          "children": [
+                            {
+                              "kind": "content",
+                              "value": {
+                                "name": "text",
+                                "op": "ref"
+                              }
+                            }
+                          ],
+                          "element": "cell",
+                          "kind": "element"
+                        },
+                        {
+                          "body": [
+                            {
+                              "args": {
+                                "span": {
+                                  "op": "lit",
+                                  "value": {
+                                    "num": "1"
+                                  }
+                                }
+                              },
+                              "children": [
+                                {
+                                  "args": {
+                                    "at": {
+                                      "op": "lit",
+                                      "value": null
+                                    },
+                                    "checked": {
+                                      "left": {
+                                        "index": {
+                                          "name": "r",
+                                          "op": "ref"
+                                        },
+                                        "op": "index",
+                                        "target": {
+                                          "name": "chosen",
+                                          "op": "ref"
+                                        }
+                                      },
+                                      "op": "bin",
+                                      "operator": "==",
+                                      "right": {
+                                        "name": "c",
+                                        "op": "ref"
+                                      }
+                                    },
+                                    "disabled": {
+                                      "op": "lit",
+                                      "value": false
+                                    },
+                                    "label": {
+                                      "name": "column",
+                                      "op": "ref"
+                                    },
+                                    "look": {
+                                      "op": "enum",
+                                      "value": "box"
+                                    },
+                                    "role": {
+                                      "op": "enum",
+                                      "value": "radio"
+                                    }
+                                  },
+                                  "children": [],
+                                  "element": "toggle",
+                                  "kind": "element",
+                                  "on": {
+                                    "check": [
+                                      {
+                                        "state": "chosen",
+                                        "value": {
+                                          "args": [
+                                            {
+                                              "name": "chosen",
+                                              "op": "ref"
+                                            },
+                                            {
+                                              "name": "r",
+                                              "op": "ref"
+                                            },
+                                            {
+                                              "name": "c",
+                                              "op": "ref"
+                                            }
+                                          ],
+                                          "fn": "replace",
+                                          "op": "call"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ],
+                              "element": "cell",
+                              "kind": "element"
+                            }
+                          ],
+                          "iterable": {
+                            "name": "columns",
+                            "op": "ref"
+                          },
+                          "kind": "for",
+                          "vars": [
+                            "column",
+                            "c"
+                          ]
+                        }
+                      ],
+                      "element": "group",
+                      "kind": "element"
+                    }
+                  ],
+                  "element": "row",
+                  "kind": "element"
+                }
+              ],
+              "iterable": {
+                "name": "rows",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "text",
+                "r"
+              ]
+            }
+          ],
+          "element": "table",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Matrix",
+      "params": [
+        {
+          "name": "rows",
+          "type": "List<Content>"
+        },
+        {
+          "name": "columns",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": null
+              },
+              {
+                "args": [
+                  {
+                    "name": "rows",
+                    "op": "ref"
+                  }
+                ],
+                "fn": "size",
+                "op": "call"
+              }
+            ],
+            "fn": "repeat",
+            "op": "call"
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "List<Int?>"
+        }
+      ],
+      "response": "List<Int?>"
+    },
+    "Order": {
+      "body": [
+        {
+          "kind": "let",
+          "name": "order",
+          "value": {
+            "cond": {
+              "name": "flipped",
+              "op": "ref"
+            },
+            "else": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "a"
+                },
+                {
+                  "op": "lit",
+                  "value": "b"
+                }
+              ],
+              "op": "list"
+            },
+            "op": "if",
+            "then": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "b"
+                },
+                {
+                  "op": "lit",
+                  "value": "a"
+                }
+              ],
+              "op": "list"
+            }
+          }
+        },
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "op": "lit",
+              "value": false
+            },
+            "disabled": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "op": "lit",
+              "value": "umdrehen"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "button"
+            }
+          },
+          "children": [],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "flipped",
+                "value": {
+                  "op": "un",
+                  "operand": {
+                    "name": "flipped",
+                    "op": "ref"
+                  },
+                  "operator": "not"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "body": [
+            {
+              "args": {
+                "label": {
+                  "name": "entry",
+                  "op": "ref"
+                }
+              },
+              "component": "Check",
+              "kind": "component"
+            }
+          ],
+          "iterable": {
+            "name": "order",
+            "op": "ref"
+          },
+          "kind": "for",
+          "vars": [
+            "entry"
+          ]
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "order",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Order",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "flipped",
+          "state": true,
+          "type": "Bool"
+        }
+      ],
+      "response": "List<Text>"
+    },
+    "Select": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "op": "enum",
+              "value": "radiogroup"
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "chosen",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "==",
+                      "right": {
+                        "name": "o",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "left": {
+                        "left": {
+                          "name": "o",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "in",
+                        "right": {
+                          "name": "taken",
+                          "op": "ref"
+                        }
+                      },
+                      "op": "bin",
+                      "operator": "and",
+                      "right": {
+                        "left": {
+                          "name": "chosen",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "!=",
+                        "right": {
+                          "name": "o",
+                          "op": "ref"
+                        }
+                      }
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "op": "enum",
+                      "value": "radio"
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "chosen",
+                        "value": {
+                          "name": "o",
+                          "op": "ref"
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "chosen",
+                        "value": {
+                          "op": "lit",
+                          "value": null
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "o"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Select",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "taken",
+          "type": "List<Int?>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "Int?"
+        }
+      ],
+      "response": "Int?"
+    },
+    "Tabs": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "op": "enum",
+              "value": "radiogroup"
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "gap": {
+                  "op": "lit",
+                  "value": null
+                },
+                "head": {
+                  "op": "lit",
+                  "value": false
+                },
+                "keep": {
+                  "op": "lit",
+                  "value": false
+                }
+              },
+              "children": [
+                {
+                  "body": [
+                    {
+                      "args": {
+                        "at": {
+                          "op": "lit",
+                          "value": null
+                        },
+                        "checked": {
+                          "left": {
+                            "name": "chosen",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "==",
+                          "right": {
+                            "name": "o",
+                            "op": "ref"
+                          }
+                        },
+                        "disabled": {
+                          "op": "lit",
+                          "value": false
+                        },
+                        "label": {
+                          "op": "lit",
+                          "value": null
+                        },
+                        "look": {
+                          "op": "enum",
+                          "value": "box"
+                        },
+                        "role": {
+                          "op": "enum",
+                          "value": "radio"
+                        }
+                      },
+                      "children": [
+                        {
+                          "kind": "content",
+                          "value": {
+                            "name": "option",
+                            "op": "ref"
+                          }
+                        }
+                      ],
+                      "element": "toggle",
+                      "kind": "element",
+                      "on": {
+                        "check": [
+                          {
+                            "state": "chosen",
+                            "value": {
+                              "name": "o",
+                              "op": "ref"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "iterable": {
+                    "name": "options",
+                    "op": "ref"
+                  },
+                  "kind": "for",
+                  "vars": [
+                    "option",
+                    "o"
+                  ]
+                }
+              ],
+              "element": "row",
+              "kind": "element"
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Tabs",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "Int"
+        }
+      ],
+      "response": "Int"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Einfach"
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "a"
+                },
+                {
+                  "op": "lit",
+                  "value": "b"
+                },
+                {
+                  "op": "lit",
+                  "value": "c"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "single",
+          "component": "Choice",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Mehrfach"
+            },
+            "max": {
+              "op": "lit",
+              "value": {
+                "num": "3"
+              }
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "a"
+                },
+                {
+                  "op": "lit",
+                  "value": "b"
+                },
+                {
+                  "op": "lit",
+                  "value": "c"
+                },
+                {
+                  "op": "lit",
+                  "value": "d"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "multi",
+          "component": "Choice",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Liste"
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "x"
+                },
+                {
+                  "op": "lit",
+                  "value": "y"
+                },
+                {
+                  "op": "lit",
+                  "value": "z"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "sel",
+          "component": "Select",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "once": {
+              "op": "lit",
+              "value": true
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Rot"
+                },
+                {
+                  "op": "lit",
+                  "value": "Grün"
+                },
+                {
+                  "op": "lit",
+                  "value": "Blau"
+                }
+              ],
+              "op": "list"
+            },
+            "rows": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Eins"
+                },
+                {
+                  "op": "lit",
+                  "value": "Zwei"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "pairs",
+          "component": "Match",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "columns": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "richtig"
+                },
+                {
+                  "op": "lit",
+                  "value": "falsch"
+                }
+              ],
+              "op": "list"
+            },
+            "rows": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Satz 1"
+                },
+                {
+                  "op": "lit",
+                  "value": "Satz 2"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "grid",
+          "component": "Matrix",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "trifft zu"
+            }
+          },
+          "binding": "agree",
+          "component": "Check",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "weiter"
+            },
+            "once": {
+              "op": "lit",
+              "value": true
+            }
+          },
+          "binding": "go",
+          "component": "Button",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Ansicht"
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Text A"
+                },
+                {
+                  "op": "lit",
+                  "value": "Text B"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "view",
+          "component": "Tabs",
+          "kind": "component"
+        }
+      ],
+      "name": "auswahl",
+      "title": "Auswahl",
+      "variables": [
+        {
+          "component": "Choice",
+          "id": "single",
+          "type": "Set<Int>"
+        },
+        {
+          "component": "Choice",
+          "id": "multi",
+          "type": "Set<Int>"
+        },
+        {
+          "component": "Select",
+          "id": "sel",
+          "type": "Int?"
+        },
+        {
+          "component": "Match",
+          "id": "pairs",
+          "type": "List<Int?>"
+        },
+        {
+          "component": "Matrix",
+          "id": "grid",
+          "type": "List<Int?>"
+        },
+        {
+          "component": "Check",
+          "id": "agree",
+          "type": "Bool"
+        },
+        {
+          "component": "Button",
+          "id": "go",
+          "type": "Bool"
+        },
+        {
+          "component": "Tabs",
+          "id": "view",
+          "type": "Int"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "initial": {
+              "op": "lit",
+              "value": "Libe"
+            },
+            "label": {
+              "op": "lit",
+              "value": "Verbessere"
+            }
+          },
+          "binding": "fix",
+          "component": "Gap",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Begründe"
+            },
+            "max": {
+              "op": "lit",
+              "value": {
+                "num": "20"
+              }
+            }
+          },
+          "binding": "long",
+          "component": "FreeText",
+          "kind": "component"
+        }
+      ],
+      "name": "text_eingabe",
+      "title": "Texteingabe",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "fix",
+          "type": "Text"
+        },
+        {
+          "component": "FreeText",
+          "id": "long",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Markiere das Verb"
+            },
+            "text": {
+              "op": "lit",
+              "value": "Der Hund bellt laut"
+            }
+          },
+          "binding": "words",
+          "component": "MarkWords",
+          "kind": "component"
+        }
+      ],
+      "name": "im_text",
+      "title": "Im Text markieren",
+      "variables": [
+        {
+          "component": "MarkWords",
+          "id": "words",
+          "type": "Set<Int>"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "background": {
+              "op": "lit",
+              "value": null
+            },
+            "grid": {
+              "op": "lit",
+              "value": {
+                "num": "1"
+              }
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            },
+            "x": {
+              "from": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "range",
+              "to": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              }
+            },
+            "x_axis": {
+              "op": "lit",
+              "value": null
+            },
+            "y": {
+              "from": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "range",
+              "to": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            },
+            "y_axis": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "cols": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                "label": {
+                  "op": "lit",
+                  "value": "Raster"
+                },
+                "rows": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              },
+              "binding": "drawn",
+              "component": "Geoboard",
+              "kind": "component"
+            }
+          ],
+          "element": "plane",
+          "kind": "element"
+        }
+      ],
+      "name": "zeichnen",
+      "title": "Zeichnen",
+      "variables": [
+        {
+          "component": "Geoboard",
+          "id": "drawn",
+          "type": "Set<List<Point?>>"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "mehr Felder"
+            }
+          },
+          "binding": "more",
+          "component": "Check",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "n": {
+              "cond": {
+                "name": "more",
+                "op": "ref"
+              },
+              "else": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              },
+              "op": "if",
+              "then": {
+                "op": "lit",
+                "value": {
+                  "num": "3"
+                }
+              }
+            }
+          },
+          "binding": "fields",
+          "component": "Fields",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "ord",
+          "component": "Order",
+          "kind": "component"
+        }
+      ],
+      "name": "zustand_regeln",
+      "title": "Zustandsregeln",
+      "variables": [
+        {
+          "component": "Check",
+          "id": "more",
+          "type": "Bool"
+        },
+        {
+          "component": "Fields",
+          "id": "fields",
+          "type": "List<Text>"
+        },
+        {
+          "component": "Order",
+          "id": "ord",
+          "type": "List<Text>"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

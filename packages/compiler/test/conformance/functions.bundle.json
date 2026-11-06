@@ -1,0 +1,3488 @@
+{
+  "codings": [],
+  "components": {
+    "Flag": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Flag",
+      "params": [
+        {
+          "name": "of",
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "Num": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Num",
+      "params": [
+        {
+          "name": "of",
+          "type": "Rational?"
+        }
+      ],
+      "response": "Rational?"
+    },
+    "Pt": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Pt",
+      "params": [
+        {
+          "name": "of",
+          "type": "Point?"
+        }
+      ],
+      "response": "Point?"
+    },
+    "Segments": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Segments",
+      "params": [
+        {
+          "name": "of",
+          "type": "Set<List<Point?>>"
+        }
+      ],
+      "response": "Set<List<Point?>>"
+    },
+    "Txt": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Txt",
+      "params": [
+        {
+          "name": "of",
+          "type": "Text?"
+        }
+      ],
+      "response": "Text?"
+    },
+    "TxtList": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "TxtList",
+      "params": [
+        {
+          "name": "of",
+          "type": "List<Text>"
+        }
+      ],
+      "response": "List<Text>"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "34 000"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "spaced",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "34.000"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "dotted",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "4,25 m"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "unit",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "$15"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "dollar",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "62,2 %"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "percent",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "3/4"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "frac",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0.250"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "leading_zero",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "-5"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "minus",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "1 234,5"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "grouped_decimal",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "einundzwanzig"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "de",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "eintausendvierhundertfünfundsechzig"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "de_long",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "twenty-one"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "en",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "vingt et un"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "fr",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "zwei Äpfel"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "word_unit",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "4 or 5"
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "two_numbers",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": ""
+                }
+              ],
+              "fn": "number",
+              "op": "call"
+            }
+          },
+          "binding": "empty",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "25 %"
+                }
+              ],
+              "fn": "proportion",
+              "op": "call"
+            }
+          },
+          "binding": "p_percent",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "1:4"
+                }
+              ],
+              "fn": "proportion",
+              "op": "call"
+            }
+          },
+          "binding": "p_ratio",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0,25"
+                }
+              ],
+              "fn": "proportion",
+              "op": "call"
+            }
+          },
+          "binding": "p_decimal",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "1 zu 3"
+                }
+              ],
+              "fn": "proportion",
+              "op": "call"
+            }
+          },
+          "binding": "p_odds",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0,03"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_two",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "3,03 %"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_percent",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "3 %"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_whole_percent",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_zero",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_zero_digits",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "0,04"
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "33"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              ],
+              "fn": "rounds_to",
+              "op": "call"
+            }
+          },
+          "binding": "r_wrong",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "3 m"
+                },
+                {
+                  "op": "lit",
+                  "value": "cm"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_cm",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "300 cm"
+                },
+                {
+                  "op": "lit",
+                  "value": "cm"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_same",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "$15"
+                },
+                {
+                  "op": "lit",
+                  "value": "$"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_dollar",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "15 dollars"
+                },
+                {
+                  "op": "lit",
+                  "value": "$"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_word",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "4,25 mètres"
+                },
+                {
+                  "op": "lit",
+                  "value": "m"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_fr",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "12 cm cm"
+                },
+                {
+                  "op": "lit",
+                  "value": "cm"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_twice",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "zwei Meter"
+                },
+                {
+                  "op": "lit",
+                  "value": "cm"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_numberword",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "1,5 h"
+                },
+                {
+                  "op": "lit",
+                  "value": "min"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_time",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "4 kg"
+                },
+                {
+                  "op": "lit",
+                  "value": "m"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_wrong_dim",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "15"
+                },
+                {
+                  "op": "lit",
+                  "value": "cm"
+                }
+              ],
+              "fn": "quantity",
+              "op": "call"
+            }
+          },
+          "binding": "q_no_unit",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "3/4"
+                }
+              ],
+              "fn": "is_reduced",
+              "op": "call"
+            }
+          },
+          "binding": "reduced",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "6/8"
+                }
+              ],
+              "fn": "is_reduced",
+              "op": "call"
+            }
+          },
+          "binding": "not_reduced",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "2"
+                }
+              ],
+              "fn": "is_reduced",
+              "op": "call"
+            }
+          },
+          "binding": "reduced_int",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "2,5"
+                }
+              ],
+              "fn": "is_reduced",
+              "op": "call"
+            }
+          },
+          "binding": "reduced_dec",
+          "component": "Flag",
+          "kind": "component"
+        }
+      ],
+      "name": "zahlen_lesen",
+      "title": "Zahlen lesen",
+      "variables": [
+        {
+          "component": "Num",
+          "id": "spaced",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dotted",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "unit",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dollar",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "percent",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "frac",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "leading_zero",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "minus",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "grouped_decimal",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "de",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "de_long",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "en",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "fr",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "word_unit",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "two_numbers",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "empty",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "p_percent",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "p_ratio",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "p_decimal",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "p_odds",
+          "type": "Rational?"
+        },
+        {
+          "component": "Flag",
+          "id": "r_two",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "r_percent",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "r_whole_percent",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "r_zero",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "r_zero_digits",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "r_wrong",
+          "type": "Bool"
+        },
+        {
+          "component": "Num",
+          "id": "q_cm",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_same",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_dollar",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_word",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_fr",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_twice",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_numberword",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_time",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_wrong_dim",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "q_no_unit",
+          "type": "Rational?"
+        },
+        {
+          "component": "Flag",
+          "id": "reduced",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "not_reduced",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "reduced_int",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "reduced_dec",
+          "type": "Bool"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Windmill"
+                },
+                {
+                  "op": "lit",
+                  "value": "(a) windmill"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "optional",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "a windmlil"
+                },
+                {
+                  "op": "lit",
+                  "value": "(a) windmill"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "typo",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "a windmlil"
+                },
+                {
+                  "op": "lit",
+                  "value": "(a) windmill"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "typo_off",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "WINDMILL"
+                },
+                {
+                  "op": "lit",
+                  "value": "windmill"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": true
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "case_on",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "three dark blue cars"
+                },
+                {
+                  "op": "lit",
+                  "value": "(the) 3/three (red/dark blue) cars"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "word_alt",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "the 3 red cars"
+                },
+                {
+                  "op": "lit",
+                  "value": "(the) 3/three (red/dark blue) cars"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "word_alt2",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "12 marbles"
+                },
+                {
+                  "op": "lit",
+                  "value": "a dozen / 12 marbles"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "whole_alt",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "1350 marbles"
+                },
+                {
+                  "op": "lit",
+                  "value": "1250 marbles"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "digits_exact",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Gartenzaun"
+                },
+                {
+                  "op": "lit",
+                  "value": "(Garten-)Zaun"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "compound",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Garten-Zaun"
+                },
+                {
+                  "op": "lit",
+                  "value": "(Garten-)Zaun"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "compound_dash",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Zaun"
+                },
+                {
+                  "op": "lit",
+                  "value": "(Garten-)Zaun"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "compound_short",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "tooth brush"
+                },
+                {
+                  "op": "lit",
+                  "value": "toothbrush"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "joined",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "tooth brush"
+                },
+                {
+                  "op": "lit",
+                  "value": "toothbrush"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "joined_off",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "morgens joggen"
+                },
+                {
+                  "op": "lit",
+                  "value": "morgens [joggen / Sport treiben]"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "required",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "morgens"
+                },
+                {
+                  "op": "lit",
+                  "value": "morgens [joggen / Sport treiben]"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "required_missing",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "Bremen!"
+                },
+                {
+                  "op": "lit",
+                  "value": "Bremen"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "punctuation",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "won’t"
+                },
+                {
+                  "op": "lit",
+                  "value": "won't"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "apostrophe",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "4.25"
+                },
+                {
+                  "op": "lit",
+                  "value": "4,25"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "decimal_kept",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "9/4/2011"
+                },
+                {
+                  "op": "lit",
+                  "value": "9/4/2011"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "date",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": ""
+                },
+                {
+                  "op": "lit",
+                  "value": "(a)"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accept",
+              "op": "call"
+            }
+          },
+          "binding": "empty_answer",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Norway"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Norway / Norwegen"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accepted",
+              "op": "call"
+            }
+          },
+          "binding": "two_of_two",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Norway / Norwegen"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accepted",
+              "op": "call"
+            }
+          },
+          "binding": "same_twice",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Grecee"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Norwegen"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "Greece"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "Norway / Norwegen"
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "accepted",
+              "op": "call"
+            }
+          },
+          "binding": "with_typo",
+          "component": "Num",
+          "kind": "component"
+        }
+      ],
+      "name": "muster",
+      "title": "Antwortmuster",
+      "variables": [
+        {
+          "component": "Flag",
+          "id": "optional",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "typo",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "typo_off",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "case_on",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "word_alt",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "word_alt2",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "whole_alt",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "digits_exact",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "compound",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "compound_dash",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "compound_short",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "joined",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "joined_off",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "required",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "required_missing",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "punctuation",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "apostrophe",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "decimal_kept",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "date",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "empty_answer",
+          "type": "Bool"
+        },
+        {
+          "component": "Num",
+          "id": "two_of_two",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "same_twice",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "with_typo",
+          "type": "Rational?"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "A b  C"
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                },
+                {
+                  "op": "enum",
+                  "value": "remove"
+                }
+              ],
+              "fn": "normalize",
+              "op": "call"
+            }
+          },
+          "binding": "removed",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": " a  b "
+                },
+                {
+                  "op": "lit",
+                  "value": true
+                },
+                {
+                  "op": "enum",
+                  "value": "collapse"
+                }
+              ],
+              "fn": "normalize",
+              "op": "call"
+            }
+          },
+          "binding": "collapsed",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": " A "
+                },
+                {
+                  "op": "lit",
+                  "value": true
+                },
+                {
+                  "op": "enum",
+                  "value": "keep"
+                }
+              ],
+              "fn": "normalize",
+              "op": "call"
+            }
+          },
+          "binding": "kept",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": " Das ist,  gut. "
+                }
+              ],
+              "fn": "words",
+              "op": "call"
+            }
+          },
+          "binding": "split",
+          "component": "TxtList",
+          "kind": "component"
+        }
+      ],
+      "name": "text_funktionen",
+      "title": "Textfunktionen",
+      "variables": [
+        {
+          "component": "Txt",
+          "id": "removed",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "collapsed",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "kept",
+          "type": "Text?"
+        },
+        {
+          "component": "TxtList",
+          "id": "split",
+          "type": "List<Text>"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              ],
+              "fn": "point",
+              "op": "call"
+            }
+          },
+          "binding": "p1",
+          "component": "Pt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": "x"
+                    }
+                  ],
+                  "fn": "number",
+                  "op": "call"
+                }
+              ],
+              "fn": "point",
+              "op": "call"
+            }
+          },
+          "binding": "p_none",
+          "component": "Pt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "90"
+                  }
+                }
+              ],
+              "fn": "polar",
+              "op": "call"
+            }
+          },
+          "binding": "polar_up",
+          "component": "Pt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "45"
+                  }
+                }
+              ],
+              "fn": "polar",
+              "op": "call"
+            }
+          },
+          "binding": "polar_diag",
+          "component": "Pt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "name": "x",
+              "op": "member",
+              "target": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "4"
+                    }
+                  }
+                ],
+                "fn": "point",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "x_of",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "4"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                }
+              ],
+              "fn": "distance",
+              "op": "call"
+            }
+          },
+          "binding": "dist",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                }
+              ],
+              "fn": "distance",
+              "op": "call"
+            }
+          },
+          "binding": "dist_root",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "op": "lit",
+                  "value": null
+                }
+              ],
+              "fn": "distance",
+              "op": "call"
+            }
+          },
+          "binding": "dist_none",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                }
+              ],
+              "fn": "angle",
+              "op": "call"
+            }
+          },
+          "binding": "right",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                }
+              ],
+              "fn": "angle",
+              "op": "call"
+            }
+          },
+          "binding": "angle_zero",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    },
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "4"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    },
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "3"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    }
+                  ],
+                  "op": "list"
+                }
+              ],
+              "fn": "area",
+              "op": "call"
+            }
+          },
+          "binding": "tri",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    },
+                    {
+                      "op": "lit",
+                      "value": null
+                    },
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "3"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    }
+                  ],
+                  "op": "list"
+                }
+              ],
+              "fn": "area",
+              "op": "call"
+            }
+          },
+          "binding": "tri_none",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    },
+                    {
+                      "args": [
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "4"
+                          }
+                        },
+                        {
+                          "op": "lit",
+                          "value": {
+                            "num": "0"
+                          }
+                        }
+                      ],
+                      "fn": "point",
+                      "op": "call"
+                    }
+                  ],
+                  "op": "list"
+                }
+              ],
+              "fn": "area",
+              "op": "call"
+            }
+          },
+          "binding": "two",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "items": [
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        },
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "2"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        }
+                      ],
+                      "op": "list"
+                    }
+                  ],
+                  "op": "set"
+                },
+                {
+                  "op": "lit",
+                  "value": true
+                }
+              ],
+              "fn": "shape",
+              "op": "call"
+            }
+          },
+          "binding": "steps",
+          "component": "Segments",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "2"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": true
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "2"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "1"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      },
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "1"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": true
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "pieces",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "4"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": true
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "1"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": true
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "moved",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "4"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "3"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": false
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "args": [
+                  {
+                    "items": [
+                      {
+                        "items": [
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          },
+                          {
+                            "args": [
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "1"
+                                }
+                              },
+                              {
+                                "op": "lit",
+                                "value": {
+                                  "num": "0"
+                                }
+                              }
+                            ],
+                            "fn": "point",
+                            "op": "call"
+                          }
+                        ],
+                        "op": "list"
+                      }
+                    ],
+                    "op": "set"
+                  },
+                  {
+                    "op": "lit",
+                    "value": false
+                  }
+                ],
+                "fn": "shape",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "fixed",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "items": [
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "10"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        },
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "11"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        }
+                      ],
+                      "op": "list"
+                    },
+                    {
+                      "items": [
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "2"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        },
+                        {
+                          "args": [
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "3"
+                              }
+                            },
+                            {
+                              "op": "lit",
+                              "value": {
+                                "num": "0"
+                              }
+                            }
+                          ],
+                          "fn": "point",
+                          "op": "call"
+                        }
+                      ],
+                      "op": "list"
+                    }
+                  ],
+                  "op": "set"
+                },
+                {
+                  "op": "lit",
+                  "value": false
+                }
+              ],
+              "fn": "shape",
+              "op": "call"
+            }
+          },
+          "binding": "sorted",
+          "component": "Segments",
+          "kind": "component"
+        }
+      ],
+      "name": "geometrie",
+      "title": "Geometrie",
+      "variables": [
+        {
+          "component": "Pt",
+          "id": "p1",
+          "type": "Point?"
+        },
+        {
+          "component": "Pt",
+          "id": "p_none",
+          "type": "Point?"
+        },
+        {
+          "component": "Pt",
+          "id": "polar_up",
+          "type": "Point?"
+        },
+        {
+          "component": "Pt",
+          "id": "polar_diag",
+          "type": "Point?"
+        },
+        {
+          "component": "Num",
+          "id": "x_of",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dist",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dist_root",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dist_none",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "right",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "angle_zero",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "tri",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "tri_none",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "two",
+          "type": "Rational?"
+        },
+        {
+          "component": "Segments",
+          "id": "steps",
+          "type": "Set<List<Point?>>"
+        },
+        {
+          "component": "Flag",
+          "id": "pieces",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "moved",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "fixed",
+          "type": "Bool"
+        },
+        {
+          "component": "Segments",
+          "id": "sorted",
+          "type": "Set<List<Point?>>"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

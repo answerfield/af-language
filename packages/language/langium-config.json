@@ -1,0 +1,14 @@
+{
+  "projectName": "AfLanguage",
+  "languages": [
+    {
+      "id": "af",
+      "grammar": "src/grammar/af.langium",
+      "fileExtensions": [".af"],
+      "textMate": {
+        "out": "syntaxes/af.tmLanguage.json"
+      }
+    }
+  ],
+  "out": "src/generated"
+}

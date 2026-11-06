@@ -1,0 +1,57 @@
+// Aufgabe 2: Anteile einfärben
+//
+// Zeigt: einen neuen Aufgabentyp, gebaut nur aus vorhandenen Bausteinen (plane, sector aus std, group, toggle mit Form),
+// ohne Player-Code. Dazu ein diagnostischer Code für einen typischen Fehler.
+
+/**
+ * Kreis aus gleich großen Teilen, die sich einzeln einfärben lassen.
+ * Antwort: Anzahl der gefärbten Teile.
+ */
+component FractionShading(parts: Int, label: Content): response Int {
+  // Zustand der Komponente: Nummern der gefärbten Teile, anfangs keine.
+  state shaded: Set<Int> = {}
+
+  // Ebene um den Kreis mit Radius 1; die Gruppe gibt den Schaltern einen gemeinsamen Namen.
+  plane(x: -1.2 .. 1.2, y: -1.2 .. 1.2, width: 14em) {
+    group(role: group, label: label) {
+      // Ein Schalter je Teil, i läuft von 1 bis parts. Seine Form ist der Sektor: Bild und Fläche zum Antippen,
+      // gefärbt, solange er gesetzt ist.
+      for i in 1 .. parts {
+        toggle(role: checkbox, checked: i in shaded,
+               // Name für Screenreader, z. B. „Teil 3 von 8“.
+               label: "Teil {i} von {parts}",
+               // Ereignisse ändern nur den eigenen Zustand (:=).
+               on check:   shaded := shaded + {i},
+               on uncheck: shaded := shaded - {i}) {
+          sector(i, of: parts)
+        }
+      }
+    }
+  }
+
+  // Genau eine Antwort je Komponente; sie wird neu berechnet, sobald sich `shaded` ändert.
+  response size(shaded)
+}
+
+item fraction2 "Anteile färben" {
+  page {
+    section {
+      p "Färbe 3/4 des Kreises ein."
+      // Die eigene Komponente wird wie eine Standardkomponente benutzt.
+      shading = FractionShading(parts: 8, label: "Kreis mit 8 gleichen Teilen")
+    }
+  }
+}
+
+coding fraction2 {
+  shading: codes(
+    // 3/4 von 8 Teilen sind 6 Teile.
+    code(1, "richtig", score: 1, when: shading == 6, feedback: "Genau: 6 von 8 Teilen sind 3/4."),
+    // Typischer Fehler: der Zähler 3 wird als Anzahl übernommen.
+    code(2, "Zähler als Anzahl übernommen", when: shading == 3,
+         feedback: "Der Kreis hat 8 Teile, nicht 4. Wie viele Achtel sind 3/4?"),
+    otherwise: "Zähle die Teile: 3/4 heißt 3 von 4 gleich großen Stücken.",
+    hints: ["Ein Viertel des Kreises sind 2 Teile."],
+    solution: "6 Teile färben"
+  )
+}

@@ -1,0 +1,23 @@
+{
+  "name": "af-language",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/editing",
+    "packages/stdlib",
+    "packages/language",
+    "packages/compiler"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run typecheck && npm test --workspaces --if-present",
+    "typecheck": "tsc -b",
+    "langium:generate": "npm run langium:generate -w @answerfield/language"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2"
+  }
+}

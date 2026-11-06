@@ -1,0 +1,788 @@
+// Prelude: eingebaute Atome, Layoutelemente, Funktionen und Aufzählungen.
+// Hier stehen die Signaturen, wie Autoren sie schreiben. Was davon im Bundle ankommt, beschreibt der Katalog
+// catalog.json in @answerfield/bundle; die übrigen Einträge löst der Compiler auf (RESOLVED_BUILTINS in @answerfield/compiler).
+
+// --- Aufzählungen -----------------------------------------------------------
+
+// WAI-ARIA-Rollen je Atom bzw. Gruppe. Eine Rolle ändert Bedeutung und Bedienung, nie den Datentyp.
+
+/**
+ * Rolle eines Schalters (`toggle`); `radio` nur in einer `group(role: radiogroup)`. `button`: Umschaltknopf
+ * (gedrückt/nicht gedrückt), z. B. „Start“ oder „Quelle anzeigen“.
+ */
+enum ToggleRole {
+  /** Kontrollkästchen: unabhängig an und aus, z. B. eine Option von mehreren. */
+  checkbox,
+  /** Optionsfeld: genau eines in einer group(role: radiogroup). */
+  radio,
+  /** Schalter an/aus, z. B. eine Einstellung. */
+  switch,
+  /** Umschaltknopf (gedrückt/nicht gedrückt), z. B. „Start“. */
+  button
+}
+
+/** Rolle einer Gruppe (`group`). */
+enum GroupRole {
+  /** Gruppe mit gemeinsamem Namen, z. B. Kontrollkästchen einer Mehrfachauswahl. */
+  group,
+  /** Optionsgruppe: genau eine Option wählbar; Pfeiltasten wandern darin. */
+  radiogroup
+}
+
+/** Rolle eines Werts (`value`). */
+enum ValueRole {
+  /** Schieberegler bzw. Marke auf dem Zahlenstrahl. */
+  slider,
+  /** Zahlenfeld mit Auf- und Ab-Schritten. */
+  spinbutton
+}
+
+/** Semantischer Ton; das Aussehen kommt aus dem Theme. `accent`: hervorgehoben, z. B. eigene Nachrichten im Chat. */
+enum Tone {
+  /** Normal, ohne Hervorhebung; als Füllung leer. */
+  neutral,
+  /** Hinweis: gedämpft, z. B. ein Tipp oder eine Zeitangabe. */
+  hint,
+  /** Warnung: auffällig, z. B. ein Warnschild. */
+  warning,
+  /** Hervorgehoben: z. B. eigene Nachrichten im Chat; als Füllung gefärbt. */
+  accent
+}
+
+/** Seite, an der ein Block in einer Liste oder Spalte steht (`box`). */
+enum Side {
+  /** Am Anfang der Zeile (im Deutschen links). */
+  start,
+  /** Am Ende der Zeile (im Deutschen rechts), z. B. eigene Nachrichten. */
+  end
+}
+
+/** Navigation innerhalb eines Testheft-Teils: frei vor und zurück oder nur vorwärts. */
+enum Navigation {
+  /** Frei vor und zurück innerhalb des Teils; jede Aufgabe direkt erreichbar. */
+  free,
+  /** Nur vorwärts: Zurück gibt es nicht. */
+  forward
+}
+
+/**
+ * Anpassungen, die ein Bedarfsprofil anfragen kann (Namen wie in QTI/Access for All angelehnt). Wirksam ist, was das
+ * Testheft zulässt (allow) und weder Testheft noch Aufgabe ausschließen (deny).
+ */
+enum Accommodation {
+  /** Vergrößerung: Schrift und Bedienflächen größer (Faktor aus dem Profil, sonst 2), Reihen brechen um. */
+  magnification,
+  /** Hoher Kontrast: schwarz auf weiß, kräftige Rahmen; das Theme tritt zurück. */
+  contrast,
+  /** Umbruch: alles einspaltig, ohne waagerechtes Scrollen. */
+  reflow,
+  /** Fokus: kräftiger Fokusrahmen, der Block in Arbeit ist hinterlegt, Uhren nur auf Knopfdruck (Aufmerksamkeit, Prüfungsangst). */
+  focus_emphasis,
+  /** Zeitverlängerung: Zeitlimits von Testheft-Teilen und Uhren (timer) mal dem Faktor aus dem Profil. */
+  extended_time,
+  /** Vorlesen: ein Knopf an jedem Absatz, jeder Frage und jedem Feld liest vor, was angezeigt wird. Für Leseaufgaben ausschließen. */
+  read_aloud,
+  /**
+   * Einfache Sprache (z. B. schwerhörige Kinder): variant(simple_language) ersetzt den Inhalt des Elements: kürzere
+   * Sätze, geläufige Wörter, gleicher Inhalt; steht darin eine Antwort, nur den Text davor. Für Fragen und Optionen von
+   * Bausteinen: wording(…, simple: …). Gilt auch bei Leichter Sprache, wenn dort keine eigene Fassung steht.
+   */
+  simple_language,
+  /**
+   * Bildbeschreibungen (blinde und sehbehinderte Kinder): variant(extended_descriptions) erscheint zusätzlich unter dem
+   * Element (Bild, Grafik) und ist mit ihm verknüpft, für Screenreader und zum Vorlesen.
+   */
+  extended_descriptions,
+  /** Große Bedienflächen: Schalter und Felder mit größerer Fläche (Motorik). */
+  large_targets,
+  /** Reduzierte Bewegung: keine Animationen und Übergänge. */
+  reduced_motion,
+  /** Bedienung mit Tastern: eine Markierung wandert über alle Bedienelemente; ein oder zwei Taster (körperlich-motorische Entwicklung). */
+  switch_access,
+  /**
+   * Leichte Sprache (z. B. gehörlose Kinder): variant(easy_language) ersetzt den Inhalt: ein Gedanke je Satz, oft ein
+   * Satz je Zeile (variant(easy_language) { p "…" p "…" }); Optionen und Antworten bleiben, damit die Kodierung dieselbe
+   * ist. Für Fragen und Optionen: wording(…, easy: …). Fehlt sie, gilt die Einfache Sprache.
+   */
+  easy_language
+}
+
+/** Art der Texteingabe. */
+enum InputKind {
+  /** Text. */
+  text,
+  /** Zahl: auf Touch-Geräten mit Zahlentastatur. */
+  number
+}
+
+/** Umgang mit Leerraum in `normalize`: unverändert, zusammenfassen (außen weg, innen einer), ganz entfernen. */
+enum Spaces {
+  /** Leerraum bleibt unverändert. */
+  keep,
+  /** Leerraum zusammenfassen: außen weg, innen jeweils einer. */
+  collapse,
+  /** Leerraum ganz entfernen. */
+  remove
+}
+
+/**
+ * Darstellung eines Schalters: `box` Kästchen/Kreis; im Fließtext `strike` durchstreichen, `encircle` einkreisen,
+ * `highlight` hinterlegen, `underline` unterstreichen, `slot` Platz für ein Zeichen zwischen Wörtern (gesetzt erscheint
+ * der Inhalt, z. B. „,“ oder „(“).
+ */
+enum Look {
+  /** Kästchen bzw. Kreis vor dem Inhalt. */
+  box,
+  /** Im Fließtext: gesetzt durchgestrichen. */
+  strike,
+  /** Im Fließtext: gesetzt eingekreist. */
+  encircle,
+  /** Im Fließtext: gesetzt hinterlegt. */
+  highlight,
+  /** Im Fließtext: gesetzt unterstrichen. */
+  underline,
+  /** Platz für ein Zeichen zwischen Wörtern: gesetzt erscheint der Inhalt, z. B. „,“ oder „(“. */
+  slot
+}
+
+// --- Ablauf und Anpassungen -----------------------------------------------------
+
+/**
+ * Inhalt nur anzeigen, solange `when` gilt. Antworten darin bleiben erhalten; displayed(x) merkt sich die Anzeige.
+ *
+ * @param when Bedingung; solange sie gilt, ist der Inhalt zu sehen.
+ */
+builtin element show(when: Bool) children
+
+/**
+ * Variante des umgebenden Elements für eine Anpassung, z. B. p { "Lies den Text …"  variant(simple_language) "Lies." }.
+ * `simple_language` und `easy_language` ersetzen den Inhalt (fehlt Leichte Sprache, gilt die Einfache); steht im
+ * Element eine Antwort, nur den Text davor. `extended_descriptions`: Beschreibung zusätzlich unter dem Element.
+ * Andere Anpassungen haben keine Variante; eingesprochenes Audio: ReadAloud(src: …) aus std.
+ *
+ * @param kind Die Anpassung, für die die Variante gilt: simple_language, easy_language oder extended_descriptions.
+ */
+builtin element variant(kind: Accommodation) children
+
+/**
+ * Text in Sprachstufen, wo kein Element steht, etwa Beschriftungen und Antwortoptionen von Bausteinen:
+ * Choice(wording("Was macht die Frau am Nachmittag im Park?", easy: "Was macht die Frau?"), […]).
+ * Gezeigt wird `easy` bei `easy_language` (sonst `simple`), `simple` bei `simple_language`, sonst `text`.
+ * Die Antwort bleibt dieselbe (gleiche Optionen an gleicher Stelle), damit auch die Kodierung gleich bleibt.
+ *
+ * @param text Original.
+ * @param simple Einfache Sprache.
+ * @param easy Leichte Sprache (fehlt sie, gilt simple).
+ */
+builtin fn wording(text: Content, simple: Content? = none, easy: Content? = none): Content
+
+/**
+ * Welche Fassungen es von einer Aufgabe mit Parametern gibt, direkt im Rumpf; `when` grenzt die Parameter ein:
+ * item eggs(per_box: Int = 6, boxes: Int = 4) { versions(when: per_box in 4 .. 10 and boxes in 2 .. 6 and per_box * boxes <= 50) … }
+ * Jeder Parameter braucht einen Wertebereich als `name in a .. b` oder `name in {…}` (mit `and` verbunden).
+ * Hängen die Zahlen von Anpassungen ab (z. B. in Leichter Sprache nur kleine Zahlen), ist die Fassung leichter oder
+ * schwerer, nicht nur anders dargestellt. Welche Anpassungen gelten, regeln deny(…) und allow(…).
+ *
+ * @param when Bedingung über die Parameter (mit Wertebereichen) und accommodations().
+ */
+builtin element versions(when: Bool)
+
+/**
+ * Anpassungen, die das Gemessene verfälschen würden, mit Begründung, direkt in einer Aufgabe (oder einem Testheft):
+ * deny({read_aloud, simple_language, easy_language}, reason: "misst Leseverstehen")
+ * Die Anpassungen entfallen, auch wenn das Bedarfsprofil sie anfragt; in den Antworten steht, was gewirkt hat.
+ *
+ * @param accommodations Ausgeschlossene Anpassungen, z. B. {read_aloud, simple_language}.
+ * @param reason Warum, z. B. „misst Leseverstehen“; steht im Bundle.
+ */
+builtin element deny(accommodations: Set<Accommodation>, reason: Text)
+
+/**
+ * Studienregel eines Testhefts: nur diese Anpassungen sind zugelassen, direkt im Testheft:
+ * allow({magnification, contrast, read_aloud, simple_language, easy_language, switch_access, extended_time})
+ * Zulassungen entscheidet die Studie, nicht die Aufgabe; eine Aufgabe schließt mit deny(…) aus, was sie verfälscht.
+ *
+ * @param accommodations Zugelassene Anpassungen; alle anderen entfallen.
+ */
+builtin element allow(accommodations: Set<Accommodation>)
+
+/** Anpassungen der Fassung (aus Bedarfsprofil und Studienregeln), z. B. easy_language in accommodations(). */
+builtin fn accommodations(): Set<Accommodation>
+
+/** Beginn eines Testheft-Teils: sofort (`auto`) oder erst, wenn die Testleitung ihn freigibt (`released`). */
+enum PartStart {
+  /** Der Teil beginnt sofort. */
+  auto,
+  /** Der Teil wartet, bis die Testleitung ihn freigibt; seine Zeit läuft erst ab dann. */
+  released
+}
+
+/**
+ * Teil eines Testhefts: wird nacheinander bearbeitet, zurück in einen früheren Teil geht es nie. Inhalt: Aufgaben über
+ * ihren Namen und Instruktionsseiten. `time`: Zeitlimit (verlängert sich mit extended_time). `start: released`: der Teil
+ * wartet, bis die Testleitung ihn freigibt (z. B. gemeinsam nach der Einführung); seine Zeit läuft erst ab der Freigabe.
+ *
+ * @param title Name des Teils, z. B. für die Navigation.
+ * @param time Zeitlimit, z. B. 20min; verlängert sich mit extended_time.
+ * @param navigation free: vor und zurück; forward: nur vorwärts.
+ * @param start auto: sofort; released: wartet auf die Testleitung.
+ */
+builtin element part(title: Text, time: Duration? = none, navigation: Navigation = free, start: PartStart = auto) children
+
+/**
+ * Instruktionsseite in einem Testheft-Teil, ohne Antworten.
+ *
+ * @param title Überschrift der Seite.
+ */
+builtin element instruction(title: Text? = none) children
+
+// --- Layout ------------------------------------------------------------------
+
+/** Eine Seite der Aufgabe. */
+builtin element page() children
+
+/**
+ * Abschnitt mit optionaler Überschrift.
+ *
+ * @param heading Sichtbare Überschrift; benennt den Abschnitt zugleich für Screenreader.
+ */
+builtin element section(heading: Content? = none) children
+
+/**
+ * Elemente nebeneinander. Wird bei Vergrößerung zu `column`, wenn `keep` nicht gesetzt ist.
+ * In einer `table` ist `row` eine Tabellenzeile aus `cell`s; `head`: Kopfzeile, ihre Zellen beschriften die Spalten.
+ *
+ * @param gap Abstand zwischen den Elementen, z. B. 1em.
+ * @param keep Auch bei Vergrößerung nebeneinander lassen.
+ * @param head In einer Tabelle: Kopfzeile.
+ */
+builtin element row(gap: Size? = none, keep: Bool = false, head: Bool = false) children
+
+/**
+ * Gruppe mit zugänglichem Namen, z. B. für Optionen (`role: radiogroup`).
+ * `dropdown`: eine Radiogruppe als Auswahlliste darstellen (die Optionen sind die Inhalte ihrer Schalter).
+ * `cards`: die Auswahllisten in der Gruppe als Plätze zeigen, ihre Optionen als Karten am Anfang (`start`) oder Ende
+ * (`end`) der Gruppe; Zuordnen durch Ziehen oder Antippen von Karte und Platz. Eine abgelegte Karte verlässt den
+ * Vorrat, wenn sie anderswo gesperrt ist (`taken`). Antwort und Kodierung bleiben die der Auswahllisten; Tastatur,
+ * Screenreader und Taster bedienen die Listen, bei Umbruch und Taster-Bedienung treten die Karten zurück.
+ *
+ * @param role Art der Gruppe.
+ * @param label Name für Screenreader, z. B. die Frage.
+ * @param dropdown Radiogruppe als Auswahlliste zeigen.
+ * @param cards Optionen der Auswahllisten als Karten am Anfang oder Ende.
+ */
+builtin element group(role: GroupRole = group, label: Content? = none, dropdown: Bool = false, cards: Side? = none) children
+
+/**
+ * Absatz.
+ *
+ * @param tone Wirkung des Absatzes.
+ */
+builtin element p(tone: Tone = neutral) children
+
+/**
+ * Abgegrenzter Block: Sprechblase, Schild, Kasten auf einem Plakat, Notiz. Die Aufgabe sagt, was er ist (`tone`)
+ * und an welcher Seite er steht (`side`); Rahmen, Farbe und Rundung kommen aus dem Theme.
+ * `heading`: sichtbare Überschrift, die die Gruppe zugleich benennt (box(tone: warning, heading: "Mind the step!") { … });
+ * `label`: nur für Screenreader, wenn sichtbar keine Überschrift steht (box(label: "Schild am Eingang") { … }).
+ *
+ * @param tone Was der Block ist.
+ * @param side Seite, an der er steht.
+ * @param heading Sichtbare Überschrift; benennt den Block zugleich.
+ * @param label Name nur für Screenreader.
+ */
+builtin element box(tone: Tone = neutral, side: Side = start, heading: Content? = none, label: Content? = none) children
+
+/**
+ * Aufzählung: jedes Kind ist ein Eintrag (auch aus Schleifen und Komponenten). `ordered`: nummeriert.
+ * `label`: Name für Screenreader, z. B. der Name eines Chats.
+ *
+ * @param ordered Nummeriert.
+ * @param label Name für Screenreader.
+ */
+builtin element list(ordered: Bool = false, label: Content? = none) children
+
+// --- Tabellen und Text ------------------------------------------------------------
+
+/**
+ * Material, auf das sich die Aufgaben beziehen (Lesetext, Plakat, Grafik). Auf breiten Bildschirmen steht es neben
+ * den Aufgaben, scrollt unabhängig und bleibt beim Seitenwechsel sichtbar; bei Vergrößerung, Umbruch oder wenig
+ * Platz steht es darüber. Direkt in der Aufgabe (für alle Seiten) oder in einer Seite.
+ *
+ * @param label Name für Screenreader; Standard „Material zur Aufgabe“.
+ */
+builtin element stimulus(label: Content? = none) children
+
+/**
+ * Tabelle aus Zeilen `row { … }` mit Zellen `cell`; die Kopfzeile ist `row(head: true) { … }`.
+ *
+ * @param caption Tabellenüberschrift; benennt die Tabelle.
+ */
+builtin element table(caption: Content? = none) children
+
+/**
+ * Zelle einer Tabellenzeile; `span` über mehrere Spalten.
+ *
+ * @param span Anzahl Spalten, über die die Zelle reicht.
+ */
+builtin element cell(span: Int = 1) children
+
+/**
+ * Text mit festen Zeilen und Zeilennummern für Verweise wie „Zeile 12“: jedes Kind ist eine Zeile.
+ * Nummern an der ersten und jeder `every`-ten Zeile; bei Vergrößerung umbrechen lange Zeilen, die Nummern bleiben.
+ *
+ * @param every Jede wievielte Zeile eine Nummer trägt (die erste immer).
+ * @param start Nummer der ersten Zeile.
+ */
+builtin element lines(every: Int = 5, start: Int = 1) children
+
+/** Darstellung einer Uhr: Restzeit als Text, als Balken oder unsichtbar. */
+enum TimerLook {
+  /** Restzeit als Text, z. B. „noch 0:30“. */
+  remaining,
+  /** Restzeit als Balken. */
+  bar,
+  /** Unsichtbar: die Uhr steuert nur den Ablauf. */
+  hidden
+}
+
+/**
+ * Uhr: zählt `duration` herunter, solange `running` gilt und die Aufgabe zu sehen ist (im Testheft: nicht pausiert);
+ * dann `on elapsed`. Jedes neue `running: true` beginnt von vorn, `false` hält an und setzt zurück. Verlängerte Zeit
+ * (`extended_time`) wirkt, außer mit `extended: false`. Nach dem Neuladen läuft sie mit der Restzeit beim Speichern
+ * weiter (Zeit ohne geladene Seite zählt nicht); war sie da schon abgelaufen, folgt `elapsed` genau einmal. Ansagen: Start sowie eine Minute und zehn Sekunden vor Ende.
+ *
+ * @param duration Zeit, z. B. 30s oder 2min.
+ * @param running Läuft, solange wahr; jedes neue true beginnt von vorn.
+ * @param label Name der Uhr, z. B. „Lesezeit“.
+ * @param look Darstellung der Uhr.
+ * @param extended Zeitverlängerung (extended_time) wirkt; false: feste Zeit.
+ */
+builtin element timer(duration: Duration, running: Bool = true, label: Content? = none, look: TimerLook = remaining,
+                      extended: Bool = true)
+  events elapsed
+
+/**
+ * Audio oder Video (nach der Datei): spielt, solange `playing` gilt; jedes neue `true` von vorn (`from`/`to`:
+ * Ausschnitt), `false` hält an. Die Datei wird vorab vollständig geladen (`on ready`, auch nach dem Neuladen); `on ended`
+ * nach jeder vollständigen Wiedergabe, die `heard()` zählt. Keine Spul- oder Pausensteuerung, nur Lautstärke; Start
+ * und Grenzen regelt die Komponente (siehe Listen, Play in std). `captions`: Untertitel (WebVTT), `described`: Fassung
+ * mit Audiodeskription, gespielt bei `extended_descriptions`.
+ *
+ * @param src Audio- oder Videodatei (Pfad relativ zur Aufgabe).
+ * @param playing Spielt, solange wahr; jedes neue true von vorn.
+ * @param from Beginn des Ausschnitts.
+ * @param to Ende des Ausschnitts.
+ * @param label Name für Screenreader.
+ * @param captions Untertitel als WebVTT-Datei (Pflicht bei Video).
+ * @param described Fassung mit Audiodeskription, gespielt bei extended_descriptions.
+ * @param width Breite eines Videos.
+ */
+builtin element media(src: Text, playing: Bool = false, from: Duration? = none, to: Duration? = none,
+                      label: Content? = none, captions: Text? = none, described: Text? = none, width: Size? = none)
+  events ready, ended
+
+/**
+ * Ablauf der Aufgabe: `navigation: false` hält die Navigation an (im Testheft weder weiter noch zurück, eine Pause der
+ * Testleitung beginnt danach), `locked: true` sperrt die Antworten (sichtbar, aber unveränderlich), `advance: true`
+ * führt im Testheft einmal zur nächsten Aufgabe. Mehrere `flow` wirken zusammen: Navigation nur, wenn alle sie
+ * erlauben; gesperrt, sobald einer sperrt. Steht auch in Komponenten, z. B. in Listen.
+ *
+ * @param navigation false hält die Navigation an.
+ * @param locked true sperrt die Antworten.
+ * @param advance true führt einmal zur nächsten Aufgabe.
+ */
+builtin element flow(navigation: Bool = true, locked: Bool = false, advance: Bool = false)
+
+// --- Interaktive Atome ---------------------------------------------------------
+
+/**
+ * Schalter mit zwei Zuständen. In einer Ebene mit `at` an einem Punkt; mit Formen als Inhalt sind die Formen Bild und
+ * Fläche des Schalters, gesetzt sind sie gefärbt: toggle(checked: …, label: "Teil 1") { sector(1, of: 4) }.
+ *
+ * @param role Art des Schalters.
+ * @param checked Gesetzt, z. B. i in selected.
+ * @param label Name für Screenreader, wenn der Inhalt nicht genügt.
+ * @param disabled Nicht bedienbar.
+ * @param look Darstellung, im Fließtext etwa strike, encircle, slot.
+ * @param at In einer Ebene: Stelle des Schalters.
+ */
+builtin element toggle(role: ToggleRole = checkbox, checked: Bool = false, label: Content? = none,
+                    disabled: Bool = false, look: Look = box, at: Point? = none) children
+  events check, uncheck
+
+/**
+ * Texteingabe; `kind: number` fordert auf Touch-Geräten eine Zahlentastatur an. `keys`: Zeichenleiste, deren Knöpfe
+ * an der Schreibmarke einfügen, z. B. keys: ["·", ":", "²", "√", "π", "≈"] für Rechnungen und Begründungen.
+ *
+ * @param bind Zustand, in den die Eingabe geschrieben wird.
+ * @param label Name für Screenreader (bei mehrzeilig sichtbar).
+ * @param kind text oder number (Zahlentastatur).
+ * @param width Breite, z. B. 4em.
+ * @param max Höchstzahl Zeichen.
+ * @param multiline Mehrzeilig (Freitext).
+ * @param at In einer Ebene: Stelle des Felds.
+ * @param keys Zeichenleiste, z. B. ["·", ":", "²"].
+ */
+builtin element input(bind: Text, label: Content? = none, kind: InputKind = text,
+                   width: Size? = none, max: Int? = none, multiline: Bool = false, at: Point? = none, keys: List<Text> = [])
+  events change
+
+/**
+ * Wert auf einer Skala (Schieberegler, Zahlenstrahl) oder ein Punkt in einer Ebene (`T` = Point):
+ * ziehen oder mit den Pfeiltasten um `step` verschieben, Fang am Raster; der Screenreader nennt die Koordinaten.
+ * Auf dem Zahlenstrahl erscheint der Wert als Marke. `display`: Beschriftung am Punkt, z. B. "C".
+ *
+ * @param bind Zustand mit dem Wert.
+ * @param min Kleinster Wert bzw. Punkt.
+ * @param max Größter Wert bzw. Punkt.
+ * @param step Schrittweite (Pfeiltasten, Fang).
+ * @param label Name für Screenreader.
+ * @param role Art des Werts.
+ * @param display Beschriftung am Punkt, z. B. "C".
+ */
+builtin element value<T>(bind: T?, min: T, max: T, step: Rational, label: Content? = none,
+                      role: ValueRole = slider, display: Content? = none)
+  events change
+
+// --- Mathematische Darstellung ---------------------------------------------------
+
+/**
+ * Ebene mit mathematischen Koordinaten; das Seitenverhältnis folgt den Koordinaten, damit ein Quadrat quadratisch
+ * bleibt. Ohne `y` ein flacher Streifen um die x-Achse (Zahlenstrahl: y von -1/20 bis 1/20 der Breite von `x`).
+ * `grid`: Gitterlinien im Abstand, Achsen tragen dann Zahlen. `x_axis`, `y_axis`: Achse mit ihrem Namen am Ende,
+ * z. B. x_axis: math("x"); "" für eine Achse ohne Namen. `background`: Bild, das die ganze Fläche füllt
+ * (z. B. ein Körpernetz); `toggle` und `input` mit `at:` stehen darauf. Formen wie Strecke, Gerade, rechter Winkel,
+ * Markierung, Kreis und Kreissektor stehen in std und sind aus `polygon` (auch offen, auch mit Bögen), `dot` und `caption` gebaut.
+ *
+ * @param x Bereich der x-Achse, z. B. 0 .. 8.
+ * @param y Bereich der y-Achse; ohne: Zahlenstrahl.
+ * @param grid Abstand der Gitterlinien; Achsen tragen dann Zahlen.
+ * @param width Breite der Ebene, z. B. 20em.
+ * @param x_axis Name der x-Achse ("" ohne Namen).
+ * @param y_axis Name der y-Achse.
+ * @param background Bild, das die Fläche füllt.
+ */
+builtin element plane(x: Interval<Rational>, y: Interval<Rational>? = none, grid: Rational? = none, width: Size? = none,
+                      x_axis: Content? = none, y_axis: Content? = none, background: Text? = none) children
+
+/** Form eines Punkts: `disc` Scheibe (Beschriftung oben rechts), `notch` Strich quer zur x-Achse (Beschriftung darunter). */
+enum DotShape {
+  /** Scheibe; Beschriftung oben rechts. */
+  disc,
+  /** Strich quer zur x-Achse, z. B. auf dem Zahlenstrahl; Beschriftung darunter. */
+  notch
+}
+
+/**
+ * Punkt in einer Ebene, z. B. dot(at: (2 | 1), label: "A").
+ *
+ * @param at Stelle, z. B. (2 | 1).
+ * @param label Beschriftung, z. B. "A".
+ * @param shape disc (Scheibe) oder notch (Strich auf der x-Achse).
+ */
+builtin element dot(at: Point?, label: Content? = none, shape: DotShape = disc)
+
+/**
+ * Text an einer Stelle der Ebene, mittig über dem Punkt, z. B. die Seitenlänge neben einer Strecke.
+ *
+ * @param at Stelle der Textmitte.
+ * @param text Text.
+ */
+builtin element caption(at: Point?, text: Content)
+
+/**
+ * Vieleck bzw. Pfad aus Punkten und Kreisbögen (`arc`); fehlt ein Punkt (none), wird der Linienzug der vorhandenen
+ * gezeichnet. `tone`: Füllung (`neutral` leer, `accent` gefärbt); ohne `tone` leicht getönt. `closed: false`: offener Linienzug ohne Füllung,
+ * z. B. ein Graph aus Messpunkten oder eine Strecke.
+ *
+ * @param points Ecken und Bögen (arc) in Reihenfolge.
+ * @param tone Füllung: neutral leer, accent gefärbt; ohne: leicht getönt.
+ * @param closed false: offener Linienzug ohne Füllung.
+ */
+builtin element polygon(points: List<Point?>, tone: Tone? = none, closed: Bool = true)
+
+
+// --- Auszeichnung im Fließtext -------------------------------------------------------
+// Nach Bedeutung, nicht nach Aussehen; wie es aussieht, bestimmt das Theme. Im Text schreibt man die Kurzformen aus
+// std (mark, emph, strong, title, del, sup, sub), z. B. p { "Erkläre das Wort " mark("Fahrradkette") " mit eigenen Worten." }
+
+/** Bedeutung einer Auszeichnung im Fließtext. */
+enum Markup {
+  /** Bezug, z. B. ein Wort, nach dem gefragt wird (mark). */
+  reference,
+  /** Betonung (emph). */
+  emphasis,
+  /** Wichtig (strong). */
+  important,
+  /** Werktitel (title). */
+  work_title,
+  /** Gestrichen (del). */
+  deleted,
+  /** Hochgestellt (sup). */
+  superscript,
+  /** Tiefgestellt (sub). */
+  subscript
+}
+
+/**
+ * Text mit einer Auszeichnung; meist über die Kurzformen aus std, z. B. emph("nicht").
+ *
+ * @param kind Bedeutung, z. B. emphasis.
+ * @param text Ausgezeichneter Text.
+ */
+builtin fn markup(kind: Markup, text: Content): Content
+
+/**
+ * Bild, als Inhalt überall verwendbar: allein, im Satz, als Option
+ * (Choice("Welches Tier?", [image("hund.png", "Hund"), image("katze.png", "Katze")])).
+ * `alt` ist Pflicht und dient auch als Text, wo kein Bild möglich ist (Auswahlliste, Screenreader); leer nur für rein
+ * dekorative Bilder. Eine längere Beschreibung steht als `variant(extended_descriptions)` am umgebenden Element.
+ *
+ * @param src Bilddatei (Pfad relativ zur Aufgabe).
+ * @param alt Alternativtext (Pflicht; leer nur bei Schmuck).
+ * @param width Breite, z. B. 10em.
+ */
+builtin fn image(src: Text, alt: Text, width: Size? = none): Content
+
+/**
+ * Formel in LaTeX-Schreibweise, z. B. math("\frac{3}{4}"), math("\overline{AB}"), math("\alpha_1"), math("y = 2x + 3").
+ * Wird beim Übersetzen zu MathML (Screenreader lesen es vor); als Inhalt überall verwendbar, auch in Optionen.
+ *
+ * @param tex Formel in LaTeX, z. B. "\frac{3}{4}".
+ */
+builtin fn math(tex: Text): Content
+
+// --- Funktionen ------------------------------------------------------------------
+
+/** Wörter eines Textes (an Leerraum getrennt, Satzzeichen bleiben am Wort). */
+builtin fn words(text: Text): List<Text>
+
+/**
+ * Text für einen exakten Vergleich vorbereiten: `case: false` ignoriert Groß-/Kleinschreibung, `spaces` den Leerraum,
+ * z. B. normalize(a, case: false, spaces: remove) == "7:35". Anders als accept zählen Satzzeichen mit (Orthografie).
+ *
+ * @param text Antworttext.
+ * @param case false: Groß-/Kleinschreibung zählt nicht.
+ * @param spaces keep, collapse oder remove.
+ */
+builtin fn normalize(text: Text, case: Bool = true, spaces: Spaces = keep): Text
+
+/** Abgeschlossene Wiedergaben aller Hörtexte der Aufgabe, z. B. show when heard() >= 2 { … }. */
+builtin fn heard(): Int
+
+/** Seite der Aufgabe, die gerade zu sehen ist (ab 1), z. B. für eine Textstelle, die nur zu einer Frage hervorgehoben ist. */
+builtin fn current_page(): Int
+
+// --- Geometrie ----------------------------------------------------------------------
+// Für Kodierungen mit Toleranz in Koordinateneinheiten; fehlende Punkte (none) ergeben none bzw. falsch.
+
+/**
+ * Punkt mit Koordinaten, meist in Schulschreibweise (3 | 4); Zugriff auf die Koordinaten mit p.x und p.y. Fehlt eine
+ * Koordinate (none): none.
+ */
+builtin fn point(x: Rational?, y: Rational?): Point?
+
+/**
+ * Punkt im Abstand `radius` von `center` in Richtung `degrees` (Grad, 0 = nach rechts, gegen den Uhrzeigersinn).
+ *
+ * @param center Ausgangspunkt.
+ * @param radius Abstand.
+ * @param degrees Richtung in Grad, 0 = nach rechts, gegen den Uhrzeigersinn.
+ */
+builtin fn polar(center: Point?, radius: Rational?, degrees: Rational?): Point?
+
+/**
+ * Kreisbogen als Stück eines Linienzugs in `polygon`: um `center` von `from` bis `to` Grad (0 = nach rechts, gegen den
+ * Uhrzeigersinn, rückwärts mit `to` < `from`); ohne Winkel ein ganzer Kreis: polygon(points: [arc(center, 1)]).
+ * Als Punkt ist er sein Endpunkt. Flächen mit Bögen rechnet `area` nicht (nicht exakt).
+ *
+ * @param center Mittelpunkt.
+ * @param radius Radius.
+ * @param from Anfangswinkel in Grad.
+ * @param to Endwinkel in Grad (kleiner: im Uhrzeigersinn).
+ */
+builtin fn arc(center: Point?, radius: Rational, from: Rational = 0, to: Rational = 360): Point?
+
+/** Abstand zweier Punkte. */
+builtin fn distance(a: Point?, b: Point?): Rational?
+
+/**
+ * Winkel bei `vertex` zwischen den Schenkeln zu `a` und `b` in Grad (0 bis 180).
+ *
+ * @param a Punkt auf dem ersten Schenkel.
+ * @param vertex Scheitel.
+ * @param b Punkt auf dem zweiten Schenkel.
+ */
+builtin fn angle(a: Point?, vertex: Point?, b: Point?): Rational?
+
+/** Flächeninhalt eines Vielecks (exakt); none, wenn ein Punkt fehlt. */
+builtin fn area(points: List<Point?>): Rational?
+
+/**
+ * Figur aus Strecken ([Anfang, Ende]) als Menge kleinster Gitterschritte: eine Seite ist gleich, ob in einem Zug oder in
+ * Stücken gezeichnet, die Richtung zählt nicht. `anywhere`: ohne Lage (verschoben, bis die kleinsten Koordinaten 0
+ * sind). Für Zeichenaufgaben: shape(drawn) == shape({[(0 | 0), (4 | 0)], …}).
+ *
+ * @param lines Gezeichnete Strecken, z. B. die Antwort eines Geoboard.
+ * @param anywhere Lage egal (false: an derselben Stelle).
+ */
+builtin fn shape(lines: Set<List<Point?>>, anywhere: Bool = true): Set<List<Point?>>
+
+/**
+ * Wie oft `value` in der Liste vorkommt, z. B. count(faces, 3) == 4 oder count(faces, none) == 0 (keine leere
+ * Fläche bei Listen aus number(…)).
+ *
+ * @param list Liste.
+ * @param value Gesuchter Wert.
+ */
+builtin fn count<T>(list: List<T>, value: T): Int
+
+/**
+ * Wie viele Elemente der Liste in der Menge liegen, z. B. count_in(faces, {"0", "4", "5"}) == 0.
+ *
+ * @param list Liste.
+ * @param values Menge gesuchter Werte.
+ */
+builtin fn count_in<T>(list: List<T>, values: Set<T>): Int
+
+/**
+ * Liste aus `n`-mal demselben Wert, z. B. repeat(none, 4) als Anfangszustand.
+ *
+ * @param value Wert.
+ * @param n Anzahl.
+ */
+builtin fn repeat<T>(value: T, n: Int): List<T>
+
+/**
+ * Liste mit neuem Wert an Stelle `at` (ab 1), z. B. chosen := replace(chosen, 2, 5).
+ *
+ * @param list Liste.
+ * @param at Stelle (ab 1).
+ * @param value Neuer Wert.
+ */
+builtin fn replace<T>(list: List<T>, at: Int, value: T): List<T>
+
+/** Anzahl der Elemente einer Liste oder Menge. */
+builtin fn size<T>(collection: Collection<T>): Int
+
+/**
+ * Text als Zahl: Komma oder Punkt, Tausendertrennung („48 000“, „48.000“), Einheit oder Währung
+ * (werden ignoriert: „4,25 kg“, „£14“, „15 kg kg“), Zahlwörter bis 999 999 (de, en, fr); none, wenn keine
+ * eindeutige Zahl. Muss die Einheit stimmen: quantity.
+ */
+builtin fn number(text: Text): Rational?
+
+/** Anteil: Bruch, Dezimalzahl, Prozent und „3:16“ gleichwertig (proportion("18,75 %") == 3/16); none sonst. */
+builtin fn proportion(text: Text): Rational?
+
+/**
+ * Ist der Text der Wert, korrekt gerundet auf seine eigenen Stellen? rounds_to("14,29 %", 1/7).
+ * `digits`: mindestens so viele Nachkommastellen (bei Prozent die Prozentstellen), damit z. B. „0“ nicht zählt.
+ *
+ * @param text Antworttext.
+ * @param value Exakter Wert.
+ * @param digits Mindestzahl Nachkommastellen.
+ */
+builtin fn rounds_to(text: Text, value: Rational, digits: Int = 0): Bool
+
+/**
+ * Zahl mit Einheit, umgerechnet in `unit`; ohne oder mit unpassender Einheit none.
+ * quantity(a, "m") == 4000 für „4 km“ oder „4000 m“ · quantity(a, "£") == 14 für „£14“ oder „14 pounds“.
+ * Länge, Fläche, Volumen, Masse, Zeit, km/h, Euro/Cent, Dollar, Pfund/Pence; Einheiten auch als Wort (de, en, fr).
+ *
+ * @param text Antworttext mit Einheit.
+ * @param unit Zieleinheit, z. B. "cm", "€", "min".
+ */
+builtin fn quantity(text: Text, unit: Text): Rational?
+
+
+/** Text als Bruch in gekürzter Form? */
+builtin fn is_reduced(text: Text): Bool
+
+/**
+ * Passt der Text zu einem Antwortmuster wie in den Auswertungsanleitungen?
+ * `( )` optional, `[ ]` Pflichtteil, `/` Alternative zum Wort (in Klammern: zum Klammerinhalt),
+ * ` / ` (mit Leerraum) Alternative zum Ganzen. Groß-/Kleinschreibung (außer `case: true`), Apostrophe und
+ * Satzzeichen zählen nicht. `typos`: Tippfehler je Wort (bis 3 Zeichen keiner, bis 7 einer, sonst höchstens zwei);
+ * Wörter mit Ziffern müssen stimmen.
+ * Beispiel: accept(a, "(around) 5/five (am/at dawn)", typos: 1)
+ *
+ * @param text Antworttext.
+ * @param pattern Antwortmuster, z. B. "(around) 5/five".
+ * @param typos Erlaubte Tippfehler je Wort.
+ * @param case true: Groß-/Kleinschreibung zählt.
+ */
+builtin fn accept(text: Text, pattern: Text, typos: Int = 0, case: Bool = false): Bool
+
+/**
+ * Wie viele Muster treffen verschiedene Antworten? „Nenne zwei“ in beliebiger Reihenfolge:
+ * accepted([a, b], ["hammer", "pliers"]) == 2 · „zwei von dreien“: accepted([a, b], ["…", "…", "…"]) >= 2
+ *
+ * @param texts Antworten, z. B. [a, b].
+ * @param patterns Antwortmuster.
+ * @param typos Erlaubte Tippfehler je Wort.
+ * @param case true: Groß-/Kleinschreibung zählt.
+ */
+builtin fn accepted(texts: List<Text>, patterns: List<Text>, typos: Int = 0, case: Bool = false): Int
+
+// --- Kodierung -------------------------------------------------------------------
+
+/** Antwort wurde gegenüber dem Anfangszustand verändert. */
+builtin fn changed<T>(response: T): Bool
+
+/** Antwort wurde der Person angezeigt. */
+builtin fn displayed<T>(response: T): Bool
+
+/**
+ * Frage an die Kodierenden: Trifft das Kriterium zu? Offen, bis jemand urteilt.
+ * Nur als Bedingung einer Kodierung, auch verknüpft: `accept(a, "…") or manual("sinngemäß …")`.
+ * `yes`/`no`: Ankerbeispiele aus der Auswertungsanleitung (richtig bzw. „auch: …“).
+ * `about`: Antworten, die die Kodierenden beurteilen (z. B. die Begründung); sie zählen zur Teilaufgabe.
+ *
+ * @param criterion Kriterium für die Kodierenden.
+ * @param yes Ankerbeispiele, die zutreffen.
+ * @param no Ankerbeispiele, die nicht zutreffen.
+ * @param about Antworten, die die Kodierenden beurteilen.
+ */
+builtin fn manual<T>(criterion: Text, yes: List<Text> = [], no: List<Text> = [], about: List<T> = []): Bool
+
+/**
+ * Kodierregel richtig/falsch: zutreffend Code 1 „richtig“ mit Score 1, sonst Code 0 „falsch“, nur für bearbeitete
+ * Antworten; unbearbeitete erhalten omitted bzw. not_reached. Beispiel: reduce: correct(number(reduce) == 3/4).
+ * Rückmeldung beim Üben (nicht Teil der Kodierung, fehlt in der Testauslieferung): `right`/`wrong` je Ergebnis,
+ * `hints` gestuft je Versuch, `solution` danach.
+ *
+ * @param when Bedingung für „richtig“.
+ * @param right Rückmeldung beim Üben, wenn richtig.
+ * @param wrong Rückmeldung beim Üben, wenn falsch.
+ * @param hints Tipps beim Üben, je Versuch einer.
+ * @param solution Lösung beim Üben nach den Tipps.
+ */
+builtin fn correct(when: Bool, right: Content? = none, wrong: Content? = none, hints: List<Content> = [],
+                   solution: Content? = none): Coding
+
+/**
+ * Kodierregel mit eigenen Codes: der erste zutreffende gilt, trifft keiner zu, Code 0 „falsch“.
+ * Rückmeldung beim Üben: `feedback` je Code, `otherwise` wenn keiner zutrifft, `hints` gestuft, `solution` danach.
+ *
+ * @param cases Die Codes (code(…)), der erste zutreffende gilt.
+ * @param otherwise Rückmeldung beim Üben, wenn keiner zutrifft.
+ * @param hints Tipps beim Üben, je Versuch einer.
+ * @param solution Lösung beim Üben.
+ */
+builtin fn codes(...cases: Code, otherwise: Content? = none, hints: List<Content> = [], solution: Content? = none): Coding
+
+/**
+ * Ein Code einer Kodierregel; Auffangfall mit when: true am Ende. `feedback`: Rückmeldung beim Üben.
+ *
+ * @param code Nummer des Codes.
+ * @param label Bezeichnung, z. B. „richtig“ oder „nur ein Teil“.
+ * @param score Punkte (Standard 0).
+ * @param when Bedingung, wann der Code gilt.
+ * @param feedback Rückmeldung beim Üben.
+ */
+builtin fn code(code: Int, label: Text? = none, score: Rational = 0, when: Bool, feedback: Content? = none): Code
+
+/** Summe der Scores der genannten Variablen. */
+builtin fn sum_score<T>(...responses: T): Rational

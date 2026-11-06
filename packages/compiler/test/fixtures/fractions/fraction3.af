@@ -1,0 +1,46 @@
+// Aufgabe 3: Zahlenstrahl
+//
+// Zeigt: das Atom `value` auf einer Ebene mit mathematischen Koordinaten (`plane`),
+// exaktes Rechnen mit Brüchen und Kodierung über einen Bereich.
+
+/**
+ * Zahlenstrahl, auf dem ein Wert markiert wird (Maus oder Pfeiltasten).
+ * Antwort: der markierte Wert als exakter Bruch, `none`, solange nichts markiert ist.
+ */
+component NumberLine(from: Rational, to: Rational, step: Rational,
+                     marks: List<Rational>, label: Content): response Rational?
+{
+  // `Rational?` heißt: Bruch oder none (noch nicht markiert).
+  state pos: Rational? = none
+
+  // Die Ebene bildet den Bereich from .. to auf die Breite ab; ohne y ist sie ein flacher Streifen um die Achse.
+  plane(x: from .. to, x_axis: "") {
+    // Beschriftete Markierungen, z. B. 0, 1/2 und 1 (tick aus std: ein dot mit shape: notch).
+    for m in marks { tick(at: m, label: m) }
+    // `bind: pos` verbindet den Wert in beide Richtungen mit dem Zustand.
+    // Der Wert rastet in Schritten von `step` ein; `display` zeigt ihn als Marke auf der Achse.
+    value(bind: pos, min: from, max: to, step: step, role: slider,
+          label: label)
+  }
+  response pos
+}
+
+item fraction3 "Zahlenstrahl" {
+  page {
+    section {
+      p "Markiere 3/5 auf dem Zahlenstrahl."
+      // 1/20 ist ein exakter Bruch (Int / Int); gerechnet wird ohne Rundungsfehler.
+      mark = NumberLine(from: 0, to: 1, step: 1/20, marks: [0, 1/2, 1],
+                        label: "Zahlenstrahl von 0 bis 1")
+    }
+  }
+}
+
+coding fraction3 {
+  mark: codes(
+    // Exakter Vergleich: 12/20 ist gleich 3/5.
+    code(1, "richtig", score: 1, when: mark == 3/5),
+    // Bereich als Intervall: alles zwischen 1/2 und 7/10 (einschließlich).
+    code(2, "ungefähr richtig", when: mark in 1/2 .. 7/10)
+  )
+}

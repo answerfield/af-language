@@ -1,0 +1,9 @@
+node_modules/
+out/
+*.tsbuildinfo
+.DS_Store
+packages/language/src/builtin/prelude.generated.ts
+*.vsix
+dist/
+.angular/
+packages/vscode/syntaxes/

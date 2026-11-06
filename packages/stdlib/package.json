@@ -1,0 +1,29 @@
+{
+  "name": "@answerfield/stdlib",
+  "version": "0.1.0",
+  "description": "Standard library of the answerfield language (std.af)",
+  "license": "0BSD",
+  "type": "module",
+  "files": [
+    "std.af",
+    "out",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./out/index.d.ts",
+      "default": "./out/index.js"
+    },
+    "./std.af": "./std.af",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/build.mjs && node --test \"test/*.test.mjs\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/answerfield/af-language",
+    "directory": "packages/stdlib"
+  }
+}

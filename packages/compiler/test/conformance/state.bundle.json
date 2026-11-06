@@ -1,0 +1,1793 @@
+{
+  "codings": [],
+  "components": {
+    "Check": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "name": "checked",
+              "op": "ref"
+            },
+            "disabled": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "checkbox"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "name": "label",
+                "op": "ref"
+              }
+            }
+          ],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "checked",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ],
+            "uncheck": [
+              {
+                "state": "checked",
+                "value": {
+                  "op": "lit",
+                  "value": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "checked",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Check",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "checked",
+          "state": true,
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "Choice": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "cond": {
+                "left": {
+                  "name": "max",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              },
+              "else": {
+                "op": "enum",
+                "value": "group"
+              },
+              "op": "if",
+              "then": {
+                "op": "enum",
+                "value": "radiogroup"
+              }
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "i",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "in",
+                      "right": {
+                        "name": "selected",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "op": "lit",
+                      "value": false
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "cond": {
+                        "left": {
+                          "name": "max",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "==",
+                        "right": {
+                          "op": "lit",
+                          "value": {
+                            "num": "1"
+                          }
+                        }
+                      },
+                      "else": {
+                        "op": "enum",
+                        "value": "checkbox"
+                      },
+                      "op": "if",
+                      "then": {
+                        "op": "enum",
+                        "value": "radio"
+                      }
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "cond": {
+                            "left": {
+                              "name": "max",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "==",
+                            "right": {
+                              "op": "lit",
+                              "value": {
+                                "num": "1"
+                              }
+                            }
+                          },
+                          "else": {
+                            "left": {
+                              "name": "selected",
+                              "op": "ref"
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "items": [
+                                {
+                                  "name": "i",
+                                  "op": "ref"
+                                }
+                              ],
+                              "op": "set"
+                            }
+                          },
+                          "op": "if",
+                          "then": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "selected",
+                        "value": {
+                          "left": {
+                            "name": "selected",
+                            "op": "ref"
+                          },
+                          "op": "bin",
+                          "operator": "-",
+                          "right": {
+                            "items": [
+                              {
+                                "name": "i",
+                                "op": "ref"
+                              }
+                            ],
+                            "op": "set"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "i"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "selected",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Choice",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "max",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "set"
+          },
+          "name": "selected",
+          "state": true,
+          "type": "Set<Int>"
+        }
+      ],
+      "response": "Set<Int>"
+    },
+    "Counter": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "op": "lit",
+              "value": false
+            },
+            "disabled": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "button"
+            }
+          },
+          "children": [],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "n",
+                "value": {
+                  "left": {
+                    "name": "n",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "n",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Counter",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "0"
+            }
+          },
+          "name": "n",
+          "state": true,
+          "type": "Int"
+        }
+      ],
+      "response": "Int"
+    },
+    "Faces": {
+      "body": [
+        {
+          "body": [
+            {
+              "args": {
+                "at": {
+                  "op": "lit",
+                  "value": null
+                },
+                "keys": {
+                  "items": [],
+                  "op": "list"
+                },
+                "kind": {
+                  "op": "enum",
+                  "value": "text"
+                },
+                "label": {
+                  "left": {
+                    "left": {
+                      "op": "lit",
+                      "value": ""
+                    },
+                    "op": "bin",
+                    "operator": "+",
+                    "right": {
+                      "op": "lit",
+                      "value": "Fläche "
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "name": "i",
+                    "op": "ref"
+                  }
+                },
+                "max": {
+                  "op": "lit",
+                  "value": null
+                },
+                "multiline": {
+                  "op": "lit",
+                  "value": false
+                },
+                "width": {
+                  "op": "lit",
+                  "value": null
+                }
+              },
+              "bind": "faces",
+              "bindIndex": {
+                "name": "i",
+                "op": "ref"
+              },
+              "children": [],
+              "element": "input",
+              "kind": "element"
+            }
+          ],
+          "iterable": {
+            "name": "faces",
+            "op": "ref"
+          },
+          "kind": "for",
+          "vars": [
+            "f",
+            "i"
+          ]
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "faces",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Faces",
+      "params": [
+        {
+          "name": "n",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": ""
+              },
+              {
+                "name": "n",
+                "op": "ref"
+              }
+            ],
+            "fn": "repeat",
+            "op": "call"
+          },
+          "name": "faces",
+          "state": true,
+          "type": "List<Text>"
+        }
+      ],
+      "response": "List<Text>"
+    },
+    "Gap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Gap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "6em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    },
+    "Locked": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "name": "active",
+              "op": "ref"
+            },
+            "disabled": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "op": "lit",
+              "value": "gesperrt"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "checkbox"
+            }
+          },
+          "children": [],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "active",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "active",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Locked",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "active",
+          "state": true,
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "PageOf": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "args": [],
+            "fn": "current_page",
+            "op": "call"
+          }
+        }
+      ],
+      "name": "PageOf",
+      "params": [],
+      "response": "Int"
+    },
+    "Pairs": {
+      "body": [
+        {
+          "body": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "kind": "content",
+                  "value": {
+                    "name": "text",
+                    "op": "ref"
+                  }
+                },
+                {
+                  "kind": "content",
+                  "value": {
+                    "op": "lit",
+                    "value": ": "
+                  }
+                },
+                {
+                  "args": {
+                    "label": {
+                      "name": "text",
+                      "op": "ref"
+                    },
+                    "options": {
+                      "name": "options",
+                      "op": "ref"
+                    }
+                  },
+                  "binds": {
+                    "chosen": {
+                      "index": {
+                        "name": "r",
+                        "op": "ref"
+                      },
+                      "state": "chosen"
+                    }
+                  },
+                  "component": "Select",
+                  "kind": "component"
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "iterable": {
+            "name": "rows",
+            "op": "ref"
+          },
+          "kind": "for",
+          "vars": [
+            "text",
+            "r"
+          ]
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Pairs",
+      "params": [
+        {
+          "name": "rows",
+          "type": "List<Content>"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "args": [
+              {
+                "op": "lit",
+                "value": null
+              },
+              {
+                "args": [
+                  {
+                    "name": "rows",
+                    "op": "ref"
+                  }
+                ],
+                "fn": "size",
+                "op": "call"
+              }
+            ],
+            "fn": "repeat",
+            "op": "call"
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "List<Int?>"
+        }
+      ],
+      "response": "List<Int?>"
+    },
+    "Place": {
+      "body": [
+        {
+          "args": {
+            "background": {
+              "op": "lit",
+              "value": null
+            },
+            "grid": {
+              "op": "lit",
+              "value": {
+                "num": "1"
+              }
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            },
+            "x": {
+              "from": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "range",
+              "to": {
+                "op": "lit",
+                "value": {
+                  "num": "8"
+                }
+              }
+            },
+            "x_axis": {
+              "op": "lit",
+              "value": null
+            },
+            "y": {
+              "from": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "range",
+              "to": {
+                "op": "lit",
+                "value": {
+                  "num": "6"
+                }
+              }
+            },
+            "y_axis": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "display": {
+                  "op": "lit",
+                  "value": "Q"
+                },
+                "label": {
+                  "op": "lit",
+                  "value": "Punkt Q"
+                },
+                "max": {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "8"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "6"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                "min": {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "0"
+                      }
+                    }
+                  ],
+                  "fn": "point",
+                  "op": "call"
+                },
+                "role": {
+                  "op": "enum",
+                  "value": "slider"
+                },
+                "step": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                }
+              },
+              "bind": "c",
+              "children": [],
+              "element": "value",
+              "kind": "element"
+            }
+          ],
+          "element": "plane",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "c",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Place",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "c",
+          "state": true,
+          "type": "Point?"
+        }
+      ],
+      "response": "Point?"
+    },
+    "Rows": {
+      "body": [
+        {
+          "body": [
+            {
+              "args": {
+                "label": {
+                  "left": {
+                    "left": {
+                      "op": "lit",
+                      "value": ""
+                    },
+                    "op": "bin",
+                    "operator": "+",
+                    "right": {
+                      "op": "lit",
+                      "value": "Zeile "
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "name": "i",
+                    "op": "ref"
+                  }
+                }
+              },
+              "component": "Check",
+              "kind": "component"
+            }
+          ],
+          "iterable": {
+            "from": {
+              "op": "lit",
+              "value": {
+                "num": "1"
+              }
+            },
+            "op": "range",
+            "to": {
+              "op": "lit",
+              "value": {
+                "num": "2"
+              }
+            }
+          },
+          "kind": "for",
+          "vars": [
+            "i"
+          ]
+        }
+      ],
+      "name": "Rows",
+      "params": []
+    },
+    "Scale": {
+      "body": [
+        {
+          "args": {
+            "background": {
+              "op": "lit",
+              "value": null
+            },
+            "grid": {
+              "op": "lit",
+              "value": null
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            },
+            "x": {
+              "from": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "range",
+              "to": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            },
+            "x_axis": {
+              "op": "lit",
+              "value": ""
+            },
+            "y": {
+              "op": "lit",
+              "value": null
+            },
+            "y_axis": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [
+            {
+              "args": {
+                "display": {
+                  "op": "lit",
+                  "value": null
+                },
+                "label": {
+                  "op": "lit",
+                  "value": "Skala"
+                },
+                "max": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "min": {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                "role": {
+                  "op": "enum",
+                  "value": "slider"
+                },
+                "step": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "20"
+                    }
+                  }
+                }
+              },
+              "bind": "pos",
+              "children": [],
+              "element": "value",
+              "kind": "element"
+            }
+          ],
+          "element": "plane",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "pos",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Scale",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "pos",
+          "state": true,
+          "type": "Rational?"
+        }
+      ],
+      "response": "Rational?"
+    },
+    "Select": {
+      "body": [
+        {
+          "args": {
+            "cards": {
+              "op": "lit",
+              "value": null
+            },
+            "dropdown": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "role": {
+              "op": "enum",
+              "value": "radiogroup"
+            }
+          },
+          "children": [
+            {
+              "body": [
+                {
+                  "args": {
+                    "at": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "checked": {
+                      "left": {
+                        "name": "chosen",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": "==",
+                      "right": {
+                        "name": "o",
+                        "op": "ref"
+                      }
+                    },
+                    "disabled": {
+                      "left": {
+                        "left": {
+                          "name": "o",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "in",
+                        "right": {
+                          "name": "taken",
+                          "op": "ref"
+                        }
+                      },
+                      "op": "bin",
+                      "operator": "and",
+                      "right": {
+                        "left": {
+                          "name": "chosen",
+                          "op": "ref"
+                        },
+                        "op": "bin",
+                        "operator": "!=",
+                        "right": {
+                          "name": "o",
+                          "op": "ref"
+                        }
+                      }
+                    },
+                    "label": {
+                      "op": "lit",
+                      "value": null
+                    },
+                    "look": {
+                      "op": "enum",
+                      "value": "box"
+                    },
+                    "role": {
+                      "op": "enum",
+                      "value": "radio"
+                    }
+                  },
+                  "children": [
+                    {
+                      "kind": "content",
+                      "value": {
+                        "name": "option",
+                        "op": "ref"
+                      }
+                    }
+                  ],
+                  "element": "toggle",
+                  "kind": "element",
+                  "on": {
+                    "check": [
+                      {
+                        "state": "chosen",
+                        "value": {
+                          "name": "o",
+                          "op": "ref"
+                        }
+                      }
+                    ],
+                    "uncheck": [
+                      {
+                        "state": "chosen",
+                        "value": {
+                          "op": "lit",
+                          "value": null
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "iterable": {
+                "name": "options",
+                "op": "ref"
+              },
+              "kind": "for",
+              "vars": [
+                "option",
+                "o"
+              ]
+            }
+          ],
+          "element": "group",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "chosen",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Select",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "name": "options",
+          "type": "List<Content>"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "taken",
+          "type": "List<Int?>"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "chosen",
+          "state": true,
+          "type": "Int?"
+        }
+      ],
+      "response": "Int?"
+    },
+    "Swap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "op": "lit",
+              "value": false
+            },
+            "disabled": {
+              "op": "lit",
+              "value": false
+            },
+            "label": {
+              "op": "lit",
+              "value": "tauschen"
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "button"
+            }
+          },
+          "children": [],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "a",
+                "value": {
+                  "name": "b",
+                  "op": "ref"
+                }
+              },
+              {
+                "state": "b",
+                "value": {
+                  "name": "a",
+                  "op": "ref"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "items": [
+              {
+                "name": "a",
+                "op": "ref"
+              },
+              {
+                "name": "b",
+                "op": "ref"
+              }
+            ],
+            "op": "list"
+          }
+        }
+      ],
+      "name": "Swap",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "a",
+          "state": true,
+          "type": "Int"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "2"
+            }
+          },
+          "name": "b",
+          "state": true,
+          "type": "Int"
+        }
+      ],
+      "response": "List<Int>"
+    },
+    "Typed": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "items": [],
+              "op": "list"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "op": "lit",
+              "value": "Text"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "bind": "t",
+          "children": [],
+          "element": "input",
+          "kind": "element",
+          "on": {
+            "change": [
+              {
+                "state": "edits",
+                "value": {
+                  "left": {
+                    "name": "edits",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "response",
+          "value": {
+            "items": [
+              {
+                "name": "t",
+                "op": "ref"
+              },
+              {
+                "left": {
+                  "op": "lit",
+                  "value": ""
+                },
+                "op": "bin",
+                "operator": "+",
+                "right": {
+                  "name": "edits",
+                  "op": "ref"
+                }
+              }
+            ],
+            "op": "list"
+          }
+        }
+      ],
+      "name": "Typed",
+      "params": [
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "t",
+          "state": true,
+          "type": "Text"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "0"
+            }
+          },
+          "name": "edits",
+          "state": true,
+          "type": "Int"
+        }
+      ],
+      "response": "List<Text>"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "plus eins"
+            }
+          },
+          "binding": "count",
+          "component": "Counter",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "swap",
+          "component": "Swap",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "locked",
+          "component": "Locked",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "typed",
+          "component": "Typed",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "n": {
+              "op": "lit",
+              "value": {
+                "num": "3"
+              }
+            }
+          },
+          "binding": "faces",
+          "component": "Faces",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Rot"
+                },
+                {
+                  "op": "lit",
+                  "value": "Grün"
+                },
+                {
+                  "op": "lit",
+                  "value": "Blau"
+                }
+              ],
+              "op": "list"
+            },
+            "rows": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "Eins"
+                },
+                {
+                  "op": "lit",
+                  "value": "Zwei"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "binding": "pairs",
+          "component": "Pairs",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "component": "Rows",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "ohne Bindung"
+            },
+            "options": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": "x"
+                },
+                {
+                  "op": "lit",
+                  "value": "y"
+                }
+              ],
+              "op": "list"
+            }
+          },
+          "component": "Choice",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "scale",
+          "component": "Scale",
+          "kind": "component"
+        },
+        {
+          "args": {},
+          "binding": "place",
+          "component": "Place",
+          "kind": "component"
+        }
+      ],
+      "name": "ereignisse",
+      "title": "Ereignisse",
+      "variables": [
+        {
+          "component": "Counter",
+          "id": "count",
+          "type": "Int"
+        },
+        {
+          "component": "Swap",
+          "id": "swap",
+          "type": "List<Int>"
+        },
+        {
+          "component": "Locked",
+          "id": "locked",
+          "type": "Bool"
+        },
+        {
+          "component": "Typed",
+          "id": "typed",
+          "type": "List<Text>"
+        },
+        {
+          "component": "Faces",
+          "id": "faces",
+          "type": "List<Text>"
+        },
+        {
+          "component": "Pairs",
+          "id": "pairs",
+          "type": "List<Int?>"
+        },
+        {
+          "component": "Scale",
+          "id": "scale",
+          "type": "Rational?"
+        },
+        {
+          "component": "Place",
+          "id": "place",
+          "type": "Point?"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "Warst du sicher?"
+                },
+                "options": {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": "ja"
+                    },
+                    {
+                      "op": "lit",
+                      "value": "nein"
+                    }
+                  ],
+                  "op": "list"
+                }
+              },
+              "binding": "agree",
+              "component": "Choice",
+              "kind": "component"
+            },
+            {
+              "body": [
+                {
+                  "args": {
+                    "label": {
+                      "op": "lit",
+                      "value": "Was war schwierig?"
+                    }
+                  },
+                  "binding": "why",
+                  "component": "Gap",
+                  "kind": "component"
+                }
+              ],
+              "kind": "show",
+              "when": {
+                "left": {
+                  "name": "agree",
+                  "op": "ref"
+                },
+                "op": "bin",
+                "operator": "==",
+                "right": {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    }
+                  ],
+                  "op": "set"
+                }
+              }
+            },
+            {
+              "args": {},
+              "binding": "on_page",
+              "component": "PageOf",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        },
+        {
+          "args": {},
+          "children": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "Zweite Seite"
+                }
+              },
+              "binding": "later",
+              "component": "Gap",
+              "kind": "component"
+            }
+          ],
+          "element": "page",
+          "kind": "element"
+        }
+      ],
+      "name": "sichtbarkeit",
+      "title": "Seiten und bedingte Anzeige",
+      "variables": [
+        {
+          "component": "Choice",
+          "id": "agree",
+          "type": "Set<Int>"
+        },
+        {
+          "component": "Gap",
+          "id": "why",
+          "type": "Text"
+        },
+        {
+          "component": "PageOf",
+          "id": "on_page",
+          "type": "Int"
+        },
+        {
+          "component": "Gap",
+          "id": "later",
+          "type": "Text"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

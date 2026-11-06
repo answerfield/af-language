@@ -1,0 +1,1274 @@
+{
+  "booklets": [
+    {
+      "name": "hoerheft",
+      "parts": [
+        {
+          "entries": [
+            "hoeren",
+            "danach"
+          ],
+          "name": "teil1",
+          "navigation": "free",
+          "title": "Hören"
+        }
+      ],
+      "title": "Hörtest"
+    },
+    {
+      "name": "zeitheft",
+      "parts": [
+        {
+          "entries": [
+            "zeit",
+            "danach"
+          ],
+          "name": "teil1",
+          "navigation": "free",
+          "title": "Rechnen"
+        }
+      ],
+      "title": "Rechnen auf Zeit"
+    }
+  ],
+  "codings": [],
+  "components": {
+    "Gap": {
+      "body": [
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "keys": {
+              "name": "keys",
+              "op": "ref"
+            },
+            "kind": {
+              "op": "enum",
+              "value": "text"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "max": {
+              "op": "lit",
+              "value": null
+            },
+            "multiline": {
+              "op": "lit",
+              "value": false
+            },
+            "width": {
+              "name": "width",
+              "op": "ref"
+            }
+          },
+          "bind": "text",
+          "children": [],
+          "element": "input",
+          "kind": "element"
+        },
+        {
+          "kind": "response",
+          "value": {
+            "name": "text",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Gap",
+      "params": [
+        {
+          "name": "label",
+          "type": "Content"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "6em"
+            }
+          },
+          "name": "width",
+          "type": "Size"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": ""
+          },
+          "name": "initial",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "items": [],
+            "op": "list"
+          },
+          "name": "keys",
+          "type": "List<Text>"
+        },
+        {
+          "default": {
+            "name": "initial",
+            "op": "ref"
+          },
+          "name": "text",
+          "state": true,
+          "type": "Text"
+        }
+      ],
+      "response": "Text"
+    },
+    "Listen": {
+      "body": [
+        {
+          "args": {
+            "captions": {
+              "name": "captions",
+              "op": "ref"
+            },
+            "described": {
+              "op": "lit",
+              "value": null
+            },
+            "from": {
+              "name": "from",
+              "op": "ref"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "playing": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "playing"
+              }
+            },
+            "src": {
+              "name": "src",
+              "op": "ref"
+            },
+            "to": {
+              "name": "to",
+              "op": "ref"
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [],
+          "element": "media",
+          "kind": "element",
+          "on": {
+            "ended": [
+              {
+                "state": "phase",
+                "value": {
+                  "cond": {
+                    "left": {
+                      "name": "play",
+                      "op": "ref"
+                    },
+                    "op": "bin",
+                    "operator": "<",
+                    "right": {
+                      "name": "plays",
+                      "op": "ref"
+                    }
+                  },
+                  "else": {
+                    "op": "enum",
+                    "value": "finishing"
+                  },
+                  "op": "if",
+                  "then": {
+                    "op": "enum",
+                    "value": "pausing"
+                  }
+                }
+              }
+            ],
+            "ready": [
+              {
+                "state": "phase",
+                "value": {
+                  "cond": {
+                    "left": {
+                      "name": "phase",
+                      "op": "ref"
+                    },
+                    "op": "bin",
+                    "operator": "==",
+                    "right": {
+                      "op": "enum",
+                      "value": "loading"
+                    }
+                  },
+                  "else": {
+                    "name": "phase",
+                    "op": "ref"
+                  },
+                  "op": "if",
+                  "then": {
+                    "op": "enum",
+                    "value": "reading"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "body": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "kind": "content",
+                  "value": {
+                    "cond": {
+                      "left": {
+                        "name": "plays",
+                        "op": "ref"
+                      },
+                      "op": "bin",
+                      "operator": ">",
+                      "right": {
+                        "op": "lit",
+                        "value": {
+                          "num": "1"
+                        }
+                      }
+                    },
+                    "else": {
+                      "op": "lit",
+                      "value": "Wiedergabe (nur einmal)"
+                    },
+                    "op": "if",
+                    "then": {
+                      "left": {
+                        "left": {
+                          "left": {
+                            "left": {
+                              "op": "lit",
+                              "value": ""
+                            },
+                            "op": "bin",
+                            "operator": "+",
+                            "right": {
+                              "name": "play",
+                              "op": "ref"
+                            }
+                          },
+                          "op": "bin",
+                          "operator": "+",
+                          "right": {
+                            "op": "lit",
+                            "value": ". von "
+                          }
+                        },
+                        "op": "bin",
+                        "operator": "+",
+                        "right": {
+                          "name": "plays",
+                          "op": "ref"
+                        }
+                      },
+                      "op": "bin",
+                      "operator": "+",
+                      "right": {
+                        "op": "lit",
+                        "value": " Wiedergaben"
+                      }
+                    }
+                  }
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "kind": "show",
+          "when": {
+            "left": {
+              "name": "phase",
+              "op": "ref"
+            },
+            "op": "bin",
+            "operator": "==",
+            "right": {
+              "op": "enum",
+              "value": "playing"
+            }
+          }
+        },
+        {
+          "args": {
+            "duration": {
+              "name": "prepare",
+              "op": "ref"
+            },
+            "extended": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "op": "lit",
+              "value": "Lesezeit"
+            },
+            "look": {
+              "op": "enum",
+              "value": "remaining"
+            },
+            "running": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "reading"
+              }
+            }
+          },
+          "children": [],
+          "element": "timer",
+          "kind": "element",
+          "on": {
+            "elapsed": [
+              {
+                "state": "phase",
+                "value": {
+                  "op": "enum",
+                  "value": "playing"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "args": {
+            "duration": {
+              "name": "pause",
+              "op": "ref"
+            },
+            "extended": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "op": "lit",
+              "value": "Pause"
+            },
+            "look": {
+              "op": "enum",
+              "value": "remaining"
+            },
+            "running": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "pausing"
+              }
+            }
+          },
+          "children": [],
+          "element": "timer",
+          "kind": "element",
+          "on": {
+            "elapsed": [
+              {
+                "state": "phase",
+                "value": {
+                  "op": "enum",
+                  "value": "playing"
+                }
+              },
+              {
+                "state": "play",
+                "value": {
+                  "left": {
+                    "name": "play",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "args": {
+            "duration": {
+              "name": "finish",
+              "op": "ref"
+            },
+            "extended": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "op": "lit",
+              "value": "Zeit zum Vervollständigen"
+            },
+            "look": {
+              "op": "enum",
+              "value": "remaining"
+            },
+            "running": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "finishing"
+              }
+            }
+          },
+          "children": [],
+          "element": "timer",
+          "kind": "element",
+          "on": {
+            "elapsed": [
+              {
+                "state": "phase",
+                "value": {
+                  "op": "enum",
+                  "value": "done"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "body": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "kind": "content",
+                  "value": {
+                    "op": "lit",
+                    "value": "Der Hörtext ist beendet."
+                  }
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "kind": "show",
+          "when": {
+            "left": {
+              "name": "phase",
+              "op": "ref"
+            },
+            "op": "bin",
+            "operator": "==",
+            "right": {
+              "op": "enum",
+              "value": "done"
+            }
+          }
+        },
+        {
+          "args": {
+            "advance": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "done"
+              }
+            },
+            "locked": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "done"
+              }
+            },
+            "navigation": {
+              "left": {
+                "name": "phase",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "enum",
+                "value": "done"
+              }
+            }
+          },
+          "children": [],
+          "element": "flow",
+          "kind": "element"
+        }
+      ],
+      "name": "Listen",
+      "params": [
+        {
+          "name": "src",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "plays",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "0s"
+            }
+          },
+          "name": "prepare",
+          "type": "Duration"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "5s"
+            }
+          },
+          "name": "pause",
+          "type": "Duration"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "size": "0s"
+            }
+          },
+          "name": "finish",
+          "type": "Duration"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "from",
+          "type": "Duration?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "to",
+          "type": "Duration?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "captions",
+          "type": "Text?"
+        },
+        {
+          "default": {
+            "op": "enum",
+            "value": "loading"
+          },
+          "name": "phase",
+          "state": true,
+          "type": "ListenPhase"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "1"
+            }
+          },
+          "name": "play",
+          "state": true,
+          "type": "Int"
+        }
+      ]
+    },
+    "Play": {
+      "body": [
+        {
+          "args": {
+            "captions": {
+              "name": "captions",
+              "op": "ref"
+            },
+            "described": {
+              "name": "described",
+              "op": "ref"
+            },
+            "from": {
+              "name": "from",
+              "op": "ref"
+            },
+            "label": {
+              "name": "label",
+              "op": "ref"
+            },
+            "playing": {
+              "name": "playing",
+              "op": "ref"
+            },
+            "src": {
+              "name": "src",
+              "op": "ref"
+            },
+            "to": {
+              "name": "to",
+              "op": "ref"
+            },
+            "width": {
+              "op": "lit",
+              "value": null
+            }
+          },
+          "children": [],
+          "element": "media",
+          "kind": "element",
+          "on": {
+            "ended": [
+              {
+                "state": "playing",
+                "value": {
+                  "op": "lit",
+                  "value": false
+                }
+              },
+              {
+                "state": "count",
+                "value": {
+                  "left": {
+                    "name": "count",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "+",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "args": {
+            "at": {
+              "op": "lit",
+              "value": null
+            },
+            "checked": {
+              "name": "playing",
+              "op": "ref"
+            },
+            "disabled": {
+              "left": {
+                "name": "playing",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": "or",
+              "right": {
+                "left": {
+                  "left": {
+                    "name": "plays",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": ">",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "0"
+                    }
+                  }
+                },
+                "op": "bin",
+                "operator": "and",
+                "right": {
+                  "left": {
+                    "name": "count",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": ">=",
+                  "right": {
+                    "name": "plays",
+                    "op": "ref"
+                  }
+                }
+              }
+            },
+            "label": {
+              "op": "lit",
+              "value": null
+            },
+            "look": {
+              "op": "enum",
+              "value": "box"
+            },
+            "role": {
+              "op": "enum",
+              "value": "button"
+            }
+          },
+          "children": [
+            {
+              "kind": "content",
+              "value": {
+                "cond": {
+                  "left": {
+                    "name": "count",
+                    "op": "ref"
+                  },
+                  "op": "bin",
+                  "operator": "==",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "0"
+                    }
+                  }
+                },
+                "else": {
+                  "op": "lit",
+                  "value": "Noch einmal abspielen"
+                },
+                "op": "if",
+                "then": {
+                  "op": "lit",
+                  "value": "Abspielen"
+                }
+              }
+            }
+          ],
+          "element": "toggle",
+          "kind": "element",
+          "on": {
+            "check": [
+              {
+                "state": "playing",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "body": [
+            {
+              "args": {
+                "tone": {
+                  "op": "enum",
+                  "value": "neutral"
+                }
+              },
+              "children": [
+                {
+                  "kind": "content",
+                  "value": {
+                    "left": {
+                      "left": {
+                        "left": {
+                          "left": {
+                            "op": "lit",
+                            "value": ""
+                          },
+                          "op": "bin",
+                          "operator": "+",
+                          "right": {
+                            "name": "count",
+                            "op": "ref"
+                          }
+                        },
+                        "op": "bin",
+                        "operator": "+",
+                        "right": {
+                          "op": "lit",
+                          "value": " von "
+                        }
+                      },
+                      "op": "bin",
+                      "operator": "+",
+                      "right": {
+                        "name": "plays",
+                        "op": "ref"
+                      }
+                    },
+                    "op": "bin",
+                    "operator": "+",
+                    "right": {
+                      "op": "lit",
+                      "value": " Wiedergaben"
+                    }
+                  }
+                }
+              ],
+              "element": "p",
+              "kind": "element"
+            }
+          ],
+          "kind": "show",
+          "when": {
+            "left": {
+              "left": {
+                "name": "plays",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": ">",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              }
+            },
+            "op": "bin",
+            "operator": "and",
+            "right": {
+              "left": {
+                "name": "count",
+                "op": "ref"
+              },
+              "op": "bin",
+              "operator": ">",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "name": "Play",
+      "params": [
+        {
+          "name": "src",
+          "type": "Text"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "0"
+            }
+          },
+          "name": "plays",
+          "type": "Int"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "from",
+          "type": "Duration?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "to",
+          "type": "Duration?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "label",
+          "type": "Content?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "captions",
+          "type": "Text?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": null
+          },
+          "name": "described",
+          "type": "Text?"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "playing",
+          "state": true,
+          "type": "Bool"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": {
+              "num": "0"
+            }
+          },
+          "name": "count",
+          "state": true,
+          "type": "Int"
+        }
+      ]
+    },
+    "Rechenzeit": {
+      "body": [
+        {
+          "args": {
+            "duration": {
+              "name": "duration",
+              "op": "ref"
+            },
+            "extended": {
+              "op": "lit",
+              "value": true
+            },
+            "label": {
+              "op": "lit",
+              "value": "Bearbeitungszeit"
+            },
+            "look": {
+              "op": "enum",
+              "value": "remaining"
+            },
+            "running": {
+              "op": "lit",
+              "value": true
+            }
+          },
+          "children": [],
+          "element": "timer",
+          "kind": "element",
+          "on": {
+            "elapsed": [
+              {
+                "state": "over",
+                "value": {
+                  "op": "lit",
+                  "value": true
+                }
+              }
+            ]
+          }
+        },
+        {
+          "args": {
+            "advance": {
+              "op": "lit",
+              "value": false
+            },
+            "locked": {
+              "name": "over",
+              "op": "ref"
+            },
+            "navigation": {
+              "op": "lit",
+              "value": true
+            }
+          },
+          "children": [],
+          "element": "flow",
+          "kind": "element"
+        }
+      ],
+      "name": "Rechenzeit",
+      "params": [
+        {
+          "name": "duration",
+          "type": "Duration"
+        },
+        {
+          "default": {
+            "op": "lit",
+            "value": false
+          },
+          "name": "over",
+          "state": true,
+          "type": "Bool"
+        }
+      ]
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "finish": {
+              "op": "lit",
+              "value": {
+                "size": "1min"
+              }
+            },
+            "pause": {
+              "op": "lit",
+              "value": {
+                "size": "10s"
+              }
+            },
+            "plays": {
+              "op": "lit",
+              "value": {
+                "num": "2"
+              }
+            },
+            "prepare": {
+              "op": "lit",
+              "value": {
+                "size": "30s"
+              }
+            },
+            "src": {
+              "op": "lit",
+              "value": "https://example.org/audio/ansage.mp3"
+            }
+          },
+          "component": "Listen",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Wohin fährt Jola?"
+            }
+          },
+          "binding": "where",
+          "component": "Gap",
+          "kind": "component"
+        },
+        {
+          "body": [
+            {
+              "args": {
+                "label": {
+                  "op": "lit",
+                  "value": "Warum freut sie sich?"
+                }
+              },
+              "binding": "why",
+              "component": "Gap",
+              "kind": "component"
+            }
+          ],
+          "kind": "show",
+          "when": {
+            "left": {
+              "args": [],
+              "fn": "heard",
+              "op": "call"
+            },
+            "op": "bin",
+            "operator": ">=",
+            "right": {
+              "op": "lit",
+              "value": {
+                "num": "2"
+              }
+            }
+          }
+        }
+      ],
+      "name": "hoeren",
+      "title": "Hören",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "where",
+          "type": "Text"
+        },
+        {
+          "component": "Gap",
+          "id": "why",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "plays": {
+              "op": "lit",
+              "value": {
+                "num": "2"
+              }
+            },
+            "src": {
+              "op": "lit",
+              "value": "https://example.org/audio/ansage.mp3"
+            }
+          },
+          "component": "Play",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Wohin fährt Jola?"
+            }
+          },
+          "binding": "where",
+          "component": "Gap",
+          "kind": "component"
+        }
+      ],
+      "name": "selbst",
+      "title": "Selbst starten",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "where",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "Danach"
+            }
+          },
+          "binding": "after",
+          "component": "Gap",
+          "kind": "component"
+        }
+      ],
+      "name": "danach",
+      "title": "Im Anschluss",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "after",
+          "type": "Text"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "duration": {
+              "op": "lit",
+              "value": {
+                "size": "2min"
+              }
+            }
+          },
+          "component": "Rechenzeit",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "label": {
+              "op": "lit",
+              "value": "12 · 7 ="
+            }
+          },
+          "binding": "result",
+          "component": "Gap",
+          "kind": "component"
+        }
+      ],
+      "name": "zeit",
+      "title": "Mit Uhr",
+      "variables": [
+        {
+          "component": "Gap",
+          "id": "result",
+          "type": "Text"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

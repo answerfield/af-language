@@ -1,0 +1,2334 @@
+{
+  "codings": [],
+  "components": {
+    "Flag": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Flag",
+      "params": [
+        {
+          "name": "of",
+          "type": "Bool"
+        }
+      ],
+      "response": "Bool"
+    },
+    "Num": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Num",
+      "params": [
+        {
+          "name": "of",
+          "type": "Rational?"
+        }
+      ],
+      "response": "Rational?"
+    },
+    "NumList": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "NumList",
+      "params": [
+        {
+          "name": "of",
+          "type": "List<Rational?>"
+        }
+      ],
+      "response": "List<Rational?>"
+    },
+    "Nums": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Nums",
+      "params": [
+        {
+          "name": "of",
+          "type": "Set<Rational>"
+        }
+      ],
+      "response": "Set<Rational>"
+    },
+    "Rich": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Rich",
+      "params": [
+        {
+          "name": "of",
+          "type": "Content"
+        }
+      ],
+      "response": "Content"
+    },
+    "Txt": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "Txt",
+      "params": [
+        {
+          "name": "of",
+          "type": "Text?"
+        }
+      ],
+      "response": "Text?"
+    },
+    "TxtList": {
+      "body": [
+        {
+          "kind": "response",
+          "value": {
+            "name": "of",
+            "op": "ref"
+          }
+        }
+      ],
+      "name": "TxtList",
+      "params": [
+        {
+          "name": "of",
+          "type": "List<Text>"
+        }
+      ],
+      "response": "List<Text>"
+    }
+  },
+  "format": "af-bundle",
+  "items": [
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "6"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "sum",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "6"
+                }
+              },
+              "op": "bin",
+              "operator": "/",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "3"
+                }
+              }
+            }
+          },
+          "binding": "whole",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "op": "un",
+              "operand": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "4"
+                  }
+                }
+              },
+              "operator": "-"
+            }
+          },
+          "binding": "neg",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "0.1"
+                }
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "0.2"
+                }
+              }
+            }
+          },
+          "binding": "dec",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "7"
+                }
+              },
+              "op": "bin",
+              "operator": "/",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              }
+            }
+          },
+          "binding": "half",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "123456789012345678"
+                }
+              },
+              "op": "bin",
+              "operator": "*",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "1000"
+                }
+              }
+            }
+          },
+          "binding": "big",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "op": "lit",
+              "value": {
+                "num": "9007199254740991"
+              }
+            }
+          },
+          "binding": "safe",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "op": "lit",
+              "value": {
+                "num": "9007199254740992"
+              }
+            }
+          },
+          "binding": "unsafe",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  }
+                },
+                "op": "bin",
+                "operator": "*",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "9"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "/",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "4"
+                }
+              }
+            }
+          },
+          "binding": "product",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              },
+              "op": "bin",
+              "operator": "-",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "5"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "4"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "difference",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            }
+          },
+          "binding": "missing",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "op": "un",
+              "operand": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "operator": "-"
+            }
+          },
+          "binding": "negmissing",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              },
+              "op": "bin",
+              "operator": "/",
+              "right": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "0"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "divzero",
+          "component": "Num",
+          "kind": "component"
+        }
+      ],
+      "name": "zahlen",
+      "title": "Zahlen",
+      "variables": [
+        {
+          "component": "Num",
+          "id": "sum",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "whole",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "neg",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "dec",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "half",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "big",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "safe",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "unsafe",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "product",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "difference",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "missing",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "negmissing",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "divzero",
+          "type": "Rational?"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "<",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "lt",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              },
+              "op": "bin",
+              "operator": ">=",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "2.0"
+                }
+              }
+            }
+          },
+          "binding": "ge",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "0.5"
+                }
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "eq",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "<",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            }
+          },
+          "binding": "ltnone",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": ">",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            }
+          },
+          "binding": "gtnone",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "op": "lit",
+                "value": null
+              }
+            }
+          },
+          "binding": "eqnone",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "1"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "!=",
+              "right": {
+                "op": "lit",
+                "value": null
+              }
+            }
+          },
+          "binding": "nenone",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "cond": {
+                "left": {
+                  "args": [
+                    {
+                      "op": "lit",
+                      "value": "x"
+                    }
+                  ],
+                  "fn": "number",
+                  "op": "call"
+                },
+                "op": "bin",
+                "operator": ">",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                }
+              },
+              "else": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              },
+              "op": "if",
+              "then": {
+                "op": "lit",
+                "value": {
+                  "num": "1"
+                }
+              }
+            }
+          },
+          "binding": "ifnone",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "5"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "from": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                },
+                "op": "range",
+                "to": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "7"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "binding": "inrange",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "7"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "10"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "from": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                },
+                "op": "range",
+                "to": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "7"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "binding": "atbound",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "4"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "5"
+                  }
+                }
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "from": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                },
+                "op": "range",
+                "to": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "7"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "binding": "outrange",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "from": {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                "op": "range",
+                "to": {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "nonein",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "set"
+              }
+            }
+          },
+          "binding": "inset",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "b"
+              },
+              "op": "bin",
+              "operator": "in",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": "a"
+                  },
+                  {
+                    "op": "lit",
+                    "value": "b"
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "inlist",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "left": {
+                  "op": "lit",
+                  "value": true
+                },
+                "op": "bin",
+                "operator": "and",
+                "right": {
+                  "op": "un",
+                  "operand": {
+                    "op": "lit",
+                    "value": false
+                  },
+                  "operator": "not"
+                }
+              },
+              "op": "bin",
+              "operator": "or",
+              "right": {
+                "op": "lit",
+                "value": false
+              }
+            }
+          },
+          "binding": "andor",
+          "component": "Flag",
+          "kind": "component"
+        }
+      ],
+      "name": "vergleiche",
+      "title": "Vergleiche und Logik",
+      "variables": [
+        {
+          "component": "Flag",
+          "id": "lt",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "ge",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "eq",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "ltnone",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "gtnone",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "eqnone",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "nenone",
+          "type": "Bool"
+        },
+        {
+          "component": "Num",
+          "id": "ifnone",
+          "type": "Rational?"
+        },
+        {
+          "component": "Flag",
+          "id": "inrange",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "atbound",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "outrange",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "nonein",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "inset",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "inlist",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "andor",
+          "type": "Bool"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              ],
+              "op": "set"
+            }
+          },
+          "binding": "ordered",
+          "component": "Nums",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "items": [
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2.0"
+                  }
+                },
+                {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "4"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                }
+              ],
+              "op": "set"
+            }
+          },
+          "binding": "dedup",
+          "component": "Nums",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "set"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  }
+                ],
+                "op": "set"
+              }
+            }
+          },
+          "binding": "union",
+          "component": "Nums",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  }
+                ],
+                "op": "set"
+              },
+              "op": "bin",
+              "operator": "-",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "set"
+              }
+            }
+          },
+          "binding": "diff",
+          "component": "Nums",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                ],
+                "op": "set"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "set"
+              }
+            }
+          },
+          "binding": "seteq",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "list"
+              },
+              "op": "bin",
+              "operator": "==",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "listeq",
+          "component": "Flag",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "index": {
+                "op": "lit",
+                "value": {
+                  "num": "2"
+                }
+              },
+              "op": "index",
+              "target": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "20"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "30"
+                    }
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "second",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "index": {
+                "op": "lit",
+                "value": {
+                  "num": "5"
+                }
+              },
+              "op": "index",
+              "target": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "20"
+                    }
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "beyond",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "index": {
+                "op": "lit",
+                "value": {
+                  "num": "0"
+                }
+              },
+              "op": "index",
+              "target": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "10"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "20"
+                    }
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "zeroth",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    }
+                  ],
+                  "op": "set"
+                }
+              ],
+              "fn": "size",
+              "op": "call"
+            }
+          },
+          "binding": "size_set",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "op": "list"
+                }
+              ],
+              "fn": "size",
+              "op": "call"
+            }
+          },
+          "binding": "size_list",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "1"
+                  }
+                }
+              ],
+              "fn": "count",
+              "op": "call"
+            }
+          },
+          "binding": "counted",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    }
+                  ],
+                  "op": "set"
+                }
+              ],
+              "fn": "count_in",
+              "op": "call"
+            }
+          },
+          "binding": "counted_in",
+          "component": "Num",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "a"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "3"
+                  }
+                }
+              ],
+              "fn": "repeat",
+              "op": "call"
+            }
+          },
+          "binding": "repeated",
+          "component": "TxtList",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "9"
+                  }
+                }
+              ],
+              "fn": "replace",
+              "op": "call"
+            }
+          },
+          "binding": "replaced",
+          "component": "NumList",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "items": [
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "1"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "2"
+                      }
+                    },
+                    {
+                      "op": "lit",
+                      "value": {
+                        "num": "3"
+                      }
+                    }
+                  ],
+                  "op": "list"
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "5"
+                  }
+                },
+                {
+                  "op": "lit",
+                  "value": {
+                    "num": "9"
+                  }
+                }
+              ],
+              "fn": "replace",
+              "op": "call"
+            }
+          },
+          "binding": "replaced_out",
+          "component": "NumList",
+          "kind": "component"
+        }
+      ],
+      "name": "sammlungen",
+      "title": "Mengen und Listen",
+      "variables": [
+        {
+          "component": "Nums",
+          "id": "ordered",
+          "type": "Set<Rational>"
+        },
+        {
+          "component": "Nums",
+          "id": "dedup",
+          "type": "Set<Rational>"
+        },
+        {
+          "component": "Nums",
+          "id": "union",
+          "type": "Set<Rational>"
+        },
+        {
+          "component": "Nums",
+          "id": "diff",
+          "type": "Set<Rational>"
+        },
+        {
+          "component": "Flag",
+          "id": "seteq",
+          "type": "Bool"
+        },
+        {
+          "component": "Flag",
+          "id": "listeq",
+          "type": "Bool"
+        },
+        {
+          "component": "Num",
+          "id": "second",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "beyond",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "zeroth",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "size_set",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "size_list",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "counted",
+          "type": "Rational?"
+        },
+        {
+          "component": "Num",
+          "id": "counted_in",
+          "type": "Rational?"
+        },
+        {
+          "component": "TxtList",
+          "id": "repeated",
+          "type": "List<Text>"
+        },
+        {
+          "component": "NumList",
+          "id": "replaced",
+          "type": "List<Rational?>"
+        },
+        {
+          "component": "NumList",
+          "id": "replaced_out",
+          "type": "List<Rational?>"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "Teil "
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "op": "lit",
+                "value": {
+                  "num": "3"
+                }
+              }
+            }
+          },
+          "binding": "concat",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "a"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "7"
+                  }
+                },
+                "op": "bin",
+                "operator": "/",
+                "right": {
+                  "op": "lit",
+                  "value": {
+                    "num": "2"
+                  }
+                }
+              }
+            }
+          },
+          "binding": "fraction",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "n"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "left": {
+                  "op": "lit",
+                  "value": {
+                    "num": "0"
+                  }
+                },
+                "op": "bin",
+                "operator": "-",
+                "right": {
+                  "left": {
+                    "op": "lit",
+                    "value": {
+                      "num": "3"
+                    }
+                  },
+                  "op": "bin",
+                  "operator": "/",
+                  "right": {
+                    "op": "lit",
+                    "value": {
+                      "num": "4"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "binding": "negative",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "x"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "op": "lit",
+                "value": true
+              }
+            }
+          },
+          "binding": "boolean",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "p"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "fn": "point",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "point_text",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "s"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  }
+                ],
+                "op": "set"
+              }
+            }
+          },
+          "binding": "set_text",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "l"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "items": [
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "1"
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "value": {
+                      "num": "2"
+                    }
+                  }
+                ],
+                "op": "list"
+              }
+            }
+          },
+          "binding": "list_text",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "n"
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "args": [
+                  {
+                    "op": "lit",
+                    "value": "x"
+                  }
+                ],
+                "fn": "number",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "none_text",
+          "component": "Txt",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "enum",
+                  "value": "emphasis"
+                },
+                {
+                  "op": "lit",
+                  "value": "x"
+                }
+              ],
+              "fn": "markup",
+              "op": "call"
+            }
+          },
+          "binding": "marked",
+          "component": "Rich",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "left": {
+                "op": "lit",
+                "value": "a "
+              },
+              "op": "bin",
+              "operator": "+",
+              "right": {
+                "args": [
+                  {
+                    "op": "enum",
+                    "value": "deleted"
+                  },
+                  {
+                    "op": "lit",
+                    "value": "b"
+                  }
+                ],
+                "fn": "markup",
+                "op": "call"
+              }
+            }
+          },
+          "binding": "sequence",
+          "component": "Rich",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "https://example.org/a.png"
+                },
+                {
+                  "op": "lit",
+                  "value": "Bild"
+                },
+                {
+                  "op": "lit",
+                  "value": null
+                }
+              ],
+              "fn": "image",
+              "op": "call"
+            }
+          },
+          "binding": "picture",
+          "component": "Rich",
+          "kind": "component"
+        },
+        {
+          "args": {
+            "of": {
+              "args": [
+                {
+                  "op": "lit",
+                  "value": "<math><semantics><msup><mi>x</mi><mn class=\"tml-sml-pad\">2</mn></msup><annotation encoding=\"application/x-tex\">x^2</annotation></semantics></math>"
+                },
+                {
+                  "op": "lit",
+                  "value": "x^2"
+                }
+              ],
+              "fn": "math",
+              "op": "call"
+            }
+          },
+          "binding": "formula",
+          "component": "Rich",
+          "kind": "component"
+        }
+      ],
+      "name": "texte",
+      "title": "Text und Inhalt",
+      "variables": [
+        {
+          "component": "Txt",
+          "id": "concat",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "fraction",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "negative",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "boolean",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "point_text",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "set_text",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "list_text",
+          "type": "Text?"
+        },
+        {
+          "component": "Txt",
+          "id": "none_text",
+          "type": "Text?"
+        },
+        {
+          "component": "Rich",
+          "id": "marked",
+          "type": "Content"
+        },
+        {
+          "component": "Rich",
+          "id": "sequence",
+          "type": "Content"
+        },
+        {
+          "component": "Rich",
+          "id": "picture",
+          "type": "Content"
+        },
+        {
+          "component": "Rich",
+          "id": "formula",
+          "type": "Content"
+        }
+      ]
+    }
+  ],
+  "version": "0.1"
+}

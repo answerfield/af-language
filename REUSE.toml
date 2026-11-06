@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = "**"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 indibit GmbH"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CODE_OF_CONDUCT.md"
+precedence = "override"
+SPDX-FileCopyrightText = "2014 Coraline Ada Ehmke and contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "DCO"
+precedence = "override"
+SPDX-FileCopyrightText = "2004, 2006 The Linux Foundation and its contributors"
+SPDX-License-Identifier = "LicenseRef-DCO"
+
+[[annotations]]
+path = "packages/stdlib/**"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 indibit GmbH"
+SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = "packages/language/src/builtin/prelude.af"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 indibit GmbH"
+SPDX-License-Identifier = "0BSD"
